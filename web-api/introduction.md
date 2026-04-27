@@ -18,8 +18,6 @@ This is the trader's API that invokes actions typically performed by trader's wi
 
 Every call to AutoShares API must include an API secret key. After you create an AutoShares account, we generate API keys for you. To start working with the API with your keys, you need to activate your account. 
 
-We use Auth0's 2.0 protocol for authentication and authorization. Publicly we support the Authorization Code flow (server-side application). OAuth 2.0 is a simple protocol and a developer can integrate with AutoShares’ Auth0 2.0 endpoints easily, especially using client libraries.
-
 
 ### Adding User Accounts
 
@@ -48,11 +46,7 @@ Once refresh tokens are enabled for your application, you will receive the refre
 
 ### Onboarding Accounts
 
-Applicants must follow the workflow determined by the AutoShares implementation team. Otherwise, you may initiate account signup using the following instructions with our development application (currently available for development use only). 
-
-Signup for onboarding development http://devgapp.autoshares.com:8080/gapp/auth0/createUserAccount 
-
-You will be directed to an Auth0 login page and can either Sign-in or Sign-up
+Applicants must follow the workflow determined by the AutoShares implementation team. 
 
 ### Have Questions?
 
