@@ -315,10 +315,14 @@ function parseCurl(txt){
     else if(/-d\s/.test(txt)||/--data/.test(txt))method='POST';
     var url='';var um=txt.match(/'(https?:\/\/[^']+)'/);if(um)url=um[1];
     if(!um){um=txt.match(/"(https?:\/\/[^"]+)"/);if(um)url=um[1]}
+    if(!url){um=txt.match(/'([^']*etnasoft[^']*)/);if(um)url=um[1]}
     if(!url)return null;
-    var headers={};var hm=txt.matchAll(/--header\s+'([^:]+):\s*([^']+)'/g);
-    for(var h of hm){if(h[1].toLowerCase()!=='content-type'&&h[1].toLowerCase()!=='accept')headers[h[1]]=h[2]}
-    var body='';var bm=txt.match(/-d\s+'([\s\S]*?)'\s/);
+    var headers={};var re=/--header\s+'([^:]+):\s*([^']+)'/g;var h;
+    while((h=re.exec(txt))!==null){
+      var hname=h[1].trim();
+      if(hname.toLowerCase()!=='content-type'&&hname.toLowerCase()!=='accept')headers[hname]=h[2].trim();
+    }
+    var body='';var bm=txt.match(/-d\s+'([\s\S]*?)'\s*(?:'|$)/);
     if(bm)body=bm[1].replace(/\\\s*/g,'').trim();
     return{method:method,url:url,headers:headers,body:body};
   }catch(e){return null}
@@ -438,8 +442,9 @@ function loadDoc(path){
     var curlBlocks=doc.querySelectorAll('pre');
     for(var i=0;i<curlBlocks.length;i++){
       var codeEl=curlBlocks[i].querySelector('code');
-      var txt=codeEl?codeEl.textContent:curlBlocks[i].textContent;
-      if(!/^\s*curl\s/i.test(txt))continue;
+      var txt=(codeEl?codeEl.textContent:curlBlocks[i].textContent)||'';
+      txt=txt.trim();
+      if(!/^curl[\s\-]/i.test(txt))continue;
       var parsed=parseCurl(txt);
       if(!parsed)continue;
       var panel=document.createElement('div');
