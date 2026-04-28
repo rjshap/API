@@ -58,8 +58,48 @@ body{background:var(--bg);color:var(--t1);font-family:Inter,-apple-system,system
 .md ul,.md ol{margin:0 0 12px 20px;color:var(--t2);font-size:14px}
 .md li{margin-bottom:4px}
 .md code{font-family:ui-monospace,'SF Mono',monospace;font-size:12px;padding:2px 6px;background:var(--code-bg);border-radius:4px;color:var(--ac-text)}
-.md pre{background:var(--code-bg);border:1px solid var(--b1);border-radius:7px;padding:14px 16px;overflow-x:auto;margin:0 0 16px;font-size:12px;line-height:1.5}
+.md pre{background:var(--code-bg);border:1px solid var(--b1);border-radius:7px;padding:14px 16px;overflow-x:auto;margin:0 0 16px;font-size:12px;line-height:1.5;position:relative}
 .md pre code{padding:0;background:none;color:var(--t1)}
+/* Copy button on code blocks */
+.copy-btn{position:absolute;top:6px;right:6px;padding:4px 8px;border:1px solid var(--b1);border-radius:4px;background:var(--bg1);color:var(--t4);font-size:10px;font-weight:700;cursor:pointer;font-family:inherit;opacity:0;transition:opacity .15s}
+.md pre:hover .copy-btn{opacity:1}
+.copy-btn:hover{color:var(--ac-text);border-color:var(--ac-text)}
+.copy-btn.copied{color:var(--ac-text);border-color:var(--ac-text)}
+/* Try It panel */
+.tryit{margin:0 0 16px;border:1px solid var(--b1);border-radius:7px;overflow:hidden}
+.tryit-header{display:flex;align-items:center;gap:8px;padding:8px 14px;background:var(--bg2);border-bottom:1px solid var(--b1);cursor:pointer}
+.tryit-header:hover{background:var(--bg3)}
+.tryit-method{font-size:10px;font-weight:800;padding:2px 6px;border-radius:3px;text-transform:uppercase;letter-spacing:.04em}
+.tryit-method-get{background:rgba(34,197,94,.12);color:#16a34a}
+.tryit-method-post{background:rgba(0,153,255,.12);color:#0077cc}
+.tryit-method-put{background:rgba(245,158,11,.12);color:#d97706}
+.tryit-method-delete{background:rgba(239,68,68,.12);color:#dc2626}
+[data-theme="dark"] .tryit-method-get{color:#22c55e}
+[data-theme="dark"] .tryit-method-post{color:#0099ff}
+[data-theme="dark"] .tryit-method-put{color:#f59e0b}
+[data-theme="dark"] .tryit-method-delete{color:#ef4444}
+.tryit-url{font-family:ui-monospace,monospace;font-size:12px;color:var(--t2);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tryit-toggle{font-size:10px;font-weight:700;color:var(--ac-text);text-transform:uppercase;letter-spacing:.06em}
+.tryit-body{display:none;padding:14px;background:var(--bg1)}
+.tryit-body.open{display:block}
+.tryit-row{display:flex;gap:8px;margin-bottom:8px;align-items:flex-end;flex-wrap:wrap}
+.tryit-field{display:flex;flex-direction:column;gap:3px;flex:1;min-width:140px}
+.tryit-label{font-size:9px;font-weight:800;color:var(--t4);text-transform:uppercase;letter-spacing:.06em}
+.tryit-inp{padding:6px 8px;border:1.5px solid var(--b1);background:var(--bg);border-radius:4px;color:var(--t1);font-size:12px;font-family:ui-monospace,monospace}
+.tryit-inp:focus{border-color:var(--ac-text);outline:none}
+.tryit-send{padding:7px 16px;background:var(--ac-text);color:#fff;border:0;border-radius:5px;font-size:11px;font-weight:800;cursor:pointer;font-family:inherit;white-space:nowrap}
+[data-theme="light"] .tryit-send{color:#000}
+.tryit-send:hover{filter:brightness(1.1)}
+.tryit-send:disabled{opacity:.5;cursor:not-allowed}
+.tryit-response{margin-top:10px}
+.tryit-response-header{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.tryit-status{font-size:11px;font-weight:800;font-variant-numeric:tabular-nums}
+.tryit-status-ok{color:#16a34a}
+.tryit-status-err{color:#dc2626}
+[data-theme="dark"] .tryit-status-ok{color:#22c55e}
+[data-theme="dark"] .tryit-status-err{color:#ef4444}
+.tryit-time{font-size:10px;color:var(--t4);font-variant-numeric:tabular-nums}
+.tryit-output{background:var(--code-bg);border:1px solid var(--b1);border-radius:5px;padding:10px 12px;font-family:ui-monospace,monospace;font-size:11px;color:var(--t1);max-height:300px;overflow:auto;white-space:pre-wrap;word-break:break-all}
 .md table{width:100%;border-collapse:collapse;margin:0 0 16px;font-size:13px}
 .md th{text-align:left;padding:8px 10px;font-size:10px;font-weight:800;color:var(--t4);text-transform:uppercase;letter-spacing:.06em;background:var(--bg2);border-bottom:1px solid var(--b1)}
 .md td{padding:8px 10px;border-bottom:1px solid var(--b1);color:var(--t2);vertical-align:top}
@@ -265,6 +305,60 @@ var NAV_DATA=[
 ]}
 ];
 
+/* ── Helper functions ── */
+function escHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function parseCurl(txt){
+  try{
+    txt=txt.replace(/\\\s*\n/g,' ').replace(/\s+/g,' ').trim();
+    var method='GET';
+    var mm=txt.match(/-X\s+(\w+)/);if(mm)method=mm[1].toUpperCase();
+    else if(/-d\s/.test(txt)||/--data/.test(txt))method='POST';
+    var url='';var um=txt.match(/'(https?:\/\/[^']+)'/);if(um)url=um[1];
+    if(!um){um=txt.match(/"(https?:\/\/[^"]+)"/);if(um)url=um[1]}
+    if(!url)return null;
+    var headers={};var hm=txt.matchAll(/--header\s+'([^:]+):\s*([^']+)'/g);
+    for(var h of hm){if(h[1].toLowerCase()!=='content-type'&&h[1].toLowerCase()!=='accept')headers[h[1]]=h[2]}
+    var body='';var bm=txt.match(/-d\s+'([\s\S]*?)'\s/);
+    if(bm)body=bm[1].replace(/\\\s*/g,'').trim();
+    return{method:method,url:url,headers:headers,body:body};
+  }catch(e){return null}
+}
+function buildHeaderFields(headers){
+  var html='';var keys=Object.keys(headers);
+  if(!keys.length)return'';
+  html+='<div class="tryit-label" style="margin-bottom:4px">Headers</div>';
+  for(var i=0;i<keys.length;i++){
+    html+='<div class="tryit-row"><div class="tryit-field"><label class="tryit-label">'+escHtml(keys[i])+'</label><input class="tryit-inp tryit-hdr-inp" data-hdr="'+escHtml(keys[i])+'" value="'+escHtml(headers[keys[i]])+'"></div></div>';
+  }
+  return html;
+}
+function executeTryIt(btn){
+  var panel=btn.closest('.tryit-body');
+  var url=panel.querySelector('.tryit-url-inp').value;
+  var method=panel.querySelector('input[readonly]').value;
+  var hdrs={};
+  var hdrInps=panel.querySelectorAll('.tryit-hdr-inp');
+  for(var i=0;i<hdrInps.length;i++)hdrs[hdrInps[i].getAttribute('data-hdr')]=hdrInps[i].value;
+  hdrs['Accept']='application/json';
+  var bodyEl=panel.querySelector('.tryit-body-inp');
+  var body=bodyEl?bodyEl.value:null;
+  var respDiv=panel.querySelector('.tryit-response');
+  btn.disabled=true;btn.textContent='Sending...';
+  var t0=Date.now();
+  fetch(url,{method:method,headers:hdrs,body:body&&method!=='GET'?body:undefined})
+  .then(function(r){
+    var elapsed=Date.now()-t0;
+    return r.text().then(function(txt){
+      var ok=r.ok;
+      var pretty=txt;
+      try{pretty=JSON.stringify(JSON.parse(txt),null,2)}catch(e){}
+      respDiv.innerHTML='<div class="tryit-response-header"><span class="tryit-status '+(ok?'tryit-status-ok':'tryit-status-err')+'">'+r.status+' '+r.statusText+'</span><span class="tryit-time">'+elapsed+'ms</span></div><pre class="tryit-output">'+escHtml(pretty)+'</pre>';
+    });
+  }).catch(function(err){
+    respDiv.innerHTML='<div class="tryit-response-header"><span class="tryit-status tryit-status-err">Error</span></div><pre class="tryit-output">'+escHtml(err.message||String(err))+'\n\nNote: CORS may block browser requests to the API.\nUse the CURL command in your terminal instead.</pre>';
+  }).finally(function(){btn.disabled=false;btn.textContent='Send Request'});
+}
+
 /* ── Navigation rendering ── */
 var currentPath='';
 function renderNav(filter){
@@ -318,6 +412,54 @@ function loadDoc(path){
     for(var i=0;i<codes.length;i++){
       var t=codes[i].textContent.trim();
       if(/^(GET|POST|PUT|DELETE|PATCH)$/.test(t)) codes[i].outerHTML='<span class="badge badge-'+t.toLowerCase()+'">'+t+'</span>';
+    }
+    /* Add copy buttons to all code blocks */
+    var pres=doc.querySelectorAll('pre');
+    for(var i=0;i<pres.length;i++){
+      var btn=document.createElement('button');
+      btn.className='copy-btn';
+      btn.textContent='Copy';
+      btn.setAttribute('data-idx',String(i));
+      btn.onclick=function(e){
+        e.stopPropagation();
+        var pre=this.parentElement;
+        var code=pre.querySelector('code');
+        var text=code?code.textContent:pre.textContent;
+        navigator.clipboard.writeText(text).then(function(){
+          e.target.textContent='Copied!';
+          e.target.classList.add('copied');
+          setTimeout(function(){e.target.textContent='Copy';e.target.classList.remove('copied')},1500);
+        });
+      };
+      pres[i].style.position='relative';
+      pres[i].appendChild(btn);
+    }
+    /* Add Try It panels for CURL commands */
+    var curlBlocks=doc.querySelectorAll('pre');
+    for(var i=0;i<curlBlocks.length;i++){
+      var codeEl=curlBlocks[i].querySelector('code');
+      var txt=codeEl?codeEl.textContent:curlBlocks[i].textContent;
+      if(!/^\s*curl\s/i.test(txt))continue;
+      var parsed=parseCurl(txt);
+      if(!parsed)continue;
+      var panel=document.createElement('div');
+      panel.className='tryit';
+      var mc=parsed.method.toLowerCase();
+      panel.innerHTML='<div class="tryit-header" onclick="this.nextElementSibling.classList.toggle(\'open\')">'+
+        '<span class="tryit-method tryit-method-'+mc+'">'+parsed.method+'</span>'+
+        '<span class="tryit-url">'+escHtml(parsed.url)+'</span>'+
+        '<span class="tryit-toggle">Try It</span></div>'+
+        '<div class="tryit-body">'+
+        '<div class="tryit-row">'+
+        '<div class="tryit-field" style="flex:2"><label class="tryit-label">URL</label><input class="tryit-inp tryit-url-inp" value="'+escHtml(parsed.url)+'"></div>'+
+        '<div class="tryit-field"><label class="tryit-label">Method</label><input class="tryit-inp" value="'+parsed.method+'" readonly></div>'+
+        '</div>'+
+        buildHeaderFields(parsed.headers)+
+        (parsed.body?'<div class="tryit-field" style="margin-bottom:8px"><label class="tryit-label">Body</label><textarea class="tryit-inp tryit-body-inp" rows="4" style="resize:vertical;width:100%">'+escHtml(parsed.body)+'</textarea></div>':'')+
+        '<button class="tryit-send" onclick="executeTryIt(this)">Send Request</button>'+
+        '<div class="tryit-response"></div>'+
+        '</div>';
+      curlBlocks[i].parentNode.insertBefore(panel,curlBlocks[i].nextSibling);
     }
     window.scrollTo(0,0);
   }).catch(function(){

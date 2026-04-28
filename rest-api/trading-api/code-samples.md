@@ -1,5 +1,5 @@
 ---
-description: Explore examples of code that leverages AutoShares API requests
+description: AutoShares API code samples in Python and CURL
 ---
 
 # Code Samples
