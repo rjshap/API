@@ -4,93 +4,275 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>AutoShares API Documentation</title>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <style>
-:root{--bg:#0d1117;--bg2:#161b22;--t1:#e6edf3;--t2:#b1bac4;--t3:#8b949e;--ac:#00c9a7;--b1:rgba(48,54,61,.7)}
+:root{--bg:#0d1117;--bg1:#161b22;--bg2:#1c2128;--bg3:#21262d;--b1:rgba(48,54,61,.7);--t1:#e6edf3;--t2:#b1bac4;--t3:#8b949e;--t4:#6e7681;--ac:#00c9a7;--ac-dim:rgba(0,201,167,.12)}
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--bg);color:var(--t1);font-family:Inter,-apple-system,system-ui,sans-serif;line-height:1.6}
-.wrap{max-width:960px;margin:0 auto;padding:40px 24px}
-h1{font-size:32px;font-weight:800;margin-bottom:8px}
-.sub{color:var(--t3);font-size:14px;margin-bottom:32px}
-.section{margin-bottom:28px}
-.section h2{font-size:16px;font-weight:800;color:var(--ac);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px;font-size:12px}
-.links{display:flex;flex-direction:column;gap:4px}
-.links a{color:var(--t2);text-decoration:none;padding:8px 14px;border-radius:6px;font-size:14px;font-weight:600;transition:all .12s;border:1px solid transparent}
-.links a:hover{color:var(--t1);background:var(--bg2);border-color:var(--b1)}
-.badge{display:inline-block;font-size:9px;font-weight:800;padding:2px 6px;border-radius:3px;margin-left:6px;vertical-align:middle;text-transform:uppercase;letter-spacing:.04em}
-.get{background:rgba(34,197,94,.12);color:#22c55e}
-.post{background:rgba(0,153,255,.12);color:#0099ff}
-.put{background:rgba(245,158,11,.12);color:#f59e0b}
-.del{background:rgba(239,68,68,.12);color:#ef4444}
-.hero{padding:40px;background:var(--bg2);border:1px solid var(--b1);border-radius:10px;margin-bottom:32px}
-.hero p{color:var(--t2);font-size:14px;max-width:640px;line-height:1.7}
-.hero a{color:var(--ac);font-weight:700;text-decoration:none}
-.hero a:hover{text-decoration:underline}
+body{background:var(--bg);color:var(--t1);font-family:Inter,-apple-system,system-ui,sans-serif;line-height:1.6;display:flex;min-height:100vh}
+.sidebar{width:280px;flex-shrink:0;background:var(--bg1);border-right:1px solid var(--b1);overflow-y:auto;padding:16px 0;position:fixed;top:0;left:0;bottom:0;z-index:10}
+.sb-logo{padding:12px 20px 16px;border-bottom:1px solid var(--b1);margin-bottom:8px}
+.sb-logo h1{font-size:16px;font-weight:800;color:var(--ac)}
+.sb-logo span{font-size:10px;color:var(--t4);text-transform:uppercase;letter-spacing:.06em;font-weight:700}
+.sb-section{padding:4px 0}
+.sb-section-title{padding:12px 20px 4px;font-size:9px;font-weight:800;color:var(--t4);text-transform:uppercase;letter-spacing:.08em}
+.sb-link{display:block;padding:5px 20px;font-size:13px;color:var(--t3);text-decoration:none;cursor:pointer;transition:all .1s;border-left:2px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sb-link:hover{color:var(--t1);background:var(--bg2)}
+.sb-link.active{color:var(--ac);border-left-color:var(--ac);background:var(--ac-dim);font-weight:700}
+.sb-link.depth-1{padding-left:32px;font-size:12px}
+.sb-link.depth-2{padding-left:44px;font-size:12px}
+.sb-link.depth-3{padding-left:56px;font-size:11px}
+.sb-toggle{display:none;padding:10px 16px;background:var(--bg1);border:0;border-bottom:1px solid var(--b1);color:var(--t2);font-size:14px;font-weight:700;cursor:pointer;width:100%;text-align:left;position:fixed;top:0;left:0;right:0;z-index:20;font-family:inherit}
+.content{flex:1;margin-left:280px;padding:32px 40px;max-width:900px}
+.content.loading{opacity:.5}
+.md h1{font-size:28px;font-weight:800;color:var(--t1);margin:0 0 16px;padding-bottom:8px;border-bottom:1px solid var(--b1)}
+.md h2{font-size:20px;font-weight:800;color:var(--t1);margin:28px 0 12px}
+.md h3{font-size:16px;font-weight:700;color:var(--t2);margin:20px 0 8px}
+.md h4{font-size:14px;font-weight:700;color:var(--t3);margin:16px 0 6px}
+.md p{color:var(--t2);margin:0 0 12px;font-size:14px;line-height:1.7}
+.md a{color:var(--ac);text-decoration:none;font-weight:600}
+.md a:hover{text-decoration:underline}
+.md ul,.md ol{margin:0 0 12px 20px;color:var(--t2);font-size:14px}
+.md li{margin-bottom:4px}
+.md code{font-family:ui-monospace,'SF Mono',monospace;font-size:12px;padding:2px 6px;background:var(--bg3);border-radius:4px;color:var(--ac)}
+.md pre{background:var(--bg2);border:1px solid var(--b1);border-radius:7px;padding:14px 16px;overflow-x:auto;margin:0 0 16px;font-size:12px;line-height:1.5}
+.md pre code{padding:0;background:none;color:var(--t1)}
+.md table{width:100%;border-collapse:collapse;margin:0 0 16px;font-size:13px}
+.md th{text-align:left;padding:8px 10px;font-size:10px;font-weight:800;color:var(--t4);text-transform:uppercase;letter-spacing:.06em;background:var(--bg2);border-bottom:1px solid var(--b1)}
+.md td{padding:8px 10px;border-bottom:1px solid var(--b1);color:var(--t2);vertical-align:top}
+.md tr:hover td{background:var(--bg2)}
+.md blockquote{border-left:3px solid var(--ac);margin:0 0 16px;padding:8px 16px;background:var(--ac-dim);border-radius:0 5px 5px 0}
+.md blockquote p{color:var(--t2);margin:0}
+.md img{max-width:100%;border-radius:6px;border:1px solid var(--b1);margin:8px 0}
+.md hr{border:0;border-top:1px solid var(--b1);margin:24px 0}
+.badge{display:inline-block;font-size:9px;font-weight:800;padding:2px 6px;border-radius:3px;margin-right:4px;text-transform:uppercase;letter-spacing:.04em;vertical-align:middle}
+.badge-get{background:rgba(34,197,94,.12);color:#22c55e}
+.badge-post{background:rgba(0,153,255,.12);color:#0099ff}
+.badge-put{background:rgba(245,158,11,.12);color:#f59e0b}
+.badge-delete{background:rgba(239,68,68,.12);color:#ef4444}
+.sb-search{padding:8px 16px}
+.sb-search input{width:100%;padding:6px 10px;border:1.5px solid var(--b1);background:var(--bg3);border-radius:5px;color:var(--t1);font-size:12px;font-family:inherit}
+.sb-search input:focus{border-color:var(--ac);outline:none}
+.sb-search input::placeholder{color:var(--t4)}
+.breadcrumb{font-size:11px;color:var(--t4);margin-bottom:16px}
+.breadcrumb span{color:var(--t3)}
+@media(max-width:768px){
+  .sidebar{transform:translateX(-100%);transition:transform .2s;width:280px}
+  .sidebar.open{transform:translateX(0)}
+  .sb-toggle{display:block}
+  .content{margin-left:0;padding:56px 16px 32px}
+}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <h1>AutoShares API</h1>
-  <p class="sub">Trading, Account Management, and Brokerage API Documentation</p>
-
-  <div class="hero">
-    <p>AutoShares is an all-in-one front-to-back-office online brokerage and trading solution for Stock, ETF, and Options trading. Trade equities, options (including multi-legs), and ETFs with streaming market data, charts, option chains, and more.</p>
-    <p style="margin-top:12px"><a href="https://autoshares.com">autoshares.com</a></p>
+<button class="sb-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">Menu</button>
+<nav class="sidebar" id="sidebar">
+  <div class="sb-logo">
+    <h1>AutoShares</h1>
+    <span>API Documentation</span>
   </div>
-
-  <div class="section">
-    <h2>Getting Started</h2>
-    <div class="links">
-      <a href="web-api/introduction.html">Quick Start Guide</a>
-      <a href="web-api/trading-api/overview.html">API Overview</a>
-      <a href="administrator-guide/administrators-widgets/get_token.html">Authentication — Get Token</a>
-    </div>
+  <div class="sb-search">
+    <input type="text" id="sb-filter" placeholder="Filter docs..." oninput="filterNav(this.value)">
   </div>
-
-  <div class="section">
-    <h2>User Management</h2>
-    <div class="links">
-      <a href="web-api/trading-api/managing-users/">Onboarding Users</a>
-      <a href="web-api/trading-api/user-accounts/">Account Setup &amp; Balances</a>
-      <a href="web-api/trading-api/agreements/get-a-traders-agreements.html">Sign Access Agreements</a>
-    </div>
-  </div>
-
-  <div class="section">
-    <h2>Trading</h2>
-    <div class="links">
-      <a href="web-api/trading-api/orders/">Orders <span class="badge post">POST</span> <span class="badge get">GET</span></a>
-      <a href="web-api/trading-api/positions/">Positions <span class="badge get">GET</span></a>
-      <a href="web-api/trading-api/securities/">Securities Lookup <span class="badge get">GET</span></a>
-      <a href="web-api/trading-api/options/">Options <span class="badge get">GET</span></a>
-      <a href="web-api/trading-api/watchlists/">Watchlists <span class="badge get">GET</span> <span class="badge post">POST</span></a>
-      <a href="web-api/trading-api/price-alerts/">Price Alerts <span class="badge get">GET</span> <span class="badge post">POST</span></a>
-    </div>
-  </div>
-
-  <div class="section">
-    <h2>Account Funding</h2>
-    <div class="links">
-      <a href="web-api/trading-api/account-funding/">ACH, Wires &amp; Account Transfers</a>
-    </div>
-  </div>
-
-  <div class="section">
-    <h2>Market Data</h2>
-    <div class="links">
-      <a href="web-api/trading-api/historical-data/">Historical Data <span class="badge get">GET</span></a>
-      <a href="web-api/trading-api/streaming-data/">Streaming Data (WebSocket)</a>
-    </div>
-  </div>
-
-  <div class="section">
-    <h2>Guides</h2>
-    <div class="links">
-      <a href="user-guide/introduction.html">User Guide</a>
-      <a href="user-guide/web-terminal/">Web Terminal</a>
-      <a href="user-guide/knowledge-base/">Knowledge Base</a>
-      <a href="administrator-guide/administrators-widgets/get_token.html">Administrator Guide</a>
-    </div>
-  </div>
-</div>
+  <div id="nav-tree"></div>
+</nav>
+<main class="content md" id="content">
+  <div class="breadcrumb" id="breadcrumb"></div>
+  <div id="doc"></div>
+</main>
+<script>
+var NAV_DATA=[
+{s:'AutoShares API',items:[
+{t:'What is AutoShares?',p:'README.md',d:0},
+{t:'Quick Start Guide',p:'web-api/introduction.md',d:0},
+{t:'API Overview',p:'web-api/trading-api/overview.md',d:0},
+{t:'Authentication',p:'administrator-guide/administrators-widgets/get_token.md',d:0}
+]},
+{s:'User Management',items:[
+{t:'Onboarding Users',p:'web-api/trading-api/managing-users/README.md',d:0},
+{t:'Account Setup',p:'web-api/trading-api/managing-users/get-users-info/README.md',d:1},
+{t:'Add Account To User',p:'web-api/trading-api/user-accounts/list-users-accounts-6.md',d:2},
+{t:'Get All Accounts',p:'web-api/trading-api/user-accounts/list-users-accounts.md',d:2},
+{t:'Get Account Info',p:'web-api/trading-api/user-accounts/list-users-accounts-2.md',d:2},
+{t:'Trading Settings',p:'web-api/trading-api/managing-users/get-users-settings.md',d:2},
+{t:'User Exchanges',p:'web-api/trading-api/managing-users/get-users-exchanges.md',d:2},
+{t:'Sign Agreements',p:'web-api/trading-api/agreements/get-a-traders-agreements.md',d:1}
+]},
+{s:'Balances & Buying Power',items:[
+{t:'Overview',p:'web-api/trading-api/user-accounts/README.md',d:0},
+{t:'Balance Info For User',p:'web-api/trading-api/managing-users/get-balance-information-for-a-user.md',d:1},
+{t:'Account Balance Info',p:'web-api/trading-api/user-accounts/get-accounts-balance-info.md',d:1},
+{t:'Historical Account Value',p:'web-api/trading-api/user-accounts/list-users-accounts-3.md',d:1}
+]},
+{s:'ACH, Wires & Transfers',items:[
+{t:'Overview',p:'web-api/trading-api/account-funding/README.md',d:0},
+{t:'Create ACH Relationship',p:'web-api/trading-api/account-funding/create-an-ach-relationship.md',d:1},
+{t:'ACH via Plaid',p:'web-api/trading-api/account-funding/create-an-ach-relationship-via-plaid.md',d:1},
+{t:'Approve ACH',p:'web-api/trading-api/account-funding/approve-an-ach-relationship.md',d:1},
+{t:'Get ACH Relationship',p:'web-api/trading-api/account-funding/get-an-ach-relationship.md',d:1},
+{t:'Get All ACH',p:'web-api/trading-api/account-funding/get-all-ach-relationships.md',d:1},
+{t:'Default ACH',p:'web-api/trading-api/account-funding/get-the-default-ach-relationship.md',d:1},
+{t:'Modify ACH',p:'web-api/trading-api/account-funding/modify-an-ach-relationship.md',d:1},
+{t:'Remove ACH',p:'web-api/trading-api/account-funding/delete-an-ach-relationship.md',d:1},
+{t:'Deposit / Withdraw',p:'web-api/trading-api/account-funding/deposit-withdraw-funds.md',d:1},
+{t:'Cancel Transfer',p:'web-api/trading-api/account-funding/cancel-an-ach-transfer.md',d:1},
+{t:'Get All Transfers',p:'web-api/trading-api/account-funding/get-all-transfers.md',d:1}
+]},
+{s:'Orders & Trading',items:[
+{t:'Overview',p:'web-api/trading-api/orders/README.md',d:0},
+{t:'Place Order',p:'web-api/trading-api/orders/place-order/README.md',d:1},
+{t:'Place Order Syntax',p:'web-api/trading-api/orders/place-order/orders_placeorder.md',d:2},
+{t:'Verify Placement',p:'web-api/trading-api/orders/validate-order-placement/README.md',d:1},
+{t:'Verify Replacement',p:'web-api/trading-api/orders/validate-order-replacement/README.md',d:1},
+{t:'Replace Order',p:'web-api/trading-api/orders/replace-order/README.md',d:1},
+{t:'Cancel Order',p:'web-api/trading-api/orders/cancel-order/README.md',d:1},
+{t:'Get Order Info',p:'web-api/trading-api/orders/get-orders-info/README.md',d:1},
+{t:'Get Filtered Orders',p:'web-api/trading-api/orders/get-filtered-orders/README.md',d:1},
+{t:'Validate Order by ID',p:'web-api/trading-api/orders/validate-order-by-id.md',d:1}
+]},
+{s:'Positions',items:[
+{t:'Overview',p:'web-api/trading-api/positions/README.md',d:0},
+{t:'Get Positions',p:'web-api/trading-api/positions/get-users-positions/README.md',d:1},
+{t:'Positions Syntax',p:'web-api/trading-api/positions/get-users-positions/positions_getpositions.md',d:2},
+{t:'Position in Security',p:'web-api/trading-api/positions/get-users-positions-in-security/README.md',d:1},
+{t:'Market Value by Group',p:'web-api/trading-api/positions/get-market-value-of-all-security-types.md',d:1}
+]},
+{s:'Securities',items:[
+{t:'Overview',p:'web-api/trading-api/securities/README.md',d:0},
+{t:'Equity by ID',p:'web-api/trading-api/securities/get-securitys-info-by-internal-id/README.md',d:1},
+{t:'Equity by Ticker',p:'web-api/trading-api/securities/get-securitys-info-by-ticker/README.md',d:1},
+{t:'Equity by Mask',p:'web-api/trading-api/securities/get-securitys-info-by-mask/README.md',d:1},
+{t:'Filtered Equities',p:'web-api/trading-api/securities/get-filtered-equities/README.md',d:1},
+{t:'Option by ID',p:'web-api/trading-api/securities/get-option-info-by-internal-id/README.md',d:1},
+{t:'Option by Ticker',p:'web-api/trading-api/securities/get-option-info-by-ticker/README.md',d:1},
+{t:'Options Expirations',p:'web-api/trading-api/securities/get-options-expiration-dates/README.md',d:1},
+{t:'Option Chain',p:'web-api/trading-api/securities/get-an-option-chain.md',d:1},
+{t:'Filtered Options',p:'web-api/trading-api/securities/get-filtered-options/README.md',d:1},
+{t:'Company Logo',p:'web-api/trading-api/securities/get-company-logo-by-symbol.md',d:1}
+]},
+{s:'Streaming Data',items:[
+{t:'Endpoints Overview',p:'web-api/trading-api/streaming-data/README.md',d:0},
+{t:'Get Streamers Info',p:'web-api/trading-api/streaming-data/api-endpoints/get-streamers-info.md',d:1},
+{t:'Recover Session',p:'web-api/trading-api/streaming-data/api-endpoints/recover-a-streamer-session.md',d:1},
+{t:'Quotes',p:'web-api/trading-api/streaming-data/quotes.md',d:1},
+{t:'Orders Stream',p:'web-api/trading-api/streaming-data/orders.md',d:1},
+{t:'Positions Stream',p:'web-api/trading-api/streaming-data/positions.md',d:1},
+{t:'Watchlists Stream',p:'web-api/trading-api/streaming-data/watchlists.md',d:1},
+{t:'Account Balances',p:'web-api/trading-api/streaming-data/account-balances.md',d:1},
+{t:'User Balance',p:'web-api/trading-api/streaming-data/user-balance.md',d:1}
+]},
+{s:'Historical Data',items:[
+{t:'Overview',p:'web-api/trading-api/historical-data/README.md',d:0},
+{t:'Comparison Chart',p:'web-api/trading-api/historical-data/get-chart-data/README.md',d:1},
+{t:'Candles & Indicators',p:'web-api/trading-api/historical-data/get-candles-and-indicators-for-charts/README.md',d:1},
+{t:'Export to Excel',p:'web-api/trading-api/historical-data/get-chart-data-in-the-excel-format/README.md',d:1}
+]},
+{s:'Price Alerts',items:[
+{t:'Overview',p:'web-api/trading-api/price-alerts/README.md',d:0},
+{t:'Create Alert',p:'web-api/trading-api/price-alerts/create-price-alert/README.md',d:1},
+{t:'Delete Alert',p:'web-api/trading-api/price-alerts/delete-price-alert/README.md',d:1},
+{t:'Get Specific Alert',p:'web-api/trading-api/price-alerts/get-specific-alert/README.md',d:1},
+{t:'Get All Alerts',p:'web-api/trading-api/price-alerts/get-users-price-alerts/README.md',d:1},
+{t:'Modify Alert',p:'web-api/trading-api/price-alerts/modify-price-alert/README.md',d:1}
+]},
+{s:'Watchlists',items:[
+{t:'Overview',p:'web-api/trading-api/watchlists/README.md',d:0},
+{t:'Add by ID',p:'web-api/trading-api/watchlists/add-security-to-watchlist-by-id/README.md',d:1},
+{t:'Add by Ticker',p:'web-api/trading-api/watchlists/add-security-to-watchlist-by-ticker/README.md',d:1},
+{t:'Create Watchlist',p:'web-api/trading-api/watchlists/create-new-watchlist/README.md',d:1},
+{t:'Delete Watchlist',p:'web-api/trading-api/watchlists/delete-watchlist/README.md',d:1},
+{t:'Get Watchlist',p:'web-api/trading-api/watchlists/get-specific-watchlist/README.md',d:1},
+{t:'Get All Watchlists',p:'web-api/trading-api/watchlists/get-users-watchlist/README.md',d:1},
+{t:'Remove by ID',p:'web-api/trading-api/watchlists/remove-security-from-watchlist-by-id/README.md',d:1},
+{t:'Remove by Ticker',p:'web-api/trading-api/watchlists/remove-security-from-watchlist-by-ticker/README.md',d:1},
+{t:'Rename Watchlist',p:'web-api/trading-api/watchlists/rename-watchlist/README.md',d:1}
+]},
+{s:'News & Corporate Actions',items:[
+{t:'Overview',p:'web-api/trading-api/news/README.md',d:0},
+{t:'Get News',p:'web-api/trading-api/news/get-news-for-a-security.md',d:1},
+{t:'Corporate Actions',p:'web-api/trading-api/news/get-corporate-actions-for-a-security.md',d:1}
+]},
+{s:'Transactions',items:[
+{t:'Overview',p:'web-api/trading-api/managing-transactions/README.md',d:0},
+{t:'Get Transactions',p:'web-api/trading-api/managing-transactions/get-transactions/README.md',d:1}
+]},
+{s:'Definitions',items:[
+{t:'Overview',p:'web-api/trading-api/definitions/README.md',d:0},
+{t:'Part I',p:'web-api/trading-api/definitions/part-i.md',d:1},
+{t:'Part II',p:'web-api/trading-api/definitions/part-ii.md',d:1},
+{t:'Part III',p:'web-api/trading-api/definitions/part-iii.md',d:1}
+]},
+{s:'Guides',items:[
+{t:'User Guide',p:'user-guide/introduction.md',d:0},
+{t:'Web Terminal',p:'user-guide/web-terminal/README.md',d:1},
+{t:'Platform Layout',p:'user-guide/web-terminal/platform-layout.md',d:2},
+{t:'Widgets',p:'user-guide/web-terminal/user-widgets/README.md',d:2},
+{t:'Trade Ticket',p:'user-guide/web-terminal/user-widgets/trade-ticket/README.md',d:2},
+{t:'Watchlists',p:'user-guide/web-terminal/user-widgets/watchlists.md',d:2},
+{t:'Market Depth',p:'user-guide/web-terminal/user-widgets/market-depth.md',d:2},
+{t:'Admin - Get Token',p:'administrator-guide/administrators-widgets/get_token.md',d:0}
+]}
+];
+var currentPath='';
+function renderNav(filter){
+  var tree=document.getElementById('nav-tree'),q=(filter||'').toLowerCase(),html='';
+  for(var i=0;i<NAV_DATA.length;i++){
+    var sec=NAV_DATA[i],items=q?sec.items.filter(function(x){return x.t.toLowerCase().indexOf(q)>=0||sec.s.toLowerCase().indexOf(q)>=0}):sec.items;
+    if(!items.length)continue;
+    html+='<div class="sb-section"><div class="sb-section-title">'+sec.s+'</div>';
+    for(var j=0;j<items.length;j++){
+      var it=items[j];
+      html+='<a class="sb-link depth-'+it.d+'" data-path="'+it.p+'" onclick="loadDoc(\''+it.p.replace(/'/g,"\\'")+'\')">' +it.t+'</a>';
+    }
+    html+='</div>';
+  }
+  tree.innerHTML=html;
+  highlightActive();
+}
+function filterNav(q){renderNav(q)}
+function highlightActive(){
+  var els=document.querySelectorAll('.sb-link');
+  for(var i=0;i<els.length;i++) els[i].classList.toggle('active',els[i].getAttribute('data-path')===currentPath);
+}
+function loadDoc(path){
+  if(!path)return;
+  currentPath=path;
+  highlightActive();
+  var content=document.getElementById('content'),doc=document.getElementById('doc'),bc=document.getElementById('breadcrumb');
+  content.classList.add('loading');
+  var parts=path.replace(/README\.md$/,'').replace(/\.md$/,'').split('/').filter(Boolean);
+  bc.innerHTML=parts.map(function(p){return'<span>'+p.replace(/-/g,' ').replace(/_/g,' ')+'</span>'}).join(' / ');
+  document.querySelector('.sidebar').classList.remove('open');
+  fetch(path).then(function(r){
+    if(!r.ok)throw new Error('Not found');
+    return r.text();
+  }).then(function(md){
+    md=md.replace(/\[([^\]]+)\]\(([^)]*\.md)\)/g,function(match,text,href){
+      if(href.indexOf('http')===0)return match;
+      var base=path.substring(0,path.lastIndexOf('/')+1);
+      var resolved=base+href;
+      var segs=resolved.split('/'),out=[];
+      for(var i=0;i<segs.length;i++){if(segs[i]==='..')out.pop();else if(segs[i]!=='.')out.push(segs[i])}
+      resolved=out.join('/').replace(/\\/g,'');
+      return'<a href="javascript:void(0)" onclick="loadDoc(\''+resolved.replace(/'/g,"\\'")+'\')">' +text+'</a>';
+    });
+    md=md.replace(/{% hint style="(\w+)" %}/g,'<blockquote>').replace(/{% endhint %}/g,'</blockquote>');
+    md=md.replace(/{%.*?%}/g,'');
+    doc.innerHTML=marked.parse(md);
+    var codes=doc.querySelectorAll('code');
+    for(var i=0;i<codes.length;i++){
+      var t=codes[i].textContent.trim();
+      if(/^(GET|POST|PUT|DELETE|PATCH)$/.test(t)) codes[i].outerHTML='<span class="badge badge-'+t.toLowerCase()+'">'+t+'</span>';
+    }
+    window.scrollTo(0,0);
+  }).catch(function(){
+    doc.innerHTML='<p style="color:var(--t3)">Could not load <code>'+path+'</code>.</p>';
+  });
+  content.classList.remove('loading');
+  history.replaceState(null,'','#'+path);
+}
+renderNav();
+loadDoc(location.hash?location.hash.slice(1):'README.md');
+window.addEventListener('hashchange',function(){var p=location.hash.slice(1);if(p&&p!==currentPath)loadDoc(p)});
+</script>
 </body>
 </html>
