@@ -31,11 +31,16 @@
 body{background:var(--bg);color:var(--t1);font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:16px;line-height:1.75;display:flex;min-height:100vh;transition:background .15s,color .15s;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 
 /* ── Header ── */
-.header{position:fixed;top:0;left:0;right:0;height:72px;background:var(--bg);border-bottom:1px solid var(--b1);z-index:100;display:flex;align-items:center;padding:0 32px}
-.hdr-brand{display:flex;align-items:center;gap:10px;min-width:288px}
-.hdr-brand h1{font-size:18px;font-weight:800;color:var(--t1);letter-spacing:-.01em}
+.header{position:fixed;top:0;left:0;right:0;height:72px;background:var(--bg);border-bottom:1px solid var(--b1);z-index:100;display:flex;align-items:center;padding:0 24px;gap:16px}
+.hdr-brand{display:flex;align-items:center;gap:10px;min-width:200px;flex-shrink:0}
+.hdr-brand h1{font-size:17px;font-weight:800;color:var(--t1);letter-spacing:-.01em;white-space:nowrap}
 .hdr-brand h1 span{color:var(--ac)}
-.hdr-nav{display:flex;align-items:center;gap:12px;flex:1;justify-content:flex-end}
+.hdr-search{flex:1;max-width:480px;position:relative}
+.hdr-search input{width:100%;padding:9px 14px 9px 36px;border:1.5px solid var(--b1);border-radius:8px;background:var(--bg1);color:var(--t1);font-size:14px;font-family:inherit;transition:all .12s}
+.hdr-search input:focus{border-color:var(--ac);outline:none;background:var(--bg);box-shadow:0 0 0 3px var(--ac-dim)}
+.hdr-search input::placeholder{color:var(--t5)}
+.hdr-search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--t5);pointer-events:none}
+.hdr-nav{display:flex;align-items:center;gap:12px;flex-shrink:0}
 .hdr-link{font-size:13px;font-weight:500;color:var(--t3);text-decoration:none;transition:color .12s}
 .hdr-link:hover{color:var(--t1)}
 .hdr-cta{padding:9px 22px;background:#fff;color:#000;border:1.5px solid var(--b2);border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;transition:all .12s;letter-spacing:-.01em}
@@ -257,7 +262,11 @@ pre:hover .copy-btn,.code-panel:hover .copy-btn{opacity:1}
 
 <!-- Header -->
 <header class="header">
-  <div class="hdr-brand"><h1><span>AutoShares</span> API Documentation</h1></div>
+  <div class="hdr-brand"><h1><span>AutoShares</span> API</h1></div>
+  <div class="hdr-search">
+    <svg class="hdr-search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="text" placeholder="Search docs, endpoints, guides..." oninput="headerSearch(this.value)" onkeydown="if(event.key==='Escape')this.value=''" id="hdr-search-input">
+  </div>
   <nav class="hdr-nav">
     <button class="hdr-ai" onclick="toggleAI()"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v4m0 12v4m-7.07-2.93l2.83-2.83m8.48-8.48l2.83-2.83M2 12h4m12 0h4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83"/></svg>Ask AI</button>
     <a class="hdr-cta" href="javascript:void(0)" onclick="loadDoc('pages/signup.md')">Get API Access</a>
@@ -268,7 +277,6 @@ pre:hover .copy-btn,.code-panel:hover .copy-btn{opacity:1}
 
 <!-- Sidebar -->
 <nav class="sidebar" id="sidebar">
-  <div class="sb-search"><input type="text" placeholder="Search docs..." oninput="filterNav(this.value)"></div>
   <div id="nav-tree"></div>
   <div class="sb-footer">
     <button class="sb-gear" id="gear-btn" onclick="toggleSettings()" title="API Settings">&#9881;</button>
@@ -350,8 +358,39 @@ var GUIDES=[
 {t:'Webhooks',p:'pages/webhooks.md'}
 ]},
 {s:'SDKs & Tools',items:[
-{t:'SDKs & Libraries',p:'pages/sdks.md'},{t:'User Guide',p:'pages/user-guide.md'},{t:'Web Terminal',p:'pages/web-terminal.md'},
-{t:'MCP Server (AI)',p:'pages/mcp.md'}
+{t:'SDKs & Libraries',p:'pages/sdks.md'},{t:'MCP Server (AI)',p:'pages/mcp.md'}
+]},
+{s:'How-To Guides',items:[
+{t:'Create Trading Account',p:'user-guide/knowledge-base/how-to-guides/trading-accounts/how-to-create-a-new-trading-account.md'},
+{t:'Enable Two-Factor Auth',p:'user-guide/knowledge-base/how-to-guides/security/how-to-enable-two-factor-authentication.md'},
+{t:'ACATS Asset Transfer',p:'user-guide/knowledge-base/how-to-guides/acats-asset-transfer.md'},
+{t:'Performance Tips',p:'user-guide/knowledge-base/troubleshooting/performance/tips-for-enhancing-performance.md'}
+]},
+{s:'Web Terminal',items:[
+{t:'Getting Started',p:'user-guide/web-terminal/getting-started.md'},
+{t:'Platform Layout',p:'user-guide/web-terminal/platform-layout.md'},
+{t:'Trade Ticket',p:'user-guide/web-terminal/user-widgets/trade-ticket/README.md'},
+{t:'Options',p:'user-guide/web-terminal/user-widgets/options.md'},
+{t:'Chart',p:'user-guide/web-terminal/user-widgets/chart.md'},
+{t:'Watchlists',p:'user-guide/web-terminal/user-widgets/watchlists.md'},
+{t:'Orders',p:'user-guide/web-terminal/user-widgets/orders.md'},
+{t:'Positions',p:'user-guide/web-terminal/user-widgets/positions.md'},
+{t:'Market Depth',p:'user-guide/web-terminal/user-widgets/market-depth.md'},
+{t:'Hotkeys',p:'user-guide/web-terminal/user-widgets/hotkeys.md'},
+{t:'IPO',p:'user-guide/web-terminal/user-widgets/click-ipo.md'}
+]},
+{s:'Account Funding',items:[
+{t:'Overview',p:'user-guide/web-terminal/user-widgets/account-onboarding/account-funding/README.md'},
+{t:'ACH Transfers',p:'user-guide/web-terminal/user-widgets/account-onboarding/account-funding/ach-transfers.md'},
+{t:'Wire Transfers',p:'user-guide/web-terminal/user-widgets/account-onboarding/account-funding/wire-transfers.md'}
+]},
+{s:'Mobile App',items:[
+{t:'Getting Started',p:'user-guide/etna-trader-mobile/getting-started.md'},
+{t:'Stock Trading',p:'user-guide/etna-trader-mobile/quotes-view/trade-view/stock-trading.md'},
+{t:'Options Trading',p:'user-guide/etna-trader-mobile/quotes-view/trade-view/options-trading.md'},
+{t:'Orders',p:'user-guide/etna-trader-mobile/orders-view.md'},
+{t:'Positions',p:'user-guide/etna-trader-mobile/positions-view.md'},
+{t:'Price Alerts',p:'user-guide/etna-trader-mobile/price-alerts-view.md'}
 ]},
 {s:'Resources',items:[{t:'Changelog',p:'pages/changelog.md'}]}
 ];
@@ -479,6 +518,7 @@ function renderNav(q){
   document.getElementById('nav-tree').innerHTML=html;highlightNav();
 }
 function filterNav(q){renderNav(q)}
+function headerSearch(q){document.querySelector('.sb-search input').value=q;renderNav(q)}
 function highlightNav(){
   document.querySelectorAll('.sb-link').forEach(function(el){el.classList.toggle('active',el.getAttribute('data-id')===currentView)});
   document.querySelectorAll('.sb-ep').forEach(function(el){el.classList.toggle('active',el.getAttribute('data-id')===currentView)});
