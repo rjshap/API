@@ -97,6 +97,22 @@ body{background:var(--bg);color:var(--t1);font-family:ui-sans-serif,system-ui,-a
 .ep-tryit-status{display:flex;align-items:center;gap:8px;font-size:12px;margin-bottom:6px}
 @media(max-width:960px){.ep-layout{grid-template-columns:1fr}.ep-tryit{position:static}}
 
+/* ── API Settings Panel ── */
+.api-settings{padding:12px 16px;border-bottom:1px solid var(--b1);background:var(--bg2)}
+.api-settings summary{font-size:12px;font-weight:700;color:var(--t3);cursor:pointer;text-transform:uppercase;letter-spacing:.05em;list-style:none;display:flex;align-items:center;gap:6px}
+.api-settings summary::-webkit-details-marker{display:none}
+.api-settings summary::before{content:'▸';font-size:10px;color:var(--t5);transition:transform .15s}
+.api-settings[open] summary::before{transform:rotate(90deg)}
+.api-settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.api-settings-field{display:flex;flex-direction:column;gap:2px}
+.api-settings-field.full{grid-column:1/-1}
+.api-settings-label{font-size:10px;font-weight:600;color:var(--t4);text-transform:uppercase;letter-spacing:.04em}
+.api-settings-input{padding:6px 8px;border:1px solid var(--b1);border-radius:5px;background:var(--bg);color:var(--t1);font-size:12px;font-family:ui-monospace,monospace}
+.api-settings-input:focus{border-color:var(--ac);outline:none}
+.api-settings-save{margin-top:8px;padding:6px 14px;background:var(--ac);color:#fff;border:0;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit}
+[data-theme="dark"] .api-settings-save{background:#fff;color:#000}
+.api-settings-status{font-size:11px;color:var(--ac);margin-left:8px;display:none}
+
 /* ── Content ── */
 .content{flex:1;margin-left:288px;margin-top:64px;padding:40px 48px;max-width:1100px;position:relative}
 
@@ -240,7 +256,24 @@ pre:hover .copy-btn,.code-panel:hover .copy-btn{opacity:1}
   <div class="sb-search"><input type="text" placeholder="Search docs..." oninput="filterNav(this.value)"></div>
   <div id="nav-tree"></div>
   <div class="sb-footer">
-    <button class="sb-theme-btn" onclick="toggleTheme()" id="theme-btn"></button>
+    <details class="api-settings" id="api-settings">
+      <summary>API Settings</summary>
+      <div class="api-settings-grid">
+        <div class="api-settings-field full"><label class="api-settings-label">Base URL</label><input class="api-settings-input" id="set-baseurl" placeholder="https://your-env.etnasoft.us/api"></div>
+        <div class="api-settings-field full"><label class="api-settings-label">Bearer Token</label><input class="api-settings-input" id="set-token" placeholder="From POST /token"></div>
+        <div class="api-settings-field full"><label class="api-settings-label">Et-App-Key</label><input class="api-settings-input" id="set-appkey" placeholder="Your application key"></div>
+        <div class="api-settings-field"><label class="api-settings-label">Account ID</label><input class="api-settings-input" id="set-accountid" placeholder="e.g. 6303"></div>
+        <div class="api-settings-field"><label class="api-settings-label">User ID</label><input class="api-settings-input" id="set-userid" placeholder="e.g. 7125"></div>
+        <div class="api-settings-field"><label class="api-settings-label">API Version</label><input class="api-settings-input" id="set-version" value="1.0"></div>
+        <div class="api-settings-field"><label class="api-settings-label">Currency</label><input class="api-settings-input" id="set-currency" value="USD"></div>
+        <div class="api-settings-field full"><label class="api-settings-label">Exchange</label><input class="api-settings-input" id="set-exchange" placeholder="e.g. XNAS"></div>
+      </div>
+      <div style="display:flex;align-items:center;margin-top:8px">
+        <button class="api-settings-save" onclick="saveApiSettings()">Save</button>
+        <span class="api-settings-status" id="set-status">Saved!</span>
+      </div>
+    </details>
+    <button class="sb-theme-btn" onclick="toggleTheme()" id="theme-btn" style="margin-top:8px"></button>
   </div>
 </nav>
 
@@ -249,11 +282,37 @@ pre:hover .copy-btn,.code-panel:hover .copy-btn{opacity:1}
 <aside class="otp" id="otp"></aside>
 
 <script>
+/* ── API Settings (persisted to localStorage) ── */
+function getApiSettings(){
+  try{return JSON.parse(localStorage.getItem('as-api-settings')||'{}')}catch(e){return{}}
+}
+function saveApiSettings(){
+  var s={
+    baseUrl:(document.getElementById('set-baseurl').value||'').trim(),
+    token:(document.getElementById('set-token').value||'').trim(),
+    appKey:(document.getElementById('set-appkey').value||'').trim(),
+    accountId:(document.getElementById('set-accountid').value||'').trim(),
+    userId:(document.getElementById('set-userid').value||'').trim(),
+    version:(document.getElementById('set-version').value||'').trim(),
+    currency:(document.getElementById('set-currency').value||'').trim(),
+    exchange:(document.getElementById('set-exchange').value||'').trim(),
+  };
+  localStorage.setItem('as-api-settings',JSON.stringify(s));
+  var st=document.getElementById('set-status');
+  st.style.display='inline';setTimeout(function(){st.style.display='none'},2000);
+}
+function loadApiSettingsUI(){
+  var s=getApiSettings();
+  var fields={baseurl:'baseUrl',token:'token',appkey:'appKey',accountid:'accountId',userid:'userId',version:'version',currency:'currency',exchange:'exchange'};
+  for(var id in fields){var el=document.getElementById('set-'+id);if(el&&s[fields[id]])el.value=s[fields[id]]}
+}
+
 /* ── Theme ── */
 function getTheme(){return localStorage.getItem('as-theme')||'dark'}
 function applyTheme(t){document.documentElement.setAttribute('data-theme',t);var btn=document.getElementById('theme-btn');if(btn)btn.textContent=t==='dark'?'\u2600\uFE0F  Light Mode':'\u263D  Dark Mode';localStorage.setItem('as-theme',t)}
 function toggleTheme(){applyTheme(getTheme()==='dark'?'light':'dark')}
 applyTheme(getTheme());
+loadApiSettingsUI();
 
 /* ── Guide pages ── */
 var GUIDES=[
@@ -353,13 +412,24 @@ function showSingleEndpoint(tag,method,path){
   var right='<div class="ep-tryit">';
   right+='<div class="ep-tryit-head"><span class="ep-badge ep-'+method.toLowerCase()+'" style="font-size:11px;padding:3px 8px">'+method+'</span>Try It</div>';
   right+='<div class="ep-tryit-body">';
-  right+='<div class="ep-tryit-field"><label class="ep-tryit-label">URL</label><input class="ep-tryit-input" id="'+tid+'-url" value="'+esc(url)+'"></div>';
-  right+='<div class="ep-tryit-field"><label class="ep-tryit-label">Authorization</label><input class="ep-tryit-input" id="'+tid+'-token" placeholder="Bearer token from POST /token" style="font-family:inherit"></div>';
-  right+='<div class="ep-tryit-field"><label class="ep-tryit-label">Et-App-Key</label><input class="ep-tryit-input" id="'+tid+'-appkey" placeholder="Your application key" style="font-family:inherit"></div>';
+  var saved=getApiSettings();
+  var resolvedUrl=url;
+  if(saved.baseUrl)resolvedUrl=saved.baseUrl+path;
+  if(saved.version)resolvedUrl=resolvedUrl.replace('{version}',saved.version);
+  if(saved.accountId)resolvedUrl=resolvedUrl.replace('{accountId}',saved.accountId);
+  right+='<div class="ep-tryit-field"><label class="ep-tryit-label">URL</label><input class="ep-tryit-input" id="'+tid+'-url" value="'+esc(resolvedUrl)+'"></div>';
+  right+='<div class="ep-tryit-field"><label class="ep-tryit-label">Authorization</label><input class="ep-tryit-input" id="'+tid+'-token" value="'+esc(saved.token||'')+'" placeholder="Bearer token from POST /token" style="font-family:inherit"></div>';
+  right+='<div class="ep-tryit-field"><label class="ep-tryit-label">Et-App-Key</label><input class="ep-tryit-input" id="'+tid+'-appkey" value="'+esc(saved.appKey||'')+'" placeholder="Your application key" style="font-family:inherit"></div>';
   // Add path/query param inputs
   params.forEach(function(pm){
     if(pm.in==='path'||pm.in==='query'){
-      right+='<div class="ep-tryit-field"><label class="ep-tryit-label">'+pm.name+' <span style="font-weight:400;text-transform:none;color:var(--t5)">('+pm.in+')</span></label><input class="ep-tryit-input ep-tryit-param" data-name="'+pm.name+'" data-in="'+pm.in+'" placeholder="'+(pm.description||'').substring(0,50)+'" style="font-family:inherit"></div>';
+      var prefill='';
+      if(pm.name==='accountId'&&saved.accountId)prefill=saved.accountId;
+      else if(pm.name==='userId'&&saved.userId)prefill=saved.userId;
+      else if(pm.name==='version'&&saved.version)prefill=saved.version;
+      else if(pm.name==='currency'&&saved.currency)prefill=saved.currency;
+      else if(pm.name==='Exchange'&&saved.exchange)prefill=saved.exchange;
+      right+='<div class="ep-tryit-field"><label class="ep-tryit-label">'+pm.name+' <span style="font-weight:400;text-transform:none;color:var(--t5)">('+pm.in+')</span></label><input class="ep-tryit-input ep-tryit-param" data-name="'+pm.name+'" data-in="'+pm.in+'" value="'+esc(prefill)+'" placeholder="'+(pm.description||'').substring(0,50)+'" style="font-family:inherit"></div>';
     }
   });
   if(hasBody){
