@@ -35,13 +35,12 @@ body{background:var(--bg);color:var(--t1);font-family:ui-sans-serif,system-ui,-a
 .hdr-brand{display:flex;align-items:center;gap:10px;min-width:200px;flex-shrink:0}
 .hdr-brand h1{font-size:17px;font-weight:800;color:var(--t1);letter-spacing:-.01em;white-space:nowrap}
 .hdr-brand h1 span{color:var(--ac)}
-.hdr-search{flex:1;max-width:480px;position:relative}
-.hdr-spacer{flex:1}
+.hdr-search{max-width:400px;flex:0 1 400px;position:relative}
 .hdr-search input{width:100%;padding:9px 14px 9px 36px;border:1.5px solid var(--b1);border-radius:8px;background:var(--bg1);color:var(--t1);font-size:14px;font-family:inherit;transition:all .12s}
 .hdr-search input:focus{border-color:var(--ac);outline:none;background:var(--bg);box-shadow:0 0 0 3px var(--ac-dim)}
 .hdr-search input::placeholder{color:var(--t5)}
 .hdr-search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--t5);pointer-events:none}
-.hdr-nav{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.hdr-nav{display:flex;align-items:center;gap:12px;flex-shrink:0;margin-left:auto}
 .hdr-link{font-size:13px;font-weight:500;color:var(--t3);text-decoration:none;transition:color .12s}
 .hdr-link:hover{color:var(--t1)}
 .hdr-cta{padding:9px 22px;background:#fff;color:#000;border:1.5px solid var(--b2);border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;transition:all .12s;letter-spacing:-.01em}
@@ -265,7 +264,6 @@ pre:hover .copy-btn,.code-panel:hover .copy-btn{opacity:1}
     <svg class="hdr-search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
     <input type="text" placeholder="Search docs, endpoints, guides..." oninput="headerSearch(this.value)" onkeydown="if(event.key==='Escape')this.value=''" id="hdr-search-input">
   </div>
-  <div class="hdr-spacer"></div>
   <nav class="hdr-nav">
     <button class="hdr-ai" onclick="toggleAI()"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v4m0 12v4m-7.07-2.93l2.83-2.83m8.48-8.48l2.83-2.83M2 12h4m12 0h4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83"/></svg>Ask AI</button>
     <a class="hdr-cta" href="javascript:void(0)" onclick="loadDoc('pages/signup.md')">Get API Access</a>
