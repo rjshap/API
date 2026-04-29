@@ -167,7 +167,7 @@ pre:hover .copy-btn,.code-panel:hover .copy-btn{opacity:1}
 <header class="header">
   <div class="hdr-brand"><h1><span>AutoShares</span> API Documentation</h1></div>
   <nav class="hdr-nav">
-    <a class="hdr-link" href="https://autoshares.com/contact" target="_blank">Contact</a>
+    <a class="hdr-link" href="javascript:void(0)" onclick="loadDoc('pages/contact.md')">Contact</a>
     <a class="hdr-cta" href="javascript:void(0)" onclick="loadDoc('pages/signup.md')">Get Started</a>
     <button class="theme-btn" onclick="toggleTheme()" id="theme-btn"></button>
   </nav>
@@ -205,7 +205,7 @@ var GUIDES=[
 {s:'SDKs & Tools',items:[
 {t:'SDKs & Libraries',p:'pages/sdks.md'},{t:'User Guide',p:'pages/user-guide.md'},{t:'Web Terminal',p:'pages/web-terminal.md'}
 ]},
-{s:'Resources',items:[{t:'Changelog',p:'pages/changelog.md'}]}
+{s:'Resources',items:[{t:'Changelog',p:'pages/changelog.md'},{t:'Contact Us',p:'pages/contact.md'}]}
 ];
 
 var spec=null,apiTags=[],currentView='';
@@ -411,6 +411,43 @@ function addCopyBtns(el){el.querySelectorAll('pre').forEach(function(pre){
 function copyCode(btn){var p=btn.parentElement;navigator.clipboard.writeText(p.textContent.replace('Copy','').trim()).then(function(){btn.textContent='Copied!';setTimeout(function(){btn.textContent='Copy'},1500)})}
 
 var FOOTER='<div class="footer">&copy; 2026 AutoShares Fintech Solutions, LLC. All rights reserved. AutoShares APIs are provided through AutoShares Fintech Solutions, LLC. Securities offered through Tradepro Securities, Inc., a FINRA/SIPC member broker-dealer. Trading involves risk including the possible loss of principal. Options trading involves substantial risk and is not suitable for all investors. Past performance is not indicative of future results. This site is for informational purposes only and does not constitute an offer to sell or a solicitation to buy any security.</div>';
+
+/* ── Contact Form Handler ── */
+window.handleContact=function(e){
+  e.preventDefault();
+  var btn=document.getElementById('ct-submit');
+  var status=document.getElementById('ct-status');
+  var first=document.getElementById('ct-first').value.trim();
+  var last=document.getElementById('ct-last').value.trim();
+  var email=document.getElementById('ct-email').value.trim();
+  var company=document.getElementById('ct-company').value.trim();
+  var topic=document.getElementById('ct-topic').value;
+  var message=document.getElementById('ct-message').value.trim();
+
+  btn.disabled=true;btn.textContent='Sending...';
+  status.style.display='none';
+
+  fetch('https://ai-docs.globalmarketholdings.workers.dev/lead',{
+    method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({first:first,last:last,email:email,company:company,usecase:'Contact: '+topic,apis:[],volume:'',message:message})
+  }).then(function(){
+    status.style.display='block';
+    status.style.background='var(--ac-dim)';
+    status.style.border='1px solid var(--ac)';
+    status.style.color='var(--t1)';
+    status.innerHTML='<strong>Message sent!</strong> We\'ll get back to you at <strong>'+esc(email)+'</strong> as soon as possible.';
+    btn.textContent='Sent';
+    document.getElementById('contact-form').reset();
+  }).catch(function(){
+    status.style.display='block';
+    status.style.background='var(--bg2)';
+    status.style.border='1px solid var(--b1)';
+    status.style.color='var(--t1)';
+    status.innerHTML='Please email us directly at <a href="mailto:support@autoshares.com" style="color:var(--ac);font-weight:600">support@autoshares.com</a>';
+    btn.textContent='Send Message';btn.disabled=false;
+  });
+  return false;
+};
 
 window.addEventListener('hashchange',function(){var h=location.hash.slice(1);if(h.startsWith('api:'))showApiTag(h.slice(4));else if(h)loadDoc(h)});
 
