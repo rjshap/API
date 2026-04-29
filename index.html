@@ -412,7 +412,7 @@ function showSingleEndpoint(tag,method,path){
   var op=spec.paths[path][method.toLowerCase()];
   if(!op){doc.innerHTML='<p>Endpoint not found.</p>';return}
   var defs=spec.definitions||{};
-  var url='https://api-proxy.globalmarketholdings.workers.dev'+path;
+  var url='https://api.autoshares.dev'+path;
   var hasBody=method==='POST'||method==='PUT';
   var tid='tryit-'+Date.now();
 
@@ -620,7 +620,7 @@ function showApiTag(tag){
       }
       html+='</tbody></table>';
     }
-    html+=buildLangs(mc,'https://api-proxy.globalmarketholdings.workers.dev'+p,op);
+    html+=buildLangs(mc,'https://api.autoshares.dev'+p,op);
     html+='<div style="margin-top:12px"><a onclick="openTryIt(\''+mc+'\',\''+p.replace(/'/g,"\\'")+'\')" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:var(--ac);color:#fff;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;transition:filter .12s" onmouseover="this.style.filter=\'brightness(1.1)\'" onmouseout="this.style.filter=\'none\'">Try It \u2192</a></div>';
     html+='</div></div>';
   }}
@@ -722,7 +722,7 @@ function openTryIt(method,path){
   // Close AI panel if open
   document.getElementById('ai-panel').classList.remove('open');aiOpen=false;
   var saved=getApiSettings();
-  var url='https://api-proxy.globalmarketholdings.workers.dev'+path;
+  var url='https://api.autoshares.dev'+path;
   if(saved.baseUrl)url=saved.baseUrl+path;
   if(saved.version)url=url.replace('{version}',saved.version);
   if(saved.accountId)url=url.replace('{accountId}',saved.accountId);
