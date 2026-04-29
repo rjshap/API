@@ -361,7 +361,7 @@ No library needed — works from any terminal.
 
 ```bash
 # Set your credentials
-export BASE_URL="https://{your-environment}.etnasoft.us/api"
+export BASE_URL="https://api.autoshares.dev"
 export APP_KEY="your-et-app-key"
 export USERNAME="your-username"
 export PASSWORD="your-password"
@@ -426,7 +426,7 @@ Download the spec to generate your own client or import into Postman:
 ### Import into Postman
 
 1. Open Postman → **Import** → **Link**
-2. Enter: `https://{your-environment}.etnasoft.us/api/reference/schema/v1`
+2. Enter: `https://api.autoshares.dev/reference/schema/v1`
 3. Postman generates a collection with all 103 endpoints
 4. Set `Et-App-Key` and `Authorization` as environment variables
 
@@ -437,13 +437,13 @@ Use any OpenAPI code generator:
 ```bash
 # OpenAPI Generator (Java, Ruby, PHP, Swift, Kotlin, etc.)
 npx @openapitools/openapi-generator-cli generate \
-  -i https://{your-environment}.etnasoft.us/api/reference/schema/v1 \
+  -i https://api.autoshares.dev/reference/schema/v1 \
   -g python \
   -o ./my-autoshares-sdk
 
 # Swagger Codegen
 swagger-codegen generate \
-  -i https://{your-environment}.etnasoft.us/api/reference/schema/v1 \
+  -i https://api.autoshares.dev/reference/schema/v1 \
   -l javascript \
   -o ./my-autoshares-sdk
 ```

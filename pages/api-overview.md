@@ -11,7 +11,7 @@ Each endpoint is documented with parameters, response schemas, code examples in 
 All API requests follow this pattern:
 
 ```
-{METHOD} https://{your-environment}.etnasoft.us/api/v1.0/{resource}
+{METHOD} https://api.autoshares.dev/v1.0/{resource}
 ```
 
 **Required headers on every request:**

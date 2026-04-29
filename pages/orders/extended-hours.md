@@ -87,7 +87,7 @@ POST /v1.0/accounts/{accountId}/orders
 ## cURL Example
 
 ```bash
-curl -X POST "https://{your-environment}.etnasoft.us/api/v1.0/accounts/{accountId}/orders" \
+curl -X POST "https://api.autoshares.dev/v1.0/accounts/{accountId}/orders" \
   -H "Authorization: Bearer {accessToken}" \
   -H "Content-Type: application/json" \
   -d '{

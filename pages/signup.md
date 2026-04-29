@@ -22,7 +22,7 @@ curl -X POST \
   -H "Et-App-Key: YOUR_APP_KEY" \
   -H "Username: YOUR_EMAIL" \
   -H "Password: YOUR_PASSWORD" \
-  "https://{your-environment}.etnasoft.us/api/token"
+  "https://api.autoshares.dev/token"
 ```
 
 ## Sandbox Features

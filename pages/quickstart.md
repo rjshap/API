@@ -18,7 +18,7 @@ curl -X POST \
   -H "Et-App-Key: YOUR_APP_KEY" \
   -H "Username: YOUR_USERNAME" \
   -H "Password: YOUR_PASSWORD" \
-  "https://{your-environment}.etnasoft.us/api/token"
+  "https://api.autoshares.dev/token"
 ```
 
 **Response:**
@@ -40,7 +40,7 @@ Search for a stock by ticker or name:
 curl -X GET \
   -H "Authorization: Bearer YOUR_TOKEN" \
   -H "Et-App-Key: YOUR_APP_KEY" \
-  "https://{your-environment}.etnasoft.us/api/v1.0/equities/lookup?symbol=AAPL&count=5"
+  "https://api.autoshares.dev/v1.0/equities/lookup?symbol=AAPL&count=5"
 ```
 
 Note the **Id** field in the response — that's the security ID you'll need for orders.
@@ -60,7 +60,7 @@ curl -X POST \
     "Side": "Buy",
     "Quantity": 10
   }' \
-  "https://{your-environment}.etnasoft.us/api/v1.0/accounts/YOUR_ACCOUNT_ID/orders"
+  "https://api.autoshares.dev/v1.0/accounts/YOUR_ACCOUNT_ID/orders"
 ```
 
 Or a limit order at a specific price:
@@ -83,7 +83,7 @@ See what you own:
 curl -X GET \
   -H "Authorization: Bearer YOUR_TOKEN" \
   -H "Et-App-Key: YOUR_APP_KEY" \
-  "https://{your-environment}.etnasoft.us/api/v1.0/accounts/YOUR_ACCOUNT_ID/positions"
+  "https://api.autoshares.dev/v1.0/accounts/YOUR_ACCOUNT_ID/positions"
 ```
 
 ## Step 5: Check Order Status
@@ -94,7 +94,7 @@ Get the status of your orders:
 curl -X GET \
   -H "Authorization: Bearer YOUR_TOKEN" \
   -H "Et-App-Key: YOUR_APP_KEY" \
-  "https://{your-environment}.etnasoft.us/api/v1.0/accounts/YOUR_ACCOUNT_ID/orders"
+  "https://api.autoshares.dev/v1.0/accounts/YOUR_ACCOUNT_ID/orders"
 ```
 
 ## Common Order Types

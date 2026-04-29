@@ -6,7 +6,7 @@
 The base URL for all API requests is provided by AutoShares during onboarding. It is unique to your environment and takes the following form:
 
 ```
-https://{your-environment}.etnasoft.us/api/
+https://api.autoshares.dev/
 ```
 
 > **Important:** Your base URL will be provided by AutoShares when your API access is provisioned. Do not use the demo URLs shown in the examples below in production. Contact your AutoShares representative or email support@autoshares.com to obtain your production base URL, Et-App-Key, and API credentials.
@@ -31,7 +31,7 @@ import requests
 
 class AutoSharesAPIRequest:
 
-	baseURL = "https://{your-environment}.etnasoft.us/api/"
+	baseURL = "https://api.autoshares.dev/"
 	EtAppKey = "your EtAppKey from the BO Companies widget"
 
 	token = 'uninitialized'
@@ -91,7 +91,7 @@ import requests
 
 class AutoSharesAPIRequest:
 
-	baseURL = "https://{your-environment}.etnasoft.us/api/"
+	baseURL = "https://api.autoshares.dev/"
 	EtAppKey = "Et App Key from the BO Companies widget"
 
 	token = 'uninitialized'
@@ -157,7 +157,7 @@ Similar to the regular authentication, in this example we perform the initial au
 #### CURL
 
 ```text
-curl -X POST --header 'Content-Type: application/x-www-form-urlencoded' --header 'Accept: application/json' --header 'Username: yourUsername' --header 'Password: yourPassword' --header 'Authorization: Bearer yourToken' --header 'Et-App-Key: yourEttAppKey' 'https://{your-environment}.etnasoft.us/api/token'
+curl -X POST --header 'Content-Type: application/x-www-form-urlencoded' --header 'Accept: application/json' --header 'Username: yourUsername' --header 'Password: yourPassword' --header 'Authorization: Bearer yourToken' --header 'Et-App-Key: yourEttAppKey' 'https://api.autoshares.dev/token'
 ```
 
 ### Placing New Orders  & Checking Their Status
@@ -168,7 +168,7 @@ import requests
 
 class AutoSharesAPIRequest:
 
-	baseURL = "https://{your-environment}.etnasoft.us/api/"
+	baseURL = "https://api.autoshares.dev/"
 	EtAppKey = "Et App Key from the BO Companies widget"
 
 	token = 'uninitialized'
@@ -262,7 +262,7 @@ curl -X POST --header 'Content-Type: application/json' --header 'Accept: applica
    "ExtendedHours": "REGPOST", \ 
    "TrailingStopAmountType" : "Absolute",  \ 
    "TrailingStopAmount" : 10, \ 
- }' 'https://{your-environment}.etnasoft.us/api/v1.0/accounts/6303/orders'
+ }' 'https://api.autoshares.dev/v1.0/accounts/6303/orders'
 ```
 
 ### Get a User's Information
@@ -273,7 +273,7 @@ import requests
 
 class AutoSharesAPIRequest:
 
-	baseURL = "https://{your-environment}.etnasoft.us/api/"
+	baseURL = "https://api.autoshares.dev/"
 	EtAppKey = "Et App Key from the BO Companies widget"
 
 	token = 'uninitialized'
@@ -326,7 +326,7 @@ This method — `getUsersInfo()` — enables you to retrieve detailed informatio
 #### CURL
 
 ```text
-curl -X GET --header 'Accept: application/json' --header 'Authorization: Bearer yourToken+wefx0MhIL' --header 'Et-App-Key: yourKey' 'https://{your-environment}.etnasoft.us/api/v1.0/users/7420/info'
+curl -X GET --header 'Accept: application/json' --header 'Authorization: Bearer yourToken+wefx0MhIL' --header 'Et-App-Key: yourKey' 'https://api.autoshares.dev/v1.0/users/7420/info'
 ```
 
 ### Getting a User's Positions in Each Trading Account
@@ -335,7 +335,7 @@ curl -X GET --header 'Accept: application/json' --header 'Authorization: Bearer 
 ```python
 class AutoSharesAPIRequest:
 
-	baseURL = "https://{your-environment}.etnasoft.us/api/"
+	baseURL = "https://api.autoshares.dev/"
 	EtAppKey = "Et App Key from the BO Companies widget"
 
 	token = 'uninitialized'
@@ -413,7 +413,7 @@ This method — `getUsersPositions()` — enables you to retrieve the list posit
 
 
 ```text
-curl -X GET --header 'Accept: application/json' --header 'Authorization: Bearer AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAUGqZLsz5mkidCvrdAY1TRgAAAAACAAAAAAAQZgAAAAEAACAAAAD7npupkHQns7X8egXdUEd9DN58PmhOqYh/LEz5FGZuCgAAAAAOgAAAAAIAACAAAACU/Q1qGPWZGNu/nWFJzuyltREDxZSNKw6V1fO++++/JVZxWO///yourToken' --header 'Et-App-Key: yourKey' 'https://{your-environment}.etnasoft.us/api/v1.0/accounts/6303/positions?pageNumber=0&pageSize=10&sortField=Id&desc=true'
+curl -X GET --header 'Accept: application/json' --header 'Authorization: Bearer AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAUGqZLsz5mkidCvrdAY1TRgAAAAACAAAAAAAQZgAAAAEAACAAAAD7npupkHQns7X8egXdUEd9DN58PmhOqYh/LEz5FGZuCgAAAAAOgAAAAAIAACAAAACU/Q1qGPWZGNu/nWFJzuyltREDxZSNKw6V1fO++++/JVZxWO///yourToken' --header 'Et-App-Key: yourKey' 'https://api.autoshares.dev/v1.0/accounts/6303/positions?pageNumber=0&pageSize=10&sortField=Id&desc=true'
 ```
 
 ### Get Candles and Indicators for a Security
@@ -424,7 +424,7 @@ import requests
 
 class AutoSharesAPIRequest:
 
-	baseURL = "https://{your-environment}.etnasoft.us/api/"
+	baseURL = "https://api.autoshares.dev/"
 	EtAppKey = "Et App Key from the BO Companies widget"
 
 	token = 'uninitialized'
@@ -560,6 +560,6 @@ curl -X PUT --header 'Content-Type: application/json' --header 'Accept: applicat
  			"showLastValue":true, \ 
  			"showCurrentPoint":true, \ 
  			"showLevelBands":false}}}] \ 
- }' 'https://{your-environment}.etnasoft.us/api/v1.0/history/symbols'
+ }' 'https://api.autoshares.dev/v1.0/history/symbols'
 ```
 

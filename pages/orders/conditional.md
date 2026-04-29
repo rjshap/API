@@ -175,7 +175,7 @@ An OTOCO order is a 3-leg structure. The first leg is an entry order. When it fi
 ## cURL Example (OTOCO Bracket Order)
 
 ```bash
-curl -X POST "https://{your-environment}.etnasoft.us/api/v1.0/accounts/{accountId}/orders" \
+curl -X POST "https://api.autoshares.dev/v1.0/accounts/{accountId}/orders" \
   -H "Authorization: Bearer {accessToken}" \
   -H "Content-Type: application/json" \
   -d '{
