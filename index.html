@@ -37,7 +37,7 @@ body{background:var(--bg);color:var(--t1);font-family:-apple-system,BlinkMacSyst
 .hdr-brand h1 span{color:var(--ac)}
 .hdr-link{font-size:13px;font-weight:600;color:var(--t3);text-decoration:none;transition:color .12s;white-space:nowrap}
 .hdr-link:hover{color:var(--t1)}
-.hdr-search{max-width:240px;flex:0 1 240px;position:relative}
+.hdr-search{max-width:480px;flex:1;position:relative}
 .hdr-search input{width:100%;padding:9px 14px 9px 36px;border:1.5px solid var(--b1);border-radius:8px;background:var(--bg1);color:var(--t1);font-size:14px;font-family:inherit;transition:all .12s}
 .hdr-search input:focus{border-color:var(--ac);outline:none;background:var(--bg);box-shadow:0 0 0 3px var(--ac-dim)}
 .hdr-search input::placeholder{color:var(--t5)}
@@ -265,14 +265,13 @@ pre:hover .copy-btn,.code-panel:hover .copy-btn{opacity:1}
 <!-- Header -->
 <header class="header">
   <div class="hdr-brand"><h1><span>AutoShares</span> API</h1></div>
+  <div class="hdr-search">
+    <svg class="hdr-search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="text" placeholder="Search docs, endpoints, guides..." oninput="headerSearch(this.value)" onkeydown="if(event.key==='Escape')this.value=''" id="hdr-search-input">
+  </div>
   <nav class="hdr-nav">
-    <div class="hdr-search">
-      <svg class="hdr-search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input type="text" placeholder="Search..." oninput="headerSearch(this.value)" onkeydown="if(event.key==='Escape')this.value=''" id="hdr-search-input">
-    </div>
     <button class="hdr-ai" onclick="toggleAI()"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v4m0 12v4m-7.07-2.93l2.83-2.83m8.48-8.48l2.83-2.83M2 12h4m12 0h4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83"/></svg>Ask AI</button>
     <a class="hdr-cta" href="javascript:void(0)" onclick="loadDoc('pages/signup.md')">Get API Access</a>
-    <a class="hdr-link" href="https://backoffice.autoshares.dev" target="_blank">Back Office</a>
     <button class="hdr-icon" id="gear-btn" onclick="toggleSettings()" title="API Settings">&#9881;</button>
     <button class="hdr-icon" onclick="toggleTheme()" id="theme-btn" title="Toggle theme"></button>
   </nav>
@@ -486,6 +485,13 @@ function renderNav(q){
     });
     html+='</div>';
   }
+  // Back Office API link after API Reference
+  html+='<div class="sb-section"><div class="sb-section-title">Back Office API</div>';
+  html+='<a class="sb-link" data-id="bo-overview" onclick="loadDoc(\'pages/clearing-overview.md\')">Overview</a>';
+  html+='<a class="sb-link" href="https://backoffice.autoshares.dev" target="_blank" style="display:flex;align-items:center;gap:6px">API Reference <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="flex-shrink:0"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>';
+  html+='<a class="sb-link" onclick="loadDoc(\'pages/signup.md\')">Request Access</a>';
+  html+='</div>';
+
   // Resources section after API Reference
   GUIDES.filter(function(sec){return sec.s==='Resources'}).forEach(function(sec){
     var items=q?sec.items.filter(function(i){return i.t.toLowerCase().indexOf(q)>=0}):sec.items;
