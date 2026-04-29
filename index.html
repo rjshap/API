@@ -75,27 +75,37 @@ body{background:var(--bg);color:var(--t1);font-family:ui-sans-serif,system-ui,-a
 .sb-theme-btn:hover{color:var(--t1);border-color:var(--ac)}
 .sb-toggle{display:none;position:fixed;top:0;left:0;right:0;height:64px;background:var(--header-bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--b1);z-index:100;padding:0 16px;font-family:inherit;font-size:15px;font-weight:600;color:var(--t1);border:0;cursor:pointer;text-align:left}
 
-/* ── Two-column endpoint layout ── */
-.ep-layout{display:grid;grid-template-columns:1fr 400px;gap:32px;align-items:start}
+/* ── Endpoint layout (single column now) ── */
+.ep-layout{max-width:720px}
 .ep-docs{min-width:0}
-.ep-tryit{position:sticky;top:80px;background:var(--bg1);border:1px solid var(--b1);border-radius:12px;overflow:hidden}
-.ep-tryit-head{padding:12px 16px;background:var(--bg2);border-bottom:1px solid var(--b1);font-size:13px;font-weight:700;color:var(--t1);display:flex;align-items:center;gap:8px}
-.ep-tryit-head span{font-size:11px;font-weight:400;color:var(--t4)}
-.ep-tryit-body{padding:16px;display:flex;flex-direction:column;gap:10px}
+
+/* ── Try It slide-in panel ── */
+.tryit-panel{position:fixed;top:64px;right:0;width:420px;bottom:0;background:var(--bg);border-left:1px solid var(--b1);box-shadow:-4px 0 24px rgba(0,0,0,.1);z-index:150;display:none;flex-direction:column;overflow:hidden}
+[data-theme="dark"] .tryit-panel{box-shadow:-4px 0 24px rgba(0,0,0,.4)}
+.tryit-panel.open{display:flex}
+.tryit-head{padding:14px 18px;border-bottom:1px solid var(--b1);display:flex;align-items:center;justify-content:space-between;background:var(--bg1);flex-shrink:0}
+.tryit-head-left{display:flex;align-items:center;gap:8px}
+.tryit-head h3{font-size:14px;font-weight:700;color:var(--t1)}
+.tryit-close{background:none;border:0;color:var(--t4);cursor:pointer;font-size:18px;padding:4px}
+.tryit-close:hover{color:var(--t1)}
+.tryit-body{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px}
 .ep-tryit-field{display:flex;flex-direction:column;gap:4px}
 .ep-tryit-label{font-size:11px;font-weight:600;color:var(--t4);text-transform:uppercase;letter-spacing:.04em}
 .ep-tryit-input{padding:8px 10px;border:1px solid var(--b1);border-radius:6px;background:var(--bg);color:var(--t1);font-size:13px;font-family:ui-monospace,monospace;width:100%}
 .ep-tryit-input:focus{border-color:var(--ac);outline:none}
 .ep-tryit-textarea{padding:8px 10px;border:1px solid var(--b1);border-radius:6px;background:var(--bg);color:var(--t1);font-size:13px;font-family:ui-monospace,monospace;width:100%;resize:vertical}
 .ep-tryit-textarea:focus{border-color:var(--ac);outline:none}
-.ep-tryit-send{padding:10px;background:var(--ac);color:#fff;border:0;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .12s;width:100%}
+.ep-tryit-send{padding:10px;background:var(--ac);color:#fff;border:0;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .12s;width:100%;flex-shrink:0}
 .ep-tryit-send:hover{filter:brightness(1.08)}
 [data-theme="dark"] .ep-tryit-send{background:#fff;color:#000}
 [data-theme="dark"] .ep-tryit-send:hover{background:#e6edf3}
 .ep-tryit-send:disabled{opacity:.5;cursor:not-allowed}
 .ep-tryit-result{max-height:300px;overflow:auto;background:var(--code-bg);border:1px solid var(--b1);border-radius:8px;padding:12px;font-family:ui-monospace,monospace;font-size:12px;color:var(--t1);white-space:pre-wrap;word-break:break-all;line-height:1.5}
 .ep-tryit-status{display:flex;align-items:center;gap:8px;font-size:12px;margin-bottom:6px}
-@media(max-width:960px){.ep-layout{grid-template-columns:1fr}.ep-tryit{position:static}}
+.tryit-open-btn{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;background:var(--ac);color:#fff;border:0;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:filter .12s;margin-top:16px}
+.tryit-open-btn:hover{filter:brightness(1.1)}
+[data-theme="dark"] .tryit-open-btn{background:#fff;color:#000}
+@media(max-width:480px){.tryit-panel{width:100vw}}
 
 /* ── API Settings Panel ── */
 .api-settings{padding:12px 16px;border-bottom:1px solid var(--b1);background:var(--bg2)}
@@ -408,38 +418,10 @@ function showSingleEndpoint(tag,method,path){
   left+=buildLangs(method,url,op);
   left+='</div>';
 
-  // ── Right column: Try It ──
-  var right='<div class="ep-tryit">';
-  right+='<div class="ep-tryit-head"><span class="ep-badge ep-'+method.toLowerCase()+'" style="font-size:11px;padding:3px 8px">'+method+'</span>Try It</div>';
-  right+='<div class="ep-tryit-body">';
-  var saved=getApiSettings();
-  var resolvedUrl=url;
-  if(saved.baseUrl)resolvedUrl=saved.baseUrl+path;
-  if(saved.version)resolvedUrl=resolvedUrl.replace('{version}',saved.version);
-  if(saved.accountId)resolvedUrl=resolvedUrl.replace('{accountId}',saved.accountId);
-  right+='<div class="ep-tryit-field"><label class="ep-tryit-label">URL</label><input class="ep-tryit-input" id="'+tid+'-url" value="'+esc(resolvedUrl)+'"></div>';
-  right+='<div class="ep-tryit-field"><label class="ep-tryit-label">Authorization</label><input class="ep-tryit-input" id="'+tid+'-token" value="'+esc(saved.token||'')+'" placeholder="Bearer token from POST /token" style="font-family:inherit"></div>';
-  right+='<div class="ep-tryit-field"><label class="ep-tryit-label">Et-App-Key</label><input class="ep-tryit-input" id="'+tid+'-appkey" value="'+esc(saved.appKey||'')+'" placeholder="Your application key" style="font-family:inherit"></div>';
-  // Add path/query param inputs
-  params.forEach(function(pm){
-    if(pm.in==='path'||pm.in==='query'){
-      var prefill='';
-      if(pm.name==='accountId'&&saved.accountId)prefill=saved.accountId;
-      else if(pm.name==='userId'&&saved.userId)prefill=saved.userId;
-      else if(pm.name==='version'&&saved.version)prefill=saved.version;
-      else if(pm.name==='currency'&&saved.currency)prefill=saved.currency;
-      else if(pm.name==='Exchange'&&saved.exchange)prefill=saved.exchange;
-      right+='<div class="ep-tryit-field"><label class="ep-tryit-label">'+pm.name+' <span style="font-weight:400;text-transform:none;color:var(--t5)">('+pm.in+')</span></label><input class="ep-tryit-input ep-tryit-param" data-name="'+pm.name+'" data-in="'+pm.in+'" value="'+esc(prefill)+'" placeholder="'+(pm.description||'').substring(0,50)+'" style="font-family:inherit"></div>';
-    }
-  });
-  if(hasBody){
-    right+='<div class="ep-tryit-field"><label class="ep-tryit-label">Request Body</label><textarea class="ep-tryit-textarea" id="'+tid+'-body" rows="6">{\n  \n}</textarea></div>';
-  }
-  right+='<button class="ep-tryit-send" onclick="sendTryItPanel(\''+tid+'\',\''+method+'\')">Send Request</button>';
-  right+='<div id="'+tid+'-result"></div>';
-  right+='</div></div>';
+  left+='<button class="tryit-open-btn" onclick="openTryIt(\''+method+'\',\''+path.replace(/'/g,"\\'")+'\')">Try It \u2192</button>';
+  left+='</div>';
 
-  var html='<div class="ep-layout">'+left+right+'</div>'+FOOTER;
+  var html='<div class="ep-layout">'+left+'</div>'+FOOTER;
   doc.innerHTML=html;
   document.getElementById('otp').classList.remove('visible');document.getElementById('otp').innerHTML='';
   window.scrollTo(0,0);
@@ -557,7 +539,7 @@ function showApiTag(tag){
       html+='</tbody></table>';
     }
     html+=buildLangs(mc,'https://{your-environment}.etnasoft.us/api'+p,op);
-    html+='<div style="margin-top:12px"><a onclick="showSingleEndpoint(\''+tag.replace(/'/g,"\\'")+'\',\''+mc+'\',\''+p.replace(/'/g,"\\'")+'\')" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:var(--ac);color:#fff;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;transition:filter .12s" onmouseover="this.style.filter=\'brightness(1.1)\'" onmouseout="this.style.filter=\'none\'">Try It \u2192</a></div>';
+    html+='<div style="margin-top:12px"><a onclick="openTryIt(\''+mc+'\',\''+p.replace(/'/g,"\\'")+'\')" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:var(--ac);color:#fff;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;transition:filter .12s" onmouseover="this.style.filter=\'brightness(1.1)\'" onmouseout="this.style.filter=\'none\'">Try It \u2192</a></div>';
     html+='</div></div>';
   }}
   html+=FOOTER;
@@ -649,6 +631,47 @@ window.sendTryIt=function(id,method){
     result.innerHTML='<div style="margin-top:8px;padding:12px;background:var(--ep-del-bg);border-radius:8px;font-size:12px;color:var(--ep-del)"><strong>Request failed:</strong> '+esc(err.message)+'<br><br><span style="color:var(--t4)">This may be due to CORS restrictions. Try using the cURL command in your terminal instead, or make sure you\'re using the correct base URL for your environment.</span></div>';
   });
 };
+
+function openTryIt(method,path){
+  var panel=document.getElementById('tryit-panel');
+  var body=document.getElementById('tryit-body');
+  var badge=document.getElementById('tryit-badge');
+  badge.innerHTML='<span class="ep-badge ep-'+method.toLowerCase()+'" style="font-size:11px;padding:3px 8px">'+method+'</span>';
+  // Close AI panel if open
+  document.getElementById('ai-panel').classList.remove('open');aiOpen=false;
+  var saved=getApiSettings();
+  var url='https://{your-environment}.etnasoft.us/api'+path;
+  if(saved.baseUrl)url=saved.baseUrl+path;
+  if(saved.version)url=url.replace('{version}',saved.version);
+  if(saved.accountId)url=url.replace('{accountId}',saved.accountId);
+  var hasBody=method==='POST'||method==='PUT';
+  var tid='tryit-'+Date.now();
+  var op=spec.paths[path]&&spec.paths[path][method.toLowerCase()];
+  var params=op?op.parameters||[]:[];
+  var html='';
+  html+='<div class="ep-tryit-field"><label class="ep-tryit-label">URL</label><input class="ep-tryit-input" id="'+tid+'-url" value="'+esc(url)+'"></div>';
+  html+='<div class="ep-tryit-field"><label class="ep-tryit-label">Authorization</label><input class="ep-tryit-input" id="'+tid+'-token" value="'+esc(saved.token||'')+'" placeholder="Bearer token" style="font-family:inherit"></div>';
+  html+='<div class="ep-tryit-field"><label class="ep-tryit-label">Et-App-Key</label><input class="ep-tryit-input" id="'+tid+'-appkey" value="'+esc(saved.appKey||'')+'" placeholder="Application key" style="font-family:inherit"></div>';
+  params.forEach(function(pm){
+    if(pm.in==='path'||pm.in==='query'){
+      var prefill='';
+      if(pm.name==='accountId'&&saved.accountId)prefill=saved.accountId;
+      else if(pm.name==='userId'&&saved.userId)prefill=saved.userId;
+      else if(pm.name==='version'&&saved.version)prefill=saved.version;
+      else if(pm.name==='currency'&&saved.currency)prefill=saved.currency;
+      else if(pm.name==='Exchange'&&saved.exchange)prefill=saved.exchange;
+      html+='<div class="ep-tryit-field"><label class="ep-tryit-label">'+pm.name+' <span style="font-weight:400;text-transform:none;color:var(--t5)">('+pm.in+')</span></label><input class="ep-tryit-input ep-tryit-param" data-name="'+pm.name+'" data-in="'+pm.in+'" value="'+esc(prefill)+'" placeholder="'+(pm.description||'').substring(0,50)+'" style="font-family:inherit"></div>';
+    }
+  });
+  if(hasBody){
+    html+='<div class="ep-tryit-field"><label class="ep-tryit-label">Request Body</label><textarea class="ep-tryit-textarea" id="'+tid+'-body" rows="8">{\n  \n}</textarea></div>';
+  }
+  html+='<button class="ep-tryit-send" onclick="sendTryItPanel(\''+tid+'\',\''+method+'\')">Send Request</button>';
+  html+='<div id="'+tid+'-result"></div>';
+  body.innerHTML=html;
+  panel.classList.add('open');
+}
+function closeTryIt(){document.getElementById('tryit-panel').classList.remove('open')}
 
 window.sendTryItPanel=function(tid,method){
   var url=document.getElementById(tid+'-url').value;
@@ -1035,7 +1058,14 @@ function aiKeydown(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();askAI(
 </script>
 
 <!-- AI Helper -->
-<!-- AI button is in the header nav -->
+<!-- Try It slide-in panel -->
+<div class="tryit-panel" id="tryit-panel">
+  <div class="tryit-head">
+    <div class="tryit-head-left"><h3>Try It</h3><span id="tryit-badge"></span></div>
+    <button class="tryit-close" onclick="closeTryIt()">&times;</button>
+  </div>
+  <div class="tryit-body" id="tryit-body"></div>
+</div>
 <div class="ai-panel" id="ai-panel">
   <div class="ai-head">
     <div><h3>API Assistant</h3><span>Powered by AI</span></div>
