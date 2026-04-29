@@ -278,6 +278,7 @@ pre:hover .copy-btn,.code-panel:hover .copy-btn{opacity:1}
 
 <!-- Sidebar -->
 <nav class="sidebar" id="sidebar">
+  <div class="sb-search"><input type="text" placeholder="Search endpoints..." oninput="filterNav(this.value)"></div>
   <div id="nav-tree"></div>
 
 </nav>
@@ -491,7 +492,7 @@ function renderNav(q){
   document.getElementById('nav-tree').innerHTML=html;highlightNav();
 }
 function filterNav(q){renderNav(q)}
-function headerSearch(q){document.querySelector('.sb-search input').value=q;renderNav(q)}
+function headerSearch(q){var sb=document.querySelector('.sb-search input');if(sb)sb.value=q;renderNav(q)}
 function highlightNav(){
   document.querySelectorAll('.sb-link').forEach(function(el){el.classList.toggle('active',el.getAttribute('data-id')===currentView)});
   document.querySelectorAll('.sb-ep').forEach(function(el){el.classList.toggle('active',el.getAttribute('data-id')===currentView)});
