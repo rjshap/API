@@ -533,6 +533,7 @@ var aiOpen=false;
 var aiHistory=[];
 
 function toggleAI(){aiOpen=!aiOpen;document.getElementById('ai-panel').classList.toggle('open',aiOpen);if(aiOpen)document.getElementById('ai-input').focus()}
+function clearAI(){aiHistory=[];document.getElementById('ai-messages').innerHTML='<div class="ai-msg bot">Hi! I\'m powered by AI. Ask me anything:<br><br>&bull; "How do I place an OTOCO bracket order?"<br>&bull; "Show me how to authenticate with 2FA"<br>&bull; "Write a Python script to get my positions"</div>'}
 
 function askAI(){
   var input=document.getElementById('ai-input');
@@ -598,8 +599,11 @@ function aiKeydown(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();askAI(
 <button class="ai-fab" onclick="toggleAI()"><svg viewBox="0 0 24 24"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1.27A7 7 0 0 1 14 23h-4a7 7 0 0 1-6.73-4H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z" stroke-linecap="round"/><circle cx="9" cy="14" r="1" fill="currentColor"/><circle cx="15" cy="14" r="1" fill="currentColor"/></svg>Ask AI</button>
 <div class="ai-panel" id="ai-panel">
   <div class="ai-head">
-    <div><h3>API Assistant</h3><span>Search endpoints, guides, and examples</span></div>
-    <button class="ai-close" onclick="toggleAI()">&times;</button>
+    <div><h3>API Assistant</h3><span>Powered by AI</span></div>
+    <div style="display:flex;gap:6px">
+      <button onclick="clearAI()" style="background:none;border:1px solid var(--b1);border-radius:6px;color:var(--t4);cursor:pointer;font-size:10px;padding:4px 8px;font-family:inherit">Clear</button>
+      <button class="ai-close" onclick="toggleAI()">&times;</button>
+    </div>
   </div>
   <div class="ai-messages" id="ai-messages">
     <div class="ai-msg bot">Hi! I'm powered by AI. Ask me anything:<br><br>
