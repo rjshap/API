@@ -260,7 +260,14 @@ function loadDoc(path){
     });
     md=md.replace(/{%.*?%}/g,'');
     doc.innerHTML=marked.parse(md)+FOOTER;
-    addCopyBtns(doc);window.scrollTo(0,0);
+    addCopyBtns(doc);
+    // Inject signup form if placeholder exists
+    var signupEl=doc.querySelector('#signup-form-container');
+    if(signupEl)injectSignupForm(signupEl);
+    // Inject contact form if placeholder exists
+    var contactEl=doc.querySelector('#contact-form-container');
+    if(contactEl)injectContactForm(contactEl);
+    window.scrollTo(0,0);
   }).catch(function(){doc.innerHTML='<p style="color:var(--t4)">Page not found.</p>'});
   history.replaceState(null,'','#'+path);
 }
@@ -410,6 +417,39 @@ function addCopyBtns(el){el.querySelectorAll('pre').forEach(function(pre){
   pre.appendChild(b);
 })}
 function copyCode(btn){var p=btn.parentElement;navigator.clipboard.writeText(p.textContent.replace('Copy','').trim()).then(function(){btn.textContent='Copied!';setTimeout(function(){btn.textContent='Copy'},1500)})}
+
+function injectSignupForm(el){
+  var f='<form id="api-signup-form" onsubmit="return handleSignup(event)" style="display:flex;flex-direction:column;gap:14px;max-width:520px;margin:16px 0 24px">';
+  f+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">';
+  f+='<div><label style="display:block;font-size:12px;font-weight:600;color:var(--t4);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">First Name *</label><input id="su-first" required style="width:100%;padding:10px 14px;border:1px solid var(--b1);border-radius:8px;background:var(--bg);color:var(--t1);font-size:14px;font-family:inherit" placeholder="Jane"></div>';
+  f+='<div><label style="display:block;font-size:12px;font-weight:600;color:var(--t4);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">Last Name *</label><input id="su-last" required style="width:100%;padding:10px 14px;border:1px solid var(--b1);border-radius:8px;background:var(--bg);color:var(--t1);font-size:14px;font-family:inherit" placeholder="Smith"></div></div>';
+  f+='<div><label style="display:block;font-size:12px;font-weight:600;color:var(--t4);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">Company</label><input id="su-company" style="width:100%;padding:10px 14px;border:1px solid var(--b1);border-radius:8px;background:var(--bg);color:var(--t1);font-size:14px;font-family:inherit" placeholder="Acme Trading Inc."></div>';
+  f+='<div><label style="display:block;font-size:12px;font-weight:600;color:var(--t4);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">Email * <span style="font-size:10px;color:var(--t5);text-transform:none">(this will be your API username)</span></label><input id="su-email" type="email" required style="width:100%;padding:10px 14px;border:1px solid var(--b1);border-radius:8px;background:var(--bg);color:var(--t1);font-size:14px;font-family:inherit" placeholder="jane@company.com"></div>';
+  f+='<div><label style="display:block;font-size:12px;font-weight:600;color:var(--t4);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">Password * <span style="font-size:10px;color:var(--t5);text-transform:none">(min 8 chars, 1 uppercase, 1 number)</span></label><input id="su-pass" type="password" required minlength="8" style="width:100%;padding:10px 14px;border:1px solid var(--b1);border-radius:8px;background:var(--bg);color:var(--t1);font-size:14px;font-family:inherit" placeholder="Min 8 characters"></div>';
+  f+='<div><label style="display:block;font-size:12px;font-weight:600;color:var(--t4);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">Use Case *</label><select id="su-usecase" required style="width:100%;padding:10px 14px;border:1px solid var(--b1);border-radius:8px;background:var(--bg);color:var(--t1);font-size:14px;font-family:inherit"><option value="">Select...</option><option value="trading-app">Building a trading app</option><option value="algo-trading">Algorithmic trading</option><option value="portfolio-mgmt">Portfolio management</option><option value="market-data">Market data integration</option><option value="fintech">Fintech platform</option><option value="ria">RIA / Wealth management</option><option value="personal">Personal project</option><option value="evaluation">Evaluating platform</option><option value="other">Other</option></select></div>';
+  f+='<div><label style="display:block;font-size:12px;font-weight:600;color:var(--t4);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">APIs of Interest</label><div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px"><label style="display:flex;align-items:center;gap:5px;font-size:13px;color:var(--t2);cursor:pointer"><input type="checkbox" id="su-api-trading" checked> Trading</label><label style="display:flex;align-items:center;gap:5px;font-size:13px;color:var(--t2);cursor:pointer"><input type="checkbox" id="su-api-market"> Market Data</label><label style="display:flex;align-items:center;gap:5px;font-size:13px;color:var(--t2);cursor:pointer"><input type="checkbox" id="su-api-options"> Options</label><label style="display:flex;align-items:center;gap:5px;font-size:13px;color:var(--t2);cursor:pointer"><input type="checkbox" id="su-api-ach"> ACH/Transfers</label><label style="display:flex;align-items:center;gap:5px;font-size:13px;color:var(--t2);cursor:pointer"><input type="checkbox" id="su-api-backoffice"> Back Office</label></div></div>';
+  f+='<div><label style="display:block;font-size:12px;font-weight:600;color:var(--t4);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">Expected Monthly Volume</label><select id="su-volume" style="width:100%;padding:10px 14px;border:1px solid var(--b1);border-radius:8px;background:var(--bg);color:var(--t1);font-size:14px;font-family:inherit"><option value="low">Under 10,000 requests</option><option value="medium">10K - 100K requests</option><option value="high">100K - 1M requests</option><option value="enterprise">1M+ requests</option></select></div>';
+  f+='<div style="padding:10px 14px;background:var(--bg2);border-radius:8px;border:1px solid var(--b1)"><label style="display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--t3);cursor:pointer;line-height:1.5"><input type="checkbox" id="su-terms" required style="margin-top:3px"> I agree to the AutoShares Terms of Service and Privacy Policy. I understand this creates a sandbox account for API testing.</label></div>';
+  f+='<button type="submit" id="su-submit" style="padding:12px 24px;background:var(--ac);color:#fff;border:0;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;align-self:flex-start">Create API Account</button>';
+  f+='<div id="su-status" style="display:none;padding:14px 18px;border-radius:10px;font-size:13px;line-height:1.6"></div>';
+  f+='</form>';
+  el.innerHTML=f;
+}
+
+function injectContactForm(el){
+  var f='<form id="contact-form" onsubmit="return handleContact(event)" style="display:flex;flex-direction:column;gap:14px;max-width:520px;margin:16px 0 24px">';
+  f+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">';
+  f+='<div><label style="display:block;font-size:12px;font-weight:600;color:var(--t4);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">First Name *</label><input id="ct-first" required style="width:100%;padding:10px 14px;border:1px solid var(--b1);border-radius:8px;background:var(--bg);color:var(--t1);font-size:14px;font-family:inherit" placeholder="Jane"></div>';
+  f+='<div><label style="display:block;font-size:12px;font-weight:600;color:var(--t4);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">Last Name *</label><input id="ct-last" required style="width:100%;padding:10px 14px;border:1px solid var(--b1);border-radius:8px;background:var(--bg);color:var(--t1);font-size:14px;font-family:inherit" placeholder="Smith"></div></div>';
+  f+='<div><label style="display:block;font-size:12px;font-weight:600;color:var(--t4);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">Email *</label><input id="ct-email" type="email" required style="width:100%;padding:10px 14px;border:1px solid var(--b1);border-radius:8px;background:var(--bg);color:var(--t1);font-size:14px;font-family:inherit" placeholder="jane@company.com"></div>';
+  f+='<div><label style="display:block;font-size:12px;font-weight:600;color:var(--t4);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">Company</label><input id="ct-company" style="width:100%;padding:10px 14px;border:1px solid var(--b1);border-radius:8px;background:var(--bg);color:var(--t1);font-size:14px;font-family:inherit" placeholder="Acme Trading Inc."></div>';
+  f+='<div><label style="display:block;font-size:12px;font-weight:600;color:var(--t4);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">Topic *</label><select id="ct-topic" required style="width:100%;padding:10px 14px;border:1px solid var(--b1);border-radius:8px;background:var(--bg);color:var(--t1);font-size:14px;font-family:inherit"><option value="">Select a topic...</option><option value="api-access">API Access & Onboarding</option><option value="technical">Technical Support</option><option value="integration">Integration Help</option><option value="production">Production Upgrade</option><option value="back-office">Back Office API</option><option value="market-data">Market Data</option><option value="partnership">Partnership</option><option value="billing">Billing & Pricing</option><option value="bug">Bug Report</option><option value="feature">Feature Request</option><option value="other">Other</option></select></div>';
+  f+='<div><label style="display:block;font-size:12px;font-weight:600;color:var(--t4);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">Message *</label><textarea id="ct-message" required rows="5" style="width:100%;padding:10px 14px;border:1px solid var(--b1);border-radius:8px;background:var(--bg);color:var(--t1);font-size:14px;font-family:inherit;resize:vertical" placeholder="How can we help?"></textarea></div>';
+  f+='<button type="submit" id="ct-submit" style="padding:12px 24px;background:var(--ac);color:#fff;border:0;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;align-self:flex-start">Send Message</button>';
+  f+='<div id="ct-status" style="display:none;padding:14px 18px;border-radius:10px;font-size:13px;line-height:1.6"></div>';
+  f+='</form>';
+  el.innerHTML=f;
+}
 
 var FOOTER='<div class="footer">&copy; 2026 AutoShares Fintech Solutions, LLC. All rights reserved. AutoShares APIs are provided through AutoShares Fintech Solutions, LLC. Securities offered through Tradepro Securities, Inc., a FINRA/SIPC member broker-dealer. Trading involves risk including the possible loss of principal. Options trading involves substantial risk and is not suitable for all investors. Past performance is not indicative of future results. This site is for informational purposes only and does not constitute an offer to sell or a solicitation to buy any security.</div>';
 
