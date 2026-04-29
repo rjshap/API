@@ -1,4 +1,4 @@
-# Deploy Apps with AutoShares API
+# Build and Deploy Apps with AutoShares API
 
 **Create Apps. Integrate Trading. Launch Products and Services.**
 
