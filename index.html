@@ -122,7 +122,8 @@ pre:hover .copy-btn,.code-panel:hover .copy-btn{opacity:1}
 .copy-btn:hover{color:var(--ac);border-color:var(--ac)}
 
 /* ── Footer ── */
-.footer{margin-top:48px;padding:24px 0;border-top:1px solid var(--b1);font-size:12px;color:var(--t5);line-height:1.7}
+.footer{margin-top:48px;padding:24px 0;border-top:1px solid var(--b1);font-size:12px;color:var(--t4);line-height:1.7}
+[data-theme="dark"] .footer{color:var(--t3)}
 
 /* ── Responsive ── */
 @media(max-width:768px){
@@ -133,11 +134,11 @@ pre:hover .copy-btn,.code-panel:hover .copy-btn{opacity:1}
   .content{margin-left:0;margin-top:64px;padding:24px 16px}
 }
 /* ── AI Helper ── */
-.ai-fab{position:fixed;bottom:24px;right:24px;height:44px;background:var(--ac);color:#fff;border:0;border-radius:22px;cursor:pointer;font-size:13px;font-weight:700;font-family:inherit;display:flex;align-items:center;gap:8px;padding:0 20px 0 16px;box-shadow:0 4px 16px rgba(0,201,167,.35);z-index:200;transition:transform .15s,box-shadow .15s}
-.ai-fab:hover{transform:scale(1.03);box-shadow:0 6px 24px rgba(0,201,167,.45)}
-.ai-fab svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2}
-.ai-panel{position:fixed;bottom:88px;right:24px;width:380px;max-height:520px;background:var(--bg);border:1px solid var(--b1);border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,.15);z-index:200;display:none;flex-direction:column;overflow:hidden}
-[data-theme="dark"] .ai-panel{box-shadow:0 8px 32px rgba(0,0,0,.5)}
+.ai-fab{position:fixed;top:72px;right:24px;height:38px;background:var(--ac);color:#fff;border:0;border-radius:20px;cursor:pointer;font-size:12px;font-weight:700;font-family:inherit;display:flex;align-items:center;gap:6px;padding:0 16px 0 12px;box-shadow:0 2px 8px rgba(0,201,167,.25);z-index:150;transition:transform .15s,box-shadow .15s}
+.ai-fab:hover{transform:scale(1.03);box-shadow:0 4px 16px rgba(0,201,167,.35)}
+.ai-fab svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2}
+.ai-panel{position:fixed;top:64px;right:0;width:400px;height:calc(100vh - 64px);background:var(--bg);border-left:1px solid var(--b1);box-shadow:-4px 0 24px rgba(0,0,0,.1);z-index:150;display:none;flex-direction:column}
+[data-theme="dark"] .ai-panel{box-shadow:-4px 0 24px rgba(0,0,0,.4)}
 .ai-panel.open{display:flex}
 .ai-head{padding:14px 18px;border-bottom:1px solid var(--b1);display:flex;align-items:center;justify-content:space-between;background:var(--bg1)}
 .ai-head h3{font-size:14px;font-weight:700;color:var(--t1)}
@@ -157,14 +158,14 @@ pre:hover .copy-btn,.code-panel:hover .copy-btn{opacity:1}
 .ai-send{padding:8px 16px;background:var(--ac);color:#fff;border:0;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap}
 .ai-send:hover{background:var(--ac-hover)}
 .ai-send:disabled{opacity:.5;cursor:not-allowed}
-@media(max-width:480px){.ai-panel{width:calc(100vw - 32px);right:16px;bottom:80px}}
+@media(max-width:480px){.ai-panel{width:100vw;right:0}}
 </style>
 </head>
 <body>
 
 <!-- Header -->
 <header class="header">
-  <div class="hdr-brand"><h1><span>AutoShares</span> Docs</h1></div>
+  <div class="hdr-brand"><h1><span>AutoShares</span> API Documentation</h1></div>
   <nav class="hdr-nav">
     <a class="hdr-link" href="https://autoshares.com/contact" target="_blank">Contact</a>
     <a class="hdr-cta" href="javascript:void(0)" onclick="loadDoc('pages/signup.md')">Get Started</a>
@@ -299,6 +300,7 @@ function showApiTag(tag){
       html+='</tbody></table>';
     }
     html+=buildLangs(mc,'https://{your-environment}.etnasoft.us/api'+p,op);
+    html+=buildTryIt(n,mc,'https://{your-environment}.etnasoft.us/api'+p,op);
     html+='</div></div>';
   }}
   html+=FOOTER;
@@ -334,6 +336,60 @@ function buildLangs(method,url,op){
   codes.forEach(function(code,i){h+='<div class="lang-block'+(i===0?' on':'')+'"><div class="code-panel">'+esc(code)+'<button class="copy-btn" onclick="copyCode(this)">Copy</button></div></div>'});
   return h;
 }
+
+function buildTryIt(n,method,url,op){
+  var id='tryit'+n;
+  var hasBody=method==='POST'||method==='PUT';
+  var params=(op.parameters||[]).filter(function(p){return p.in==='query'});
+  var h='<div style="margin-top:16px;border:1px solid var(--b1);border-radius:10px;overflow:hidden">';
+  h+='<div onclick="document.getElementById(\''+id+'\').classList.toggle(\'open\')" style="padding:10px 16px;background:var(--bg2);cursor:pointer;display:flex;align-items:center;justify-content:space-between">';
+  h+='<span style="font-size:12px;font-weight:700;color:var(--ac)">Try It</span>';
+  h+='<span style="font-size:11px;color:var(--t4)">Send a live request</span></div>';
+  h+='<div id="'+id+'" class="ep-body">';
+  h+='<div style="display:flex;flex-direction:column;gap:10px">';
+  h+='<div style="display:flex;gap:8px;align-items:flex-end"><div style="flex:2;display:flex;flex-direction:column;gap:3px"><label style="font-size:10px;font-weight:700;color:var(--t4);text-transform:uppercase">URL</label><input id="'+id+'-url" value="'+esc(url)+'" style="padding:8px 10px;border:1px solid var(--b1);border-radius:6px;background:var(--bg);color:var(--t1);font-size:12px;font-family:ui-monospace,monospace;width:100%"></div></div>';
+  h+='<div style="display:flex;gap:8px"><div style="flex:1;display:flex;flex-direction:column;gap:3px"><label style="font-size:10px;font-weight:700;color:var(--t4);text-transform:uppercase">Authorization Token</label><input id="'+id+'-token" placeholder="Bearer token from /token" style="padding:8px 10px;border:1px solid var(--b1);border-radius:6px;background:var(--bg);color:var(--t1);font-size:12px;font-family:inherit;width:100%"></div></div>';
+  h+='<div style="display:flex;gap:8px"><div style="flex:1;display:flex;flex-direction:column;gap:3px"><label style="font-size:10px;font-weight:700;color:var(--t4);text-transform:uppercase">Et-App-Key</label><input id="'+id+'-appkey" placeholder="Your application key" style="padding:8px 10px;border:1px solid var(--b1);border-radius:6px;background:var(--bg);color:var(--t1);font-size:12px;font-family:inherit;width:100%"></div></div>';
+  if(hasBody){
+    h+='<div style="display:flex;flex-direction:column;gap:3px"><label style="font-size:10px;font-weight:700;color:var(--t4);text-transform:uppercase">Request Body (JSON)</label><textarea id="'+id+'-body" rows="4" style="padding:8px 10px;border:1px solid var(--b1);border-radius:6px;background:var(--bg);color:var(--t1);font-size:12px;font-family:ui-monospace,monospace;width:100%;resize:vertical">{\n  \n}</textarea></div>';
+  }
+  h+='<button onclick="sendTryIt(\''+id+'\',\''+method+'\')" style="padding:10px 20px;background:var(--ac);color:#fff;border:0;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;align-self:flex-start">Send Request</button>';
+  h+='<div id="'+id+'-result"></div>';
+  h+='</div></div></div>';
+  return h;
+}
+
+window.sendTryIt=function(id,method){
+  var url=document.getElementById(id+'-url').value;
+  var token=document.getElementById(id+'-token').value;
+  var appkey=document.getElementById(id+'-appkey').value;
+  var bodyEl=document.getElementById(id+'-body');
+  var body=bodyEl?bodyEl.value:null;
+  var result=document.getElementById(id+'-result');
+  result.innerHTML='<div style="padding:10px;color:var(--t4);font-size:12px">Sending...</div>';
+
+  var headers={'Accept':'application/json'};
+  if(token)headers['Authorization']='Bearer '+token;
+  if(appkey)headers['Et-App-Key']=appkey;
+
+  var opts={method:method,headers:headers};
+  if(body&&(method==='POST'||method==='PUT')){
+    headers['Content-Type']='application/json';
+    opts.body=body;
+  }
+
+  var t0=Date.now();
+  fetch(url,opts).then(function(r){
+    var elapsed=Date.now()-t0;
+    return r.text().then(function(txt){
+      var pretty=txt;try{pretty=JSON.stringify(JSON.parse(txt),null,2)}catch(e){}
+      var ok=r.ok;
+      result.innerHTML='<div style="margin-top:8px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span style="font-size:12px;font-weight:700;color:'+(ok?'var(--ep-get)':'var(--ep-del)')+'">'+r.status+' '+r.statusText+'</span><span style="font-size:10px;color:var(--t4)">'+elapsed+'ms</span></div><div class="code-panel" style="border-radius:8px;border:1px solid var(--b1);max-height:300px;overflow:auto;font-size:11px">'+esc(pretty)+'<button class="copy-btn" onclick="copyCode(this)">Copy</button></div></div>';
+    });
+  }).catch(function(err){
+    result.innerHTML='<div style="margin-top:8px;padding:12px;background:var(--ep-del-bg);border-radius:8px;font-size:12px;color:var(--ep-del)"><strong>Request failed:</strong> '+esc(err.message)+'<br><br><span style="color:var(--t4)">This may be due to CORS restrictions. Try using the cURL command in your terminal instead, or make sure you\'re using the correct base URL for your environment.</span></div>';
+  });
+};
 
 function switchLang(btn){
   var tabs=btn.parentElement;var blocks=[];var el=tabs.nextElementSibling;
@@ -380,6 +436,12 @@ window.handleSignup=function(e){
 
   btn.disabled=true;btn.textContent='Creating account...';
   status.style.display='none';
+
+  // Send lead notification (fire and forget)
+  fetch('https://ai-docs.globalmarketholdings.workers.dev/lead',{
+    method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({first:first,last:last,email:email,company:company,usecase:usecase,apis:apis,volume:volume})
+  }).catch(function(){});
 
   // Register on demo.autoshares.com via the ETNA registration API
   fetch('https://demo.autoshares.com/api/registration',{
