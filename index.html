@@ -96,7 +96,28 @@ body{background:var(--bg);color:var(--t1);font-family:ui-sans-serif,system-ui,-a
 @media(max-width:960px){.ep-layout{grid-template-columns:1fr}.ep-tryit{position:static}}
 
 /* ── Content ── */
-.content{flex:1;margin-left:288px;margin-top:64px;padding:40px 48px;max-width:1100px}
+.content{flex:1;margin-left:288px;margin-top:64px;padding:40px 48px;max-width:1100px;position:relative}
+
+/* ── On This Page (right TOC) ── */
+.otp{position:fixed;right:24px;top:80px;width:200px;max-height:calc(100vh - 120px);overflow-y:auto;font-size:13px;display:none}
+.otp.visible{display:block}
+.otp-title{font-size:11px;font-weight:700;color:var(--t4);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
+.otp-link{display:block;padding:3px 0 3px 12px;color:var(--t4);text-decoration:none;border-left:2px solid var(--b1);transition:all .1s;font-size:13px;line-height:1.5}
+.otp-link:hover{color:var(--t1);border-left-color:var(--t3)}
+.otp-link.active{color:var(--ac);border-left-color:var(--ac);font-weight:600}
+.otp-link.depth-3{padding-left:24px;font-size:12px}
+
+/* ── Prev/Next nav ── */
+.prevnext{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:40px;padding-top:24px;border-top:1px solid var(--b1)}
+.pn-btn{display:flex;flex-direction:column;gap:4px;padding:16px 20px;border:1px solid var(--b1);border-radius:10px;text-decoration:none;transition:all .12s;cursor:pointer;background:transparent}
+.pn-btn:hover{border-color:var(--ac);background:var(--ac-dim)}
+.pn-prev{align-items:flex-start}
+.pn-next{align-items:flex-end;grid-column:2}
+.pn-label{font-size:11px;font-weight:600;color:var(--t4);text-transform:uppercase;letter-spacing:.04em}
+.pn-title{font-size:15px;font-weight:600;color:var(--ac)}
+
+@media(max-width:1400px){.otp{display:none!important}}
+@media(max-width:960px){.prevnext{grid-template-columns:1fr}.pn-next{grid-column:1;align-items:flex-start}}
 
 /* ── Markdown ── */
 .md h1{font-size:32px;font-weight:700;color:var(--t1);margin:0 0 12px;letter-spacing:-.025em;line-height:1.25}
@@ -221,6 +242,7 @@ pre:hover .copy-btn,.code-panel:hover .copy-btn{opacity:1}
 
 <!-- Content -->
 <main class="content md" id="content"></main>
+<aside class="otp" id="otp"></aside>
 
 <script>
 /* ── Theme ── */
@@ -345,6 +367,7 @@ function showSingleEndpoint(tag,method,path){
 
   var html='<div class="ep-layout">'+left+right+'</div>'+FOOTER;
   doc.innerHTML=html;
+  document.getElementById('otp').classList.remove('visible');document.getElementById('otp').innerHTML='';
   window.scrollTo(0,0);
   history.replaceState(null,'','#ep:'+tag+':'+method+':'+path);
   renderNav(document.querySelector('.sb-search input').value);
@@ -405,8 +428,9 @@ function loadDoc(path){
       return'<a href="javascript:void(0)" onclick="loadDoc(\''+out.join('/').replace(/\\/g,'').replace(/'/g,"\\'")+'\')">'+text+'</a>';
     });
     md=md.replace(/{%.*?%}/g,'');
-    doc.innerHTML=marked.parse(md)+FOOTER;
+    doc.innerHTML=marked.parse(md)+buildPrevNext(path)+FOOTER;
     addCopyBtns(doc);
+    buildOnThisPage(doc);
     // Inject signup form if placeholder exists
     var signupEl=doc.querySelector('#signup-form-container');
     if(signupEl)injectSignupForm(signupEl);
@@ -458,7 +482,9 @@ function showApiTag(tag){
     html+='</div></div>';
   }}
   html+=FOOTER;
-  doc.innerHTML=html;window.scrollTo(0,0);
+  doc.innerHTML=html;
+  document.getElementById('otp').classList.remove('visible');document.getElementById('otp').innerHTML='';
+  window.scrollTo(0,0);
   history.replaceState(null,'','#api:'+tag);
 }
 
@@ -598,6 +624,63 @@ function addCopyBtns(el){el.querySelectorAll('pre').forEach(function(pre){
   pre.appendChild(b);
 })}
 function copyCode(btn){var p=btn.parentElement;navigator.clipboard.writeText(p.textContent.replace('Copy','').trim()).then(function(){btn.textContent='Copied!';setTimeout(function(){btn.textContent='Copy'},1500)})}
+
+/* ── On This Page ── */
+function buildOnThisPage(container){
+  var otp=document.getElementById('otp');
+  var headings=container.querySelectorAll('h2,h3');
+  if(headings.length<2){otp.classList.remove('visible');otp.innerHTML='';return}
+  var html='<div class="otp-title">On This Page</div>';
+  headings.forEach(function(h,i){
+    var id='section-'+i;
+    h.id=id;
+    var depth=h.tagName==='H3'?' depth-3':'';
+    html+='<a class="otp-link'+depth+'" href="#'+id+'" data-target="'+id+'" onclick="smoothScroll(\''+id+'\');return false">'+h.textContent+'</a>';
+  });
+  otp.innerHTML=html;
+  otp.classList.add('visible');
+  // Scroll spy
+  if(window._otpObserver)window._otpObserver.disconnect();
+  window._otpObserver=new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        otp.querySelectorAll('.otp-link').forEach(function(l){l.classList.toggle('active',l.getAttribute('data-target')===entry.target.id)});
+      }
+    });
+  },{rootMargin:'-80px 0px -70% 0px',threshold:0});
+  headings.forEach(function(h){window._otpObserver.observe(h)});
+}
+
+function smoothScroll(id){
+  var el=document.getElementById(id);
+  if(el)el.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+/* ── Prev/Next Navigation ── */
+function getAllPages(){
+  var pages=[];
+  GUIDES.forEach(function(sec){sec.items.forEach(function(i){pages.push({id:i.p,title:i.t})})});
+  return pages;
+}
+
+function buildPrevNext(currentPath){
+  var pages=getAllPages();
+  var idx=pages.findIndex(function(p){return p.id===currentPath});
+  if(idx<0)return'';
+  var html='<div class="prevnext">';
+  if(idx>0){
+    var prev=pages[idx-1];
+    html+='<a class="pn-btn pn-prev" onclick="loadDoc(\''+prev.id+'\')"><span class="pn-label">\u2190 Previous</span><span class="pn-title">'+esc(prev.title)+'</span></a>';
+  } else {
+    html+='<div></div>';
+  }
+  if(idx<pages.length-1){
+    var next=pages[idx+1];
+    html+='<a class="pn-btn pn-next" onclick="loadDoc(\''+next.id+'\')"><span class="pn-label">Next \u2192</span><span class="pn-title">'+esc(next.title)+'</span></a>';
+  }
+  html+='</div>';
+  return html;
+}
 
 function injectSignupForm(el){
   var f='<form id="api-signup-form" onsubmit="return handleSignup(event)" style="display:flex;flex-direction:column;gap:14px;max-width:520px;margin:16px 0 24px">';
