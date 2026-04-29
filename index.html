@@ -478,7 +478,7 @@ function showApiTag(tag){
       html+='</tbody></table>';
     }
     html+=buildLangs(mc,'https://{your-environment}.etnasoft.us/api'+p,op);
-    html+=buildTryIt(n,mc,'https://{your-environment}.etnasoft.us/api'+p,op);
+    html+='<div style="margin-top:12px"><a onclick="showSingleEndpoint(\''+tag.replace(/'/g,"\\'")+'\',\''+mc+'\',\''+p.replace(/'/g,"\\'")+'\')" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:var(--ac);color:#fff;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;transition:filter .12s" onmouseover="this.style.filter=\'brightness(1.1)\'" onmouseout="this.style.filter=\'none\'">Try It \u2192</a></div>';
     html+='</div></div>';
   }}
   html+=FOOTER;
