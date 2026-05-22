@@ -13105,8 +13105,14 @@
           "type": "string"
         },
         "ExtendedHours": {
-          "description": "indicates the extended trading session for GTX order execution (pre-market session, post-market session)\r\nif empty - than there is no specific requirement for extended session",
-          "type": "string"
+          "description": "Indicates the extended trading session in which the order is eligible to execute. Wire values are lowercase-hyphen strings (NOT the title-case labels surfaced in ETNA Trader's dropdown). Valid values: \"Regular\", \"pre-market\", \"post-market\", \"All sessions\". Omit (or set to \"Regular\") for regular-session-only orders. TimeInForce=\"Day\" is valid for ext-hours; orders go live in the current session - no need for GoodTillCrossing. Verified 2026-05-22.",
+          "type": "string",
+          "enum": [
+            "Regular",
+            "pre-market",
+            "post-market",
+            "All sessions"
+          ]
         },
         "IsExternal": {
           "description": "This property indicates that order was accepted from external system and fields like ClientOrderId should be persisted.\r\nIt's a hack for orders from MessageAcceptor.\r\nAssigned be client.",
@@ -13357,8 +13363,14 @@
           "type": "string"
         },
         "ExtendedHours": {
-          "description": "indicates the extended trading session for GTX order execution (pre-market session, post-market session)\r\nif empty - than there is no specific requirement for extended session",
-          "type": "string"
+          "description": "Indicates the extended trading session in which the order is eligible to execute. Wire values are lowercase-hyphen strings (NOT the title-case labels surfaced in ETNA Trader's dropdown). Valid values: \"Regular\", \"pre-market\", \"post-market\", \"All sessions\". Omit (or set to \"Regular\") for regular-session-only orders. TimeInForce=\"Day\" is valid for ext-hours; orders go live in the current session - no need for GoodTillCrossing. Verified 2026-05-22.",
+          "type": "string",
+          "enum": [
+            "Regular",
+            "pre-market",
+            "post-market",
+            "All sessions"
+          ]
         },
         "Legs": {
           "description": "Order legs",
@@ -13459,7 +13471,14 @@
           "type": "integer"
         },
         "ExtendedHours": {
-          "type": "string"
+          "type": "string",
+          "description": "Indicates the extended trading session in which the order is eligible to execute. Wire values are lowercase-hyphen strings (NOT the title-case labels surfaced in ETNA Trader's dropdown). Valid values: \"Regular\", \"pre-market\", \"post-market\", \"All sessions\". Omit (or set to \"Regular\") for regular-session-only orders. TimeInForce=\"Day\" is valid for ext-hours; orders go live in the current session - no need for GoodTillCrossing. Verified 2026-05-22.",
+          "enum": [
+            "Regular",
+            "pre-market",
+            "post-market",
+            "All sessions"
+          ]
         },
         "Exchange": {
           "type": "string"
@@ -13716,7 +13735,14 @@
           "type": "integer"
         },
         "ExtendedHours": {
-          "type": "string"
+          "type": "string",
+          "description": "Indicates the extended trading session in which the order is eligible to execute. Wire values are lowercase-hyphen strings (NOT the title-case labels surfaced in ETNA Trader's dropdown). Valid values: \"Regular\", \"pre-market\", \"post-market\", \"All sessions\". Omit (or set to \"Regular\") for regular-session-only orders. TimeInForce=\"Day\" is valid for ext-hours; orders go live in the current session - no need for GoodTillCrossing. Verified 2026-05-22.",
+          "enum": [
+            "Regular",
+            "pre-market",
+            "post-market",
+            "All sessions"
+          ]
         },
         "Exchange": {
           "type": "string"
@@ -14330,8 +14356,14 @@
           "type": "number"
         },
         "ExtendedHours": {
-          "description": "indicates the extended trading session for GTX order execution (pre-market session, post-market session)\r\nif empty - than there is no specific requirement for extended session",
-          "type": "string"
+          "description": "Indicates the extended trading session in which the order is eligible to execute. Wire values are lowercase-hyphen strings (NOT the title-case labels surfaced in ETNA Trader's dropdown). Valid values: \"Regular\", \"pre-market\", \"post-market\", \"All sessions\". Omit (or set to \"Regular\") for regular-session-only orders. TimeInForce=\"Day\" is valid for ext-hours; orders go live in the current session - no need for GoodTillCrossing. Verified 2026-05-22.",
+          "type": "string",
+          "enum": [
+            "Regular",
+            "pre-market",
+            "post-market",
+            "All sessions"
+          ]
         },
         "Token": {
           "description": "Additional identity key (usid in market scanner).",
@@ -14563,7 +14595,14 @@
           "type": "integer"
         },
         "ExtendedHours": {
-          "type": "string"
+          "type": "string",
+          "description": "Indicates the extended trading session in which the order is eligible to execute. Wire values are lowercase-hyphen strings (NOT the title-case labels surfaced in ETNA Trader's dropdown). Valid values: \"Regular\", \"pre-market\", \"post-market\", \"All sessions\". Omit (or set to \"Regular\") for regular-session-only orders. TimeInForce=\"Day\" is valid for ext-hours; orders go live in the current session - no need for GoodTillCrossing. Verified 2026-05-22.",
+          "enum": [
+            "Regular",
+            "pre-market",
+            "post-market",
+            "All sessions"
+          ]
         },
         "Exchange": {
           "type": "string"
@@ -15084,7 +15123,14 @@
           "type": "string"
         },
         "ExtendedHours": {
-          "type": "string"
+          "type": "string",
+          "description": "Indicates the extended trading session in which the order is eligible to execute. Wire values are lowercase-hyphen strings (NOT the title-case labels surfaced in ETNA Trader's dropdown). Valid values: \"Regular\", \"pre-market\", \"post-market\", \"All sessions\". Omit (or set to \"Regular\") for regular-session-only orders. TimeInForce=\"Day\" is valid for ext-hours; orders go live in the current session - no need for GoodTillCrossing. Verified 2026-05-22.",
+          "enum": [
+            "Regular",
+            "pre-market",
+            "post-market",
+            "All sessions"
+          ]
         },
         "IsExternal": {
           "type": "boolean"
