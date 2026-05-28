@@ -20,7 +20,7 @@ This guide walks you through a complete OAuth integration in 15 minutes using cu
 
 ## Step 1 — Register your app
 
-Sign in to the [Developer Portal](https://documentation.autoshares.dev/dev-portal) (you'll use your AutoShares account credentials).
+Click **Developer Portal** in the top navigation of [documentation.autoshares.dev](https://documentation.autoshares.dev). Sign in with your AutoShares account credentials.
 
 Click **+ New app** and fill in:
 

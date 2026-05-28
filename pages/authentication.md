@@ -15,7 +15,7 @@ The AutoShares Trading API supports two authentication models depending on how y
 
 AutoShares implements the standard OAuth 2.0 authorization-code grant (RFC 6749). The flow is:
 
-1. **You** register your app at the [Developer Portal](https://documentation.autoshares.dev/dev-portal) and receive a `client_id` and `client_secret`.
+1. **You** register your app in the [Developer Portal](javascript:loadPortal\(\)) (click "Developer Portal" in the top nav) and receive a `client_id` and `client_secret`.
 2. **Your app** redirects the user's browser to AutoShares' `/oauth/authorize` endpoint with your `client_id`, a `redirect_uri` you've registered, and the scopes you need.
 3. **The user** sees an AutoShares consent screen listing what your app is asking for, then clicks **Allow**.
 4. AutoShares redirects back to your `redirect_uri` with a one-time `code`.

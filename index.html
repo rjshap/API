@@ -275,7 +275,7 @@ pre:hover .copy-btn,.code-panel:hover .copy-btn{opacity:1}
   </div>
   <nav class="hdr-nav">
     <button class="hdr-ai" onclick="toggleAI()"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v4m0 12v4m-7.07-2.93l2.83-2.83m8.48-8.48l2.83-2.83M2 12h4m12 0h4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83"/></svg>Ask AI</button>
-    <a class="hdr-cta" href="javascript:void(0)" onclick="loadDoc('pages/signup.md')">Get API Access</a>
+    <a class="hdr-cta" href="javascript:void(0)" onclick="loadPortal()">Developer Portal</a>
     <button class="hdr-icon" id="gear-btn" onclick="toggleSettings()" title="API Settings">&#9881;</button>
     <button class="hdr-icon" onclick="toggleTheme()" id="theme-btn" title="Toggle theme"></button>
   </nav>
@@ -1231,6 +1231,306 @@ function renderMd(text){
 }
 
 function aiKeydown(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();askAI()}}
+
+/* ════════════════════════════════════════════════════════════════════
+   DEVELOPER PORTAL — embedded directly in the docs site.
+
+   What this delivers:
+     • "Developer Portal" button in the header opens an in-page view
+     • Lists the user's registered apps (client_id + redirects + scopes)
+     • Creates new apps — secret shown once, then sha256-hashed at rest
+     • Revokes apps (kills all outstanding access tokens for that app)
+
+   Auth model:
+     • Sandbox: paste a user id (X-Dev-User-Id header) — bypasses JWT
+       verification in dev-allocations-api. Anyone with the doc URL
+       can self-serve a sandbox app + test OAuth flow.
+     • Production: 'Sign in' button redirects to the AutoShares OAuth
+       flow (PKCE since we're a browser-only client). On callback, the
+       token lands in sessionStorage and the portal uses it as Bearer.
+
+   Endpoints (all CORS-enabled in dev-allocations-api):
+     GET    /api/dev-portal/apps     → list my apps
+     POST   /api/dev-portal/apps     → create (returns secret once)
+     DELETE /api/dev-portal/apps/:id → revoke
+     GET    /api/dev-portal/usage    → per-day request counts
+   ════════════════════════════════════════════════════════════════════ */
+
+/* Base URL — points at the public API in production, localhost dev API
+   when developing the docs site against a local dev-allocations-api. */
+var PORTAL_API_BASE = (function(){
+  var host = location.hostname;
+  if (host === 'localhost' || host === '127.0.0.1') return 'http://localhost:5003';
+  // Production docs site → public sandbox API
+  return 'https://api.autoshares.dev';
+})();
+
+function portalToken() {
+  return sessionStorage.getItem('as_docs_portal_token') || '';
+}
+function portalUserId() {
+  return sessionStorage.getItem('as_docs_portal_uid') || '';
+}
+function portalAuthHeaders() {
+  var h = { 'Content-Type': 'application/json' };
+  var tok = portalToken();
+  var uid = portalUserId();
+  if (tok) h['Authorization'] = 'Bearer ' + tok;
+  if (uid) h['X-Dev-User-Id'] = uid;
+  return h;
+}
+function portalSignedIn() { return !!(portalToken() || portalUserId()); }
+
+function loadPortal() {
+  currentView = 'portal';
+  highlightNav();
+  document.querySelector('.sidebar').classList.remove('open');
+  var content = document.getElementById('content');
+  content.innerHTML = renderPortalShell();
+  if (portalSignedIn()) renderPortalApps();
+}
+
+function renderPortalShell() {
+  var signedIn = portalSignedIn();
+  return ''
+    + '<div class="dp-wrap" style="max-width:880px;margin:0 auto;padding:8px 0 80px">'
+    + '  <div class="dp-eyebrow">DEVELOPER PORTAL</div>'
+    + '  <h1 class="dp-h1">Your API apps</h1>'
+    + '  <p class="dp-sub">Build against AutoShares\' brokerage API. Each app gets a client ID + secret and can request user consent through OAuth 2.0.</p>'
+    + (signedIn
+        ? '<div id="dp-app-list">Loading your apps…</div>'
+          + '<div class="dp-signedin-bar">'
+          + '  Signed in as <code>' + escapeHtml(portalUserId() || '(token)') + '</code>'
+          + '  &middot; <a href="javascript:void(0)" onclick="portalSignOut()">Sign out</a>'
+          + '</div>'
+        : renderPortalSignInPrompt())
+    + '</div>'
+    + portalStyles();
+}
+
+function renderPortalSignInPrompt() {
+  return ''
+    + '<div class="dp-signin">'
+    + '  <h2 class="dp-h2">Sign in to manage your apps</h2>'
+    + '  <p>In production you\'ll click <b>Sign in with AutoShares</b> and complete the OAuth flow.'
+    + '     The button is coming once the production callback lands.</p>'
+    + '  <p>For sandbox testing today: paste your AutoShares user ID below to act as that user. The dev API accepts an <code>X-Dev-User-Id</code> header.</p>'
+    + '  <div class="dp-signin-row">'
+    + '    <input id="dp-uid-input" type="text" placeholder="e.g. etna-11 or uat-test"'
+    + '           value="etna-11">'
+    + '    <button class="dp-btn-primary" onclick="portalSignInWithUid()">Continue</button>'
+    + '  </div>'
+    + '  <p class="dp-cap">Two seeded sandbox users: <code>etna-11</code> (matches AUT-01234) and <code>uat-test</code> (matches 00000008/9).</p>'
+    + '  <hr style="margin:24px 0;border:0;border-top:1px solid var(--bd-subtle)">'
+    + '  <button class="dp-btn-oauth" disabled title="Production OAuth — wires up after PKCE support ships">Sign in with AutoShares (OAuth) — coming soon</button>'
+    + '</div>';
+}
+
+function portalSignInWithUid() {
+  var uid = (document.getElementById('dp-uid-input') || {}).value || '';
+  uid = uid.trim();
+  if (!uid) { alert('Enter a user ID'); return; }
+  sessionStorage.setItem('as_docs_portal_uid', uid);
+  loadPortal();
+}
+function portalSignOut() {
+  sessionStorage.removeItem('as_docs_portal_token');
+  sessionStorage.removeItem('as_docs_portal_uid');
+  loadPortal();
+}
+
+function renderPortalApps() {
+  fetch(PORTAL_API_BASE + '/api/dev-portal/apps', { headers: portalAuthHeaders() })
+    .then(function(r){ return r.json(); })
+    .then(function(j){
+      var listEl = document.getElementById('dp-app-list');
+      if (!listEl) return;
+      var apps = (j && j.apps) || [];
+      var html = '<button class="dp-btn-primary dp-new-btn" onclick="portalToggleNew()">+ New app</button>';
+      html += '<div id="dp-new-panel" style="display:none">' + renderPortalNewForm() + '</div>';
+      html += '<div id="dp-fresh-panel"></div>';
+      if (!apps.length) {
+        html += '<div class="dp-empty">No apps yet. Click <b>+ New app</b> to create one.</div>';
+      } else {
+        apps.forEach(function(a){ html += renderPortalAppCard(a); });
+      }
+      listEl.innerHTML = html;
+    })
+    .catch(function(){
+      var el = document.getElementById('dp-app-list');
+      if (el) el.innerHTML = '<div class="dp-err">Could not load apps. Is the API reachable at <code>' + PORTAL_API_BASE + '</code>?</div>';
+    });
+}
+
+function renderPortalNewForm() {
+  var scopes = [
+    { key: 'read',      label: 'Read balances, positions, and order history' },
+    { key: 'orders',    label: 'Place, modify, and cancel orders' },
+    { key: 'clearing',  label: 'Read clearing records' },
+    { key: 'account',   label: 'Read profile + KYC + documents' },
+    { key: 'streaming', label: 'WebSocket quote feed' },
+  ];
+  return ''
+    + '<div class="dp-card dp-card-new">'
+    + '<h2 class="dp-h2">Register a new app</h2>'
+    + '<div class="dp-field"><label>App name</label>'
+    + '<input id="dp-new-name" type="text" placeholder="My trading bot" maxlength="60"></div>'
+    + '<div class="dp-field"><label>Redirect URI(s) — one per line</label>'
+    + '<textarea id="dp-new-redirects" rows="3" placeholder="https://myapp.com/oauth/callback"></textarea>'
+    + '<p class="dp-hint">Where AutoShares sends users after they approve. Must match exactly. Use <code>http://localhost:3000/cb</code> for development.</p></div>'
+    + '<div class="dp-field"><label>Scopes</label><div class="dp-scopes">'
+    + scopes.map(function(s){
+        return '<label class="dp-scope">'
+          + '<input type="checkbox" data-scope="' + s.key + '"' + (s.key === 'read' ? ' checked' : '') + '>'
+          + '<span class="dp-scope-key">' + s.key + '</span>'
+          + '<span class="dp-scope-desc">' + s.label + '</span></label>';
+      }).join('')
+    + '</div></div>'
+    + '<div class="dp-actions">'
+    + '<button class="dp-btn-link" onclick="portalToggleNew()">Cancel</button>'
+    + '<button class="dp-btn-primary" onclick="portalCreate()">Create app</button>'
+    + '</div>'
+    + '<div id="dp-new-err" class="dp-err" style="display:none"></div>'
+    + '</div>';
+}
+
+function portalToggleNew() {
+  var p = document.getElementById('dp-new-panel');
+  if (!p) return;
+  p.style.display = (p.style.display === 'none' ? 'block' : 'none');
+}
+
+function portalCreate() {
+  var name = (document.getElementById('dp-new-name') || {}).value || '';
+  var redirects = (document.getElementById('dp-new-redirects') || {}).value || '';
+  var scopeChecks = document.querySelectorAll('#dp-new-panel input[type="checkbox"][data-scope]:checked');
+  var scopes = [];
+  for (var i = 0; i < scopeChecks.length; i++) scopes.push(scopeChecks[i].getAttribute('data-scope'));
+  var redirectUris = redirects.split(/\r?\n/).map(function(s){ return s.trim(); }).filter(Boolean);
+  if (!name.trim()) { portalShowCreateErr('Name required'); return; }
+  if (!redirectUris.length) { portalShowCreateErr('At least one redirect URI required'); return; }
+  if (!scopes.length) { portalShowCreateErr('Pick at least one scope'); return; }
+  fetch(PORTAL_API_BASE + '/api/dev-portal/apps', {
+    method: 'POST', headers: portalAuthHeaders(),
+    body: JSON.stringify({ name: name.trim(), redirectUris: redirectUris, scopes: scopes }),
+  })
+    .then(function(r){ return r.json().then(function(j){ return { ok: r.ok, body: j }; }); })
+    .then(function(r){
+      if (!r.ok || !r.body.ok) { portalShowCreateErr(r.body.error || 'Create failed'); return; }
+      var freshEl = document.getElementById('dp-fresh-panel');
+      if (freshEl) freshEl.innerHTML = renderPortalFreshSecret(r.body.app.clientId, r.body.clientSecret);
+      portalToggleNew();
+      renderPortalApps();
+    })
+    .catch(function(){ portalShowCreateErr('Network error — check the API URL'); });
+}
+
+function portalShowCreateErr(msg) {
+  var el = document.getElementById('dp-new-err');
+  if (el) { el.style.display = 'block'; el.textContent = msg; }
+}
+
+function renderPortalFreshSecret(clientId, secret) {
+  return ''
+    + '<div class="dp-fresh">'
+    + '<div class="dp-fresh-h">App created — save your client secret now</div>'
+    + '<div class="dp-fresh-row"><span class="dp-fresh-lbl">Client ID</span>'
+    + '<code>' + escapeHtml(clientId) + '</code></div>'
+    + '<div class="dp-fresh-row"><span class="dp-fresh-lbl">Client secret</span>'
+    + '<code class="dp-fresh-secret">' + escapeHtml(secret) + '</code></div>'
+    + '<p class="dp-fresh-warn">⚠ This secret will not be shown again. Store it in your server-side env config — never in the browser.</p>'
+    + '<button class="dp-btn-primary" onclick="this.parentNode.style.display=\'none\'">I\'ve stored it</button>'
+    + '</div>';
+}
+
+function renderPortalAppCard(a) {
+  var statusClass = (a.status === 'active' ? 'dp-stat-active' : 'dp-stat-revoked');
+  return ''
+    + '<div class="dp-card" style="' + (a.status === 'revoked' ? 'opacity:.55' : '') + '">'
+    + '<div class="dp-card-head">'
+    + '<div><div class="dp-card-name">' + escapeHtml(a.name) + '</div>'
+    + '<div class="dp-card-meta">Created ' + new Date(a.createdAt).toLocaleDateString() + ' &middot; <code>' + escapeHtml(a.clientId) + '</code></div></div>'
+    + '<span class="dp-status ' + statusClass + '">' + a.status + '</span>'
+    + '</div>'
+    + '<div class="dp-card-row"><span class="dp-card-lbl">Redirect URIs</span><ul style="margin:0;padding-left:18px">'
+    + a.redirectUris.map(function(u){ return '<li><code>' + escapeHtml(u) + '</code></li>'; }).join('')
+    + '</ul></div>'
+    + '<div class="dp-card-row"><span class="dp-card-lbl">Scopes</span><div>'
+    + a.scopes.map(function(s){ return '<span class="dp-scope-tag">' + s + '</span>'; }).join('')
+    + '</div></div>'
+    + (a.status === 'active'
+        ? '<div class="dp-card-actions"><button class="dp-btn-revoke" onclick="portalRevoke(\'' + a.id + '\', \'' + escapeHtml(a.name).replace(/\\/g,'').replace(/\'/g,"\\\'") + '\')">Revoke app</button></div>'
+        : '')
+    + '</div>';
+}
+
+function portalRevoke(id, name) {
+  if (!confirm('Revoke "' + name + '"? This kills the app and every outstanding access token. Cannot be undone.')) return;
+  fetch(PORTAL_API_BASE + '/api/dev-portal/apps/' + id, { method: 'DELETE', headers: portalAuthHeaders() })
+    .then(function(){ renderPortalApps(); });
+}
+
+function escapeHtml(s){ return String(s).replace(/[&<>"]/g, function(c){ return ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' })[c]; }); }
+
+function portalStyles() {
+  return ''
+    + '<style>'
+    + '.dp-wrap{color:var(--fg);}'
+    + '.dp-eyebrow{font-size:10.5px;font-weight:800;letter-spacing:.08em;color:var(--fg-mute);margin-bottom:4px}'
+    + '.dp-h1{margin:0;font-size:26px;font-weight:800}'
+    + '.dp-h2{margin:0 0 12px;font-size:16px;font-weight:800}'
+    + '.dp-sub{margin:6px 0 22px;color:var(--fg-dim);font-size:13.5px}'
+    + '.dp-signin{background:var(--bg-soft);border:1px solid var(--bd-subtle);border-radius:10px;padding:24px 26px;max-width:560px}'
+    + '.dp-signin p{margin:8px 0;color:var(--fg-dim);font-size:13px;line-height:1.5}'
+    + '.dp-signin code{background:rgba(0,0,0,.06);padding:1px 5px;border-radius:3px;font-size:12px}'
+    + '.dp-signin-row{display:flex;gap:8px;margin-top:14px}'
+    + '.dp-signin-row input{flex:1;padding:9px 12px;border:1px solid var(--bd-subtle);border-radius:5px;font:inherit;background:var(--bg);color:var(--fg)}'
+    + '.dp-cap{font-size:11.5px;color:var(--fg-mute);margin-top:8px}'
+    + '.dp-signedin-bar{margin-top:14px;padding:8px 12px;background:rgba(10,37,64,.05);border-radius:6px;font-size:12px;color:var(--fg-dim)}'
+    + '.dp-new-btn{margin-bottom:14px}'
+    + '.dp-empty{padding:32px;text-align:center;color:var(--fg-mute);background:rgba(10,37,64,.03);border-radius:10px;border:1px dashed var(--bd-subtle)}'
+    + '.dp-card{background:var(--bg);border:1px solid var(--bd-subtle);border-radius:10px;padding:16px 20px;margin-bottom:12px}'
+    + '.dp-card-new{background:var(--bg-soft)}'
+    + '.dp-card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:10px}'
+    + '.dp-card-name{font-size:15px;font-weight:800;margin-bottom:2px}'
+    + '.dp-card-meta{font-size:11.5px;color:var(--fg-mute)}'
+    + '.dp-card-meta code{background:rgba(0,0,0,.06);padding:1px 5px;border-radius:3px}'
+    + '.dp-status{padding:2px 8px;border-radius:4px;font-size:10.5px;font-weight:800;letter-spacing:.04em;text-transform:uppercase}'
+    + '.dp-stat-active{background:rgba(22,163,74,.12);color:#16a34a}'
+    + '.dp-stat-revoked{background:rgba(214,37,52,.10);color:#c92020}'
+    + '.dp-card-row{display:flex;align-items:flex-start;gap:10px;padding:6px 0;font-size:12.5px}'
+    + '.dp-card-lbl{font-size:10.5px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--fg-mute);min-width:120px;padding-top:2px}'
+    + '.dp-scope-tag{display:inline-block;padding:1px 8px;margin-right:4px;background:rgba(10,37,64,.06);border-radius:4px;font-family:monospace;font-size:11px;font-weight:700}'
+    + '.dp-card-actions{margin-top:8px}'
+    + '.dp-btn-primary{padding:8px 16px;background:#0a2540;color:#fff;border:1px solid #0a2540;border-radius:5px;font:inherit;font-weight:700;font-size:13px;cursor:pointer}'
+    + '.dp-btn-primary:hover{background:#11315a}'
+    + '.dp-btn-primary:disabled{opacity:.5;cursor:not-allowed}'
+    + '.dp-btn-link{padding:8px 14px;background:transparent;color:var(--fg-dim);border:1px solid var(--bd-subtle);border-radius:5px;font:inherit;font-weight:700;font-size:13px;cursor:pointer}'
+    + '.dp-btn-revoke{padding:6px 12px;background:transparent;color:#c92020;border:1px solid rgba(214,37,52,.35);border-radius:5px;font:inherit;font-weight:700;font-size:12px;cursor:pointer}'
+    + '.dp-btn-oauth{padding:9px 16px;background:transparent;color:var(--fg-mute);border:1px solid var(--bd-subtle);border-radius:5px;font:inherit;font-weight:700;font-size:13px;cursor:pointer;width:100%}'
+    + '.dp-field{margin-bottom:14px}'
+    + '.dp-field label{display:block;font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--fg-dim);margin-bottom:4px}'
+    + '.dp-field input[type="text"],.dp-field textarea{width:100%;padding:9px 12px;border:1px solid var(--bd-subtle);border-radius:5px;font:inherit;font-size:13.5px;background:var(--bg);color:var(--fg)}'
+    + '.dp-field textarea{font-family:monospace;font-size:12.5px}'
+    + '.dp-hint{margin:4px 0 0;font-size:11px;color:var(--fg-mute)}'
+    + '.dp-hint code{background:rgba(0,0,0,.06);padding:1px 4px;border-radius:3px}'
+    + '.dp-scopes{display:flex;flex-direction:column;gap:6px}'
+    + '.dp-scope{display:grid;grid-template-columns:20px 100px 1fr;gap:8px;align-items:center;font-size:13px;padding:4px 0}'
+    + '.dp-scope-key{font-family:monospace;font-weight:700}'
+    + '.dp-scope-desc{color:var(--fg-dim)}'
+    + '.dp-actions{display:flex;gap:8px;justify-content:flex-end}'
+    + '.dp-err{color:#c92020;font-size:12.5px;font-weight:600;margin-top:10px}'
+    + '.dp-fresh{background:linear-gradient(135deg,rgba(22,163,74,.12),rgba(22,163,74,.04));border:1px solid rgba(22,163,74,.35);border-radius:10px;padding:18px 20px;margin-bottom:18px}'
+    + '.dp-fresh-h{font-size:14px;font-weight:800;color:#15803d;margin-bottom:12px}'
+    + '.dp-fresh-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}'
+    + '.dp-fresh-lbl{font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--fg-mute);min-width:110px}'
+    + '.dp-fresh-row code{font-family:monospace;font-size:12.5px;padding:4px 8px;background:rgba(0,0,0,.06);border-radius:4px;word-break:break-all}'
+    + '.dp-fresh-secret{color:#c92020;font-weight:700}'
+    + '.dp-fresh-warn{margin:8px 0;font-size:11.5px;color:var(--fg-dim)}'
+    + ':root{--bd-subtle:rgba(10,37,64,.12);--bg-soft:#f6f9fc;--bg:#fff;--fg:#0a2540;--fg-dim:#4a5d75;--fg-mute:#8b9aae}'
+    + '[data-theme="dark"]{--bd-subtle:rgba(48,54,61,.7);--bg-soft:#0d1117;--bg:#161b22;--fg:#e6edf3;--fg-dim:#b1bac4;--fg-mute:#8b949e}'
+    + '</style>';
+}
 </script>
 
 <!-- AI Helper -->
