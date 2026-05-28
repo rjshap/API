@@ -386,6 +386,16 @@ fetch('openapi.json?v='+Date.now()).then(function(r){return r.json()}).then(func
   apiTags=Object.keys(tagSet).sort().map(function(t){return{name:t,count:tagSet[t]}});
   renderNav('');
   var h=location.hash.slice(1);
+  // OAuth callback — if the URL has ?code=…, exchange it for an
+  // access token before deciding what view to render. Returns
+  // immediately if there's no code in the URL.
+  var hasOAuthCallback = new URLSearchParams(location.search).has('code');
+  if (hasOAuthCallback) {
+    // portalHandleCallback() ends by calling loadPortal() so we don't
+    // need to render anything else in this branch.
+    portalHandleCallback();
+    return;
+  }
   if(h&&h.startsWith('api:'))showApiTag(h.slice(4));
   else if(h)loadDoc(h);
   else loadDoc('pages/welcome.md');
@@ -1281,6 +1291,91 @@ function portalAuthHeaders() {
 }
 function portalSignedIn() { return !!(portalToken() || portalUserId()); }
 
+/* ── PKCE helpers ─────────────────────────────────────────────────── */
+function pkceRandom(len) {
+  var bytes = new Uint8Array(len);
+  crypto.getRandomValues(bytes);
+  return btoa(String.fromCharCode.apply(null, bytes))
+    .replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '').slice(0, len);
+}
+async function pkceChallenge(verifier) {
+  var enc = new TextEncoder().encode(verifier);
+  var buf = await crypto.subtle.digest('SHA-256', enc);
+  var bytes = new Uint8Array(buf);
+  var s = '';
+  for (var i = 0; i < bytes.length; i++) s += String.fromCharCode(bytes[i]);
+  return btoa(s).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+
+/* ── OAuth sign-in (PKCE) ─────────────────────────────────────────── */
+async function portalOAuthSignIn() {
+  var verifier = pkceRandom(64);
+  var challenge = await pkceChallenge(verifier);
+  var state = pkceRandom(24);
+  sessionStorage.setItem('as_docs_pkce_verifier', verifier);
+  sessionStorage.setItem('as_docs_pkce_state', state);
+  var redirectUri = location.origin + location.pathname;
+  var params = new URLSearchParams({
+    client_id: 'as_docs_portal',
+    redirect_uri: redirectUri,
+    scope: 'portal_admin',
+    state: state,
+    code_challenge: challenge,
+    code_challenge_method: 'S256',
+  });
+  // The consent screen lives in the v2UI Angular app, not on the API.
+  // The API's /oauth/authorize is a JSON metadata endpoint; the Angular
+  // component at /oauth/consent renders the UI and POSTs the decision.
+  //
+  // Dev:   localhost:5001/oauth/consent (v2UI on local ng-serve)
+  // Prod:  www.autoshares.com/oauth/consent (TBD final domain)
+  var consentBase;
+  if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+    consentBase = 'http://localhost:5001';
+  } else {
+    consentBase = 'https://www.autoshares.com';
+  }
+  location.href = consentBase + '/oauth/consent?' + params.toString();
+}
+
+/* ── OAuth callback — runs on every page load ──────────────────────── */
+async function portalHandleCallback() {
+  var params = new URLSearchParams(location.search);
+  var code = params.get('code');
+  var state = params.get('state');
+  if (!code) return;
+  // Verify state to defeat CSRF
+  if (state !== sessionStorage.getItem('as_docs_pkce_state')) {
+    console.warn('[Portal] OAuth state mismatch — ignoring callback');
+    return;
+  }
+  var verifier = sessionStorage.getItem('as_docs_pkce_verifier');
+  if (!verifier) { console.warn('[Portal] PKCE verifier missing'); return; }
+  try {
+    var r = await fetch(PORTAL_API_BASE + '/oauth/token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        grant_type: 'authorization_code',
+        code: code, client_id: 'as_docs_portal',
+        code_verifier: verifier,
+      }),
+    });
+    var j = await r.json();
+    if (j.access_token) {
+      sessionStorage.setItem('as_docs_portal_token', j.access_token);
+      sessionStorage.removeItem('as_docs_pkce_verifier');
+      sessionStorage.removeItem('as_docs_pkce_state');
+    }
+  } catch (e) {
+    console.error('[Portal] token exchange failed:', e);
+  }
+  // Clean the URL — strip ?code/?state
+  history.replaceState({}, document.title, location.origin + location.pathname);
+  // If user was on the portal view, re-render it
+  if (currentView === 'portal' || true) loadPortal();
+}
+
 function loadPortal() {
   currentView = 'portal';
   highlightNav();
@@ -1322,7 +1417,8 @@ function renderPortalSignInPrompt() {
     + '  </div>'
     + '  <p class="dp-cap">Two seeded sandbox users: <code>etna-11</code> (matches AUT-01234) and <code>uat-test</code> (matches 00000008/9).</p>'
     + '  <hr style="margin:24px 0;border:0;border-top:1px solid var(--bd-subtle)">'
-    + '  <button class="dp-btn-oauth" disabled title="Production OAuth — wires up after PKCE support ships">Sign in with AutoShares (OAuth) — coming soon</button>'
+    + '  <button class="dp-btn-primary" style="width:100%" onclick="portalOAuthSignIn()">Sign in with AutoShares (OAuth)</button>'
+    + '  <p class="dp-cap" style="margin-top:8px">Redirects you to AutoShares to grant access. Uses OAuth 2.0 with PKCE.</p>'
     + '</div>';
 }
 
