@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Signing you in… — AutoShares</title>
+  <meta name="robots" content="noindex,nofollow">
+  <style>
+    body { margin: 0; padding: 0; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+           font-family: 'Inter', system-ui, sans-serif; background: #f6f9fc; color: #0a2540; }
+    .card { background: #fff; border: 1px solid rgba(10,37,64,.12); border-radius: 12px; padding: 28px 32px;
+            max-width: 440px; text-align: center; box-shadow: 0 8px 28px rgba(10,37,64,.10); }
+    .spinner { width: 28px; height: 28px; margin: 0 auto 14px; border: 3px solid rgba(10,37,64,.15); border-top-color: #0a2540;
+               border-radius: 50%; animation: spin .8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    h1 { margin: 0 0 4px; font-size: 17px; font-weight: 800; }
+    p { margin: 4px 0; color: #4a5d75; font-size: 13px; }
+    .err { color: #c92020; font-weight: 600; }
+    .link { display: inline-block; margin-top: 12px; padding: 7px 14px; background: #0a2540; color: #fff;
+            border-radius: 5px; text-decoration: none; font-weight: 700; font-size: 13px; }
+  </style>
+</head>
+<body>
+  <div class="card" id="card">
+    <div class="spinner" id="spin"></div>
+    <h1 id="title">Completing sign-in…</h1>
+    <p id="msg">Exchanging your authorization code for an access token.</p>
+  </div>
+  <script>
+  /**
+   * /oauth/callback.html — dedicated OAuth 2.0 redirect target.
+   *
+   * Why a separate page (not the main docs index): the previous design
+   * ran callback detection on every page load of index.html — wasteful
+   * and made the URL ?code=… cleanup logic fragile. Now the consent
+   * flow redirects here, this page completes the exchange, and bounces
+   * back to the main docs with the portal view open.
+   */
+  (function() {
+    var params = new URLSearchParams(location.search);
+    var code  = params.get('code');
+    var state = params.get('state');
+    var err   = params.get('error');
+    var title = document.getElementById('title');
+    var msg   = document.getElementById('msg');
+    var spin  = document.getElementById('spin');
+    var card  = document.getElementById('card');
+
+    function fail(message, detail) {
+      spin.style.display = 'none';
+      title.textContent = message;
+      title.className = 'err';
+      msg.textContent = detail || '';
+      var btn = document.createElement('a');
+      btn.className = 'link';
+      btn.textContent = 'Back to docs';
+      btn.href = '/';
+      card.appendChild(btn);
+    }
+
+    if (err) { fail('Sign-in cancelled', err); return; }
+    if (!code) { fail('Invalid callback URL', 'No authorization code present.'); return; }
+
+    var savedState = sessionStorage.getItem('as_docs_pkce_state');
+    if (state !== savedState) { fail('State mismatch', 'This may indicate a cross-site request — try signing in again.'); return; }
+
+    var verifier = sessionStorage.getItem('as_docs_pkce_verifier');
+    if (!verifier) { fail('Missing PKCE verifier', 'Start the sign-in from the Developer Portal page.'); return; }
+
+    // PORTAL_API_BASE — matches the logic in the main docs index.html.
+    var apiBase = (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
+      ? 'http://localhost:5003'
+      : 'https://api.autoshares.dev';
+
+    fetch(apiBase + '/oauth/token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        grant_type: 'authorization_code',
+        code: code,
+        client_id: 'as_docs_portal',
+        code_verifier: verifier,
+      }),
+    })
+      .then(function(r) { return r.json().then(function(j) { return { ok: r.ok, body: j }; }); })
+      .then(function(r) {
+        if (!r.ok || !r.body.access_token) {
+          fail('Token exchange failed', r.body.error || 'The OAuth server rejected the code.');
+          return;
+        }
+        sessionStorage.setItem('as_docs_portal_token', r.body.access_token);
+        if (r.body.refresh_token) sessionStorage.setItem('as_docs_portal_refresh', r.body.refresh_token);
+        if (r.body.expires_in) sessionStorage.setItem('as_docs_portal_token_exp', Date.now() + r.body.expires_in * 1000);
+        sessionStorage.removeItem('as_docs_pkce_verifier');
+        sessionStorage.removeItem('as_docs_pkce_state');
+        title.textContent = 'Signed in';
+        msg.textContent = 'Redirecting you back to the Developer Portal…';
+        setTimeout(function() { location.href = '/#portal'; }, 600);
+      })
+      .catch(function(e) {
+        fail('Network error', e?.message || 'Could not reach the OAuth server.');
+      });
+  })();
+  </script>
+</body>
+</html>
