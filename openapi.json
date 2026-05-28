@@ -9978,6 +9978,702 @@
         ],
         "responses": {}
       }
+    },
+    "/oauth/authorize": {
+      "get": {
+        "tags": [
+          "OAuth 2.0"
+        ],
+        "summary": "Initiate OAuth authorization",
+        "description": "Validates a third-party app's authorization request and returns metadata needed to render the consent screen. The user's browser is redirected here from the third-party app.",
+        "operationId": "OAuth_authorize",
+        "parameters": [
+          {
+            "name": "client_id",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "The third-party app's client_id, issued by the Developer Portal."
+          },
+          {
+            "name": "redirect_uri",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "Where to send the user after they grant or deny consent. Must match exactly a URI registered for the app."
+          },
+          {
+            "name": "scope",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "Space-separated list of requested scopes (e.g. \"read orders\"). Must be a subset of the app's registered scopes."
+          },
+          {
+            "name": "state",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "Random opaque string the third-party app generates. Echoed back to defeat CSRF."
+          },
+          {
+            "name": "response_type",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": "Currently only \"code\" is supported.",
+            "default": "code"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authorization request validated. Body contains metadata for the consent screen."
+          },
+          "400": {
+            "description": "redirect_uri not registered, or scope exceeds app permissions."
+          },
+          "404": {
+            "description": "Unknown client_id, or app has been revoked."
+          }
+        }
+      }
+    },
+    "/oauth/token": {
+      "post": {
+        "tags": [
+          "OAuth 2.0"
+        ],
+        "summary": "Exchange code for access token",
+        "description": "Back-channel endpoint. Third-party app's server (never browser) exchanges a single-use authorization code for an access token bound to the user who granted consent.",
+        "operationId": "OAuth_token",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "grant_type",
+                "code",
+                "client_id",
+                "client_secret"
+              ],
+              "properties": {
+                "grant_type": {
+                  "type": "string",
+                  "enum": [
+                    "authorization_code"
+                  ],
+                  "description": "Must be \"authorization_code\". The refresh_token grant is queued for a future release."
+                },
+                "code": {
+                  "type": "string",
+                  "description": "The authorization code received at the redirect_uri."
+                },
+                "client_id": {
+                  "type": "string",
+                  "description": "The third-party app's client_id."
+                },
+                "client_secret": {
+                  "type": "string",
+                  "description": "The third-party app's confidential client secret. Server-side only."
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Access token issued.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "access_token": {
+                  "type": "string",
+                  "description": "Bearer token for all /api/v1/* calls. Prefix: \"asat_\"."
+                },
+                "token_type": {
+                  "type": "string",
+                  "enum": [
+                    "Bearer"
+                  ]
+                },
+                "expires_in": {
+                  "type": "integer",
+                  "description": "Seconds until expiration. Currently 5400 (90 min)."
+                },
+                "scope": {
+                  "type": "string",
+                  "description": "Space-separated granted scopes."
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid grant_type, code expired/used, or client_id mismatch."
+          },
+          "401": {
+            "description": "Invalid client_secret."
+          }
+        }
+      }
+    },
+    "/oauth/revoke": {
+      "post": {
+        "tags": [
+          "OAuth 2.0"
+        ],
+        "summary": "Revoke an access token",
+        "description": "Kills a token before its TTL. RFC 7009 — always returns 200, even for unknown tokens, to prevent enumeration.",
+        "operationId": "OAuth_revoke",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "token"
+              ],
+              "properties": {
+                "token": {
+                  "type": "string",
+                  "description": "The access token to revoke."
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Always returned per RFC 7009."
+          }
+        }
+      }
+    },
+    "/api/v1/me": {
+      "get": {
+        "tags": [
+          "Developer API v1"
+        ],
+        "summary": "Identify the authenticated user",
+        "description": "Returns the AutoShares user whose access token was used to authenticate, plus the third-party app's identity and the granted scopes.",
+        "operationId": "API_v1_me",
+        "security": [
+          {
+            "OAuth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "userId": {
+                  "type": "string",
+                  "description": "AutoShares user ID (Entra OIDC sub claim)."
+                },
+                "appName": {
+                  "type": "string",
+                  "description": "Display name of the third-party app."
+                },
+                "clientId": {
+                  "type": "string",
+                  "description": "The third-party app's client_id."
+                },
+                "grantedScopes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "Scopes the user granted on this token."
+                },
+                "enabledScopes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "Scopes the user has enabled at the platform level. Per-user ceiling."
+                },
+                "accountCount": {
+                  "type": "integer",
+                  "description": "Number of AutoShares accounts the user owns."
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid Authorization header."
+          }
+        }
+      }
+    },
+    "/api/v1/accounts": {
+      "get": {
+        "tags": [
+          "Developer API v1"
+        ],
+        "summary": "List the user's accounts",
+        "description": "Returns every account the authenticated user owns. The third-party app can only act on accounts in this list — passing any other account number to subsequent endpoints results in 403.",
+        "operationId": "API_v1_accounts",
+        "security": [
+          {
+            "OAuth2": [
+              "read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ok": {
+                  "type": "boolean"
+                },
+                "userId": {
+                  "type": "string"
+                },
+                "accounts": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "acct_no": {
+                        "type": "string"
+                      },
+                      "acct_type": {
+                        "type": "string",
+                        "enum": [
+                          "C",
+                          "M"
+                        ],
+                        "description": "\"C\" = cash, \"M\" = margin."
+                      },
+                      "corr": {
+                        "type": "string"
+                      },
+                      "office": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "individual",
+                          "ira",
+                          "joint",
+                          "entity"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid Authorization header."
+          }
+        }
+      }
+    },
+    "/api/v1/accounts/{acct_no}/balances": {
+      "get": {
+        "tags": [
+          "Developer API v1"
+        ],
+        "summary": "Get account balances",
+        "description": "Returns current balances for one account the user owns. AutoShares verifies the account is owned by the authenticated user before forwarding to ETNA.",
+        "operationId": "API_v1_balances",
+        "security": [
+          {
+            "OAuth2": [
+              "read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "acct_no",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Clearing account number from /api/v1/accounts."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ok": {
+                  "type": "boolean"
+                },
+                "account": {
+                  "type": "string"
+                },
+                "balances": {
+                  "type": "object",
+                  "properties": {
+                    "currency": {
+                      "type": "string"
+                    },
+                    "equity": {
+                      "type": "number"
+                    },
+                    "cashBalance": {
+                      "type": "number"
+                    },
+                    "buyingPower": {
+                      "type": "number"
+                    },
+                    "dayTradeBuyingPower": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid Authorization header."
+          },
+          "403": {
+            "description": "Account does not belong to the authenticated user."
+          }
+        }
+      }
+    },
+    "/api/v1/accounts/{acct_no}/orders": {
+      "post": {
+        "tags": [
+          "Developer API v1"
+        ],
+        "summary": "Place an order",
+        "description": "Submits an order on behalf of the authenticated user. Requires the \"orders\" scope on the access token AND the user must have \"orders\" in their enabled scopes.",
+        "operationId": "API_v1_place_order",
+        "security": [
+          {
+            "OAuth2": [
+              "orders"
+            ]
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "acct_no",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Clearing account number."
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "symbol",
+                "side",
+                "qty",
+                "type"
+              ],
+              "properties": {
+                "symbol": {
+                  "type": "string",
+                  "description": "Ticker symbol (uppercase)."
+                },
+                "side": {
+                  "type": "string",
+                  "enum": [
+                    "buy",
+                    "sell",
+                    "sell-short",
+                    "buy-to-cover"
+                  ]
+                },
+                "qty": {
+                  "type": "integer",
+                  "description": "Number of shares."
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "market",
+                    "limit",
+                    "stop",
+                    "stop-limit"
+                  ]
+                },
+                "limitPrice": {
+                  "type": "number",
+                  "description": "Required when type is \"limit\" or \"stop-limit\"."
+                },
+                "stopPrice": {
+                  "type": "number",
+                  "description": "Required when type is \"stop\" or \"stop-limit\"."
+                },
+                "tif": {
+                  "type": "string",
+                  "enum": [
+                    "Day",
+                    "GTC",
+                    "GTD",
+                    "IOC",
+                    "FOK"
+                  ],
+                  "default": "Day"
+                },
+                "session": {
+                  "type": "string",
+                  "enum": [
+                    "Regular",
+                    "Pre",
+                    "Post",
+                    "All"
+                  ],
+                  "default": "Regular"
+                },
+                "reference": {
+                  "type": "string",
+                  "description": "Free-form tag stamped on the order for /pnl source attribution."
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Order submitted to upstream broker.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ok": {
+                  "type": "boolean"
+                },
+                "orderId": {
+                  "type": "string"
+                },
+                "account": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid Authorization header."
+          },
+          "403": {
+            "description": "Token missing required scope \"orders\", user disabled \"orders\" scope, or account does not belong to user."
+          }
+        }
+      }
+    },
+    "/api/dev-portal/apps": {
+      "get": {
+        "tags": [
+          "Developer Portal"
+        ],
+        "summary": "List your registered apps",
+        "description": "Returns every developer app owned by the authenticated AutoShares user. The client_secret is NEVER returned here — only the public client_id.",
+        "operationId": "DevPortal_list_apps",
+        "security": [
+          {
+            "Session": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Not signed in."
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Developer Portal"
+        ],
+        "summary": "Register a new app",
+        "description": "Creates a new developer app and returns the client_secret EXACTLY ONCE. The secret is sha256-hashed at rest and cannot be retrieved again.",
+        "operationId": "DevPortal_create_app",
+        "security": [
+          {
+            "Session": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "name",
+                "redirectUris",
+                "scopes"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "maxLength": 60,
+                  "description": "Display name shown on the consent screen."
+                },
+                "redirectUris": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "maxItems": 5,
+                  "description": "Where AutoShares sends users after consent. Each URI must match exactly."
+                },
+                "scopes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "Scopes the app can request. The user can authorize fewer but never more."
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "App created.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ok": {
+                  "type": "boolean"
+                },
+                "app": {
+                  "type": "object"
+                },
+                "clientSecret": {
+                  "type": "string",
+                  "description": "RETURNED ONCE — never again. Store in server-side env config."
+                },
+                "warning": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing name or redirectUris."
+          },
+          "401": {
+            "description": "Not signed in."
+          }
+        }
+      }
+    },
+    "/api/dev-portal/apps/{id}": {
+      "delete": {
+        "tags": [
+          "Developer Portal"
+        ],
+        "summary": "Revoke an app",
+        "description": "Marks the app as revoked and kills every outstanding access token issued for it.",
+        "operationId": "DevPortal_revoke_app",
+        "security": [
+          {
+            "Session": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "App ID (from POST /api/dev-portal/apps)."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "App revoked."
+          },
+          "401": {
+            "description": "Not signed in."
+          },
+          "404": {
+            "description": "App not found or owned by another user."
+          }
+        }
+      }
+    },
+    "/api/dev-portal/usage": {
+      "get": {
+        "tags": [
+          "Developer Portal"
+        ],
+        "summary": "Per-day request count",
+        "description": "Returns per-app, per-day API call counts for every app owned by the authenticated user. Drives the usage graph in the Developer Portal.",
+        "operationId": "DevPortal_usage",
+        "security": [
+          {
+            "Session": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ok": {
+                  "type": "boolean"
+                },
+                "usage": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "clientId": {
+                        "type": "string"
+                      },
+                      "day": {
+                        "type": "string",
+                        "description": "YYYY-MM-DD."
+                      },
+                      "count": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not signed in."
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -19588,6 +20284,39 @@
     },
     {
       "name": "Login"
+    },
+    {
+      "name": "OAuth 2.0",
+      "description": "OAuth 2.0 authorization-code grant for third-party developer apps. See the OAuth Quickstart guide for a full walkthrough."
+    },
+    {
+      "name": "Developer API v1",
+      "description": "OAuth-protected endpoints third-party apps call after acquiring an access token. Replaces the direct ETNA token flow for third-party use."
+    },
+    {
+      "name": "Developer Portal",
+      "description": "Endpoints for managing developer apps. Requires an AutoShares session — not OAuth-authenticated."
     }
-  ]
+  ],
+  "securityDefinitions": {
+    "OAuth2": {
+      "type": "oauth2",
+      "flow": "accessCode",
+      "authorizationUrl": "https://api.autoshares.dev/oauth/authorize",
+      "tokenUrl": "https://api.autoshares.dev/oauth/token",
+      "scopes": {
+        "read": "Read balances, positions, and order history.",
+        "orders": "Place, modify, and cancel orders.",
+        "clearing": "Read clearing records — transfers, transactions, statements.",
+        "account": "Read profile, KYC status, account documents.",
+        "streaming": "Subscribe to WebSocket quote feed."
+      }
+    },
+    "Session": {
+      "type": "apiKey",
+      "in": "cookie",
+      "name": "autoshares_session",
+      "description": "Session cookie issued at AutoShares sign-in. Used by /api/dev-portal/* endpoints. Not for third-party integration."
+    }
+  }
 }
