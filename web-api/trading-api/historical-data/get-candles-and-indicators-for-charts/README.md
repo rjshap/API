@@ -144,7 +144,7 @@ curl -X PUT --header 'Content-Type: application/json' --header 'Accept: applicat
  			"IncludeNonMarketData":false 
  		}, 
   	   "IndicatorsHistorySettings":[] 
- }' 'https://pub-api-trader-demo-prod.etnasoft.us/api/v1.0/history/symbols'
+ }' 'https://api.autoshares.dev/v1.0/history/symbols'
  
 ```
 

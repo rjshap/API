@@ -38,7 +38,7 @@ In response to this API request, you'll receive a JSON file that contains the li
       "MiddleName": "",
       "LastName": "James",
       "Login": "robert.zakievdev",
-      "Email": "robert.zakiev@etnatrader.com",
+      "Email": "developer@autoshares.com",
       "AddedDate": "2019-02-12T16:51:00.1335811Z",
       "Salutation": "NoSalutation",
       "Suffix": "NoSuffix"

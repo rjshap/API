@@ -2,7 +2,7 @@
 
 AutoShares provides a hosted MCP (Model Context Protocol) server that gives AI assistants **read-only** access to the AutoShares Trading API for documentation, lookups, and account inspection. Works with Claude Code, Claude Desktop, ChatGPT, and any MCP-compatible client.
 
-> **Security model:** the hosted MCP is read-only by design. Authentication and order placement are intentionally **not** exposed — apps that need those must integrate with the AutoShares / ETNA API directly. See [Security](#security) below.
+> **Security model:** the hosted MCP is read-only by design. Authentication and order placement are intentionally **not** exposed — apps that need those must integrate with the AutoShares / AutoShares API directly. See [Security](#security) below.
 
 ## Hosted MCP Server
 
@@ -32,7 +32,7 @@ The following operations are intentionally **not** exposed on the hosted MCP for
 
 | Tool | Why It's Not Here | What To Do Instead |
 |------|-------------------|--------------------|
-| `authenticate` | Hosting a credential-validator endpoint creates a password-stuffing surface. | Authenticate against ETNA's `/token` endpoint directly from your app, then pass the resulting Bearer token to the MCP tools. |
+| `authenticate` | Hosting a credential-validator endpoint creates a password-stuffing surface. | Authenticate against AutoShares's `/token` endpoint directly from your app, then pass the resulting Bearer token to the MCP tools. |
 | `place_order` | Write operations should not flow through a public docs/AI endpoint. | Call `POST /v1.0/accounts/{id}/orders` directly from your authenticated client. |
 | `cancel_order` | Same reason — writes go direct. | Call `DELETE /v1.0/accounts/{id}/orders/{orderId}` directly. |
 
@@ -42,9 +42,9 @@ If you need these capabilities for an internal AI workflow, [run the self-hosted
 
 Every authenticated tool requires you to pass:
 
-- `baseUrl` — must be one of: `https://api.autoshares.dev`, `https://api.autoshares.com`, or your assigned ETNA sandbox host. Other hosts are rejected.
-- `appKey` — your ETNA `Et-App-Key`
-- `token` — a valid Bearer token (60-minute lifetime; refresh via direct ETNA call)
+- `baseUrl` — must be one of: `https://api.autoshares.dev`, `https://api.autoshares.com`, or your assigned AutoShares sandbox host. Other hosts are rejected.
+- `appKey` — your AutoShares `Et-App-Key`
+- `token` — a valid Bearer token (60-minute lifetime; refresh via direct AutoShares call)
 
 ### Response Shape
 
@@ -137,7 +137,7 @@ For order placement, the AI must hand off to your authenticated trading client �
 
 - **No credentials at rest.** The MCP server does not store usernames, passwords, app keys, or tokens. Every call passes credentials in the request, used for that single upstream call, and discarded.
 - **Read-only surface.** Order placement, cancellation, and credential validation are not exposed. Removing those eliminates the most damaging classes of abuse (write operations, password stuffing).
-- **Host allowlist.** Tools may only call approved AutoShares/ETNA hosts. The server rejects calls to arbitrary `baseUrl` values to prevent SSRF / credential exfiltration.
+- **Host allowlist.** Tools may only call approved AutoShares/AutoShares hosts. The server rejects calls to arbitrary `baseUrl` values to prevent SSRF / credential exfiltration.
 - **CORS allowlist.** Browser calls are accepted only from `documentation.autoshares.dev`, `autoshares.com`, `autoshares.dev`, `autosharesapi.github.io`, and approved local development origins. Other origins are blocked at the browser layer.
 - **Rate limiting.** Both an in-isolate throttle and a Cloudflare WAF rule cap traffic at 30 requests / minute / IP on `/mcp`. Excess traffic returns `429 Too many requests`.
 - **Sanitized errors.** Upstream error bodies are stripped before being returned. Only safe fields (`code`, short `message`) are passed through.

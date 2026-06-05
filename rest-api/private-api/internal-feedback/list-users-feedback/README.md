@@ -100,7 +100,7 @@ The following table lists a set of sample queries:
     <tr>
       <td style="text-align:left">
         <ul>
-          <li>Contacts endsWith &apos;etnasoft.com&apos;</li>
+          <li>Contacts endsWith &apos;autoshares.com&apos;</li>
         </ul>
       </td>
       <td style="text-align:left">
@@ -295,7 +295,7 @@ GET apiURL/v1.0/feedbacks
       "Files": []
     }
   ],
-  "NextPageLink": "https://priv-api-etnatrader-dev.etnasoft.us/api/v1.0/feedbacks?pageSize=10&pageNumber=1&sortBy=Id&isDesc=true",
+  "NextPageLink": "https://api.autoshares.dev/v1.0/feedbacks?pageSize=10&pageNumber=1&sortBy=Id&isDesc=true",
   "PreviousPageLink": "",
   "TotalCount": 529
 }

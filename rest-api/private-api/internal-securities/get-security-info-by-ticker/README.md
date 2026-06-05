@@ -195,7 +195,7 @@ In response to this API request, you'll receive a JSON file with detailed inform
       "ExpirationName": "Jun 2017"
     }
   ],
-  "NextPageLink": "https://priv-api-etnatrader-dev.etnasoft.us/api/v1.0/internalsecurities?symbol=F&pageSize=5&pageNumber=1",
+  "NextPageLink": "https://api.autoshares.dev/v1.0/internalsecurities?symbol=F&pageSize=5&pageNumber=1",
   "PreviousPageLink": "",
   "TotalCount": 2057
 }

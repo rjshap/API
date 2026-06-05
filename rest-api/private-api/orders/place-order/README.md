@@ -542,9 +542,9 @@ The following python script demonstrates how to place a new stop-limit order in 
 ```python
 import requests
 
-class EtnaAPIRequest:
+class AutoSharesAPIRequest:
 
-	baseURL = "https://pub-api-et-demo-prod.etnasoft.us/api/"
+	baseURL = "https://api.autoshares.dev/"
 	EtAppKey = "your EtAppKey from the BO companies widget"
 
 	token = 'uninitialized'
@@ -581,7 +581,7 @@ class EtnaAPIRequest:
 
 
 #Performing initial Authentication
-sampleRequest = EtnaAPIRequest()
+sampleRequest = AutoSharesAPIRequest()
 sampleRequest.initialAuth()
 
 #new order sample

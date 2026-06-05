@@ -20,7 +20,7 @@ To create a new connection to the streamer following conditions must be satisfie
 
 **GET** &lt;**URL&gt;**?User=**&lt;UserID&gt;**:**&lt;SessionID&gt;**&Password=**&lt;StreamerSessionID&gt;**&HttpClientType=**WebSocket**
 
-**Example:** [ws://etnatrader.etnasoft.us:9999/CreateSession.txt?User=](ws://etnatrader.etnasoft.us:9999/CreateSession.txt?User=)**someUser**&Password=**somePassword**&HttpClientType=**WebSocket**
+**Example:** [ws://api.autoshares.dev:9999/CreateSession.txt?User=](ws://api.autoshares.dev:9999/CreateSession.txt?User=)**someUser**&Password=**somePassword**&HttpClientType=**WebSocket**
 
 <table>
   <thead>

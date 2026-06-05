@@ -261,7 +261,7 @@ Yes, with separate tokens for each. Each authorization grant is independent — 
 
 ### Does the user see what my app does in real time?
 
-Yes. AutoShares users can see every active third-party app from their account preferences and revoke any of them with one click. Audit logs persist at the ETNA level too — every order, transfer, or account change is attributed to your specific `client_id` for compliance review.
+Yes. AutoShares users can see every active third-party app from their account preferences and revoke any of them with one click. Audit logs persist at the AutoShares level too — every order, transfer, or account change is attributed to your specific `client_id` for compliance review.
 
 ---
 

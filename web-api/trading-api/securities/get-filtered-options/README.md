@@ -281,7 +281,7 @@ In response to this API request, you'll receive the following JSON that lists th
             "ContractSize": 100
         }
     ],
-    "NextPageLink": "https://pub-api-etnatrader-test.etnasoft.us/api/v1.0/options/?pageNumber=1&pageSize=2&sortField=ExpirationDate&desc=true",
+    "NextPageLink": "https://api.autoshares.dev/v1.0/options/?pageNumber=1&pageSize=2&sortField=ExpirationDate&desc=true",
     "PreviousPageLink": "",
     "TotalCount": 3480010
 }
@@ -336,7 +336,7 @@ It's crucial to understand that the _**underlying**_ parameter must be indicated
 
 ```javascript
 {
-    "Message": "No HTTP resource was found that matches the request URI 'https://pub-api-etnatrader-dev.etnasoft.us/api/v1.0/options?pageNumber=0&pageSize=2&sortField=Type'."
+    "Message": "No HTTP resource was found that matches the request URI 'https://api.autoshares.dev/v1.0/options?pageNumber=0&pageSize=2&sortField=Type'."
 }
 ```
 

@@ -120,7 +120,7 @@ If the query parameters are missing or incorrectly specified , the following err
 
 ```javascript
 {
-    "Message": "No HTTP resource was found that matches the request URI 'https://pub-api-et-demo-prod.etnasoft.us/api/v1.0/accounts/6303/history'."
+    "Message": "No HTTP resource was found that matches the request URI 'https://api.autoshares.dev/v1.0/accounts/6303/history'."
 }
 ```
 

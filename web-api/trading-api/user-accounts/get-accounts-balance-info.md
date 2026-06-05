@@ -14,7 +14,7 @@ The version of API. By default, set it to `1.0`.
 {% endswagger-parameter %}
 
 {% swagger-parameter in="path" name="accountId" required="true" %}
-Internal ETNA ID of the trading account.
+Internal AutoShares ID of the trading account.
 {% endswagger-parameter %}
 
 {% swagger-parameter in="header" name="Authorization" required="true" %}

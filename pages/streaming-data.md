@@ -41,11 +41,11 @@ AutoShares uses two protocols for API access. Understanding which to use is crit
 
 ```
 REST API (proxied):
-  Your App → api.autoshares.dev → Cloudflare Worker → ETNA
+  Your App → api.autoshares.dev → Cloudflare Worker → AutoShares
   ✓ CORS handled    ✓ Origin masked    ✓ Auto-refresh
 
 WebSocket Streaming (direct):
-  Your App → wss://streamer-host:443 → ETNA Streamer
+  Your App → wss://streamer-host:443 → AutoShares Streamer
   ✓ Lowest latency  ✓ Real-time push   ✗ Cannot be proxied
 ```
 
@@ -89,14 +89,14 @@ Response (actual sandbox URLs):
 {
   "QuoteAddresses": [
     {
-      "Url": "wss://md-str-gmh-demo-prod.etnasoft.us:443",
+      "Url": "wss://api.autoshares.dev:443",
       "Type": "EntitlementBased",
       "SessionId": "29cc662b-f164-4fa6-85a2-9ce0404142c6"
     }
   ],
   "DataAddresses": [
     {
-      "Url": "wss://oms-str-gmh-demo-prod.etnasoft.us:443",
+      "Url": "wss://api.autoshares.dev:443",
       "Type": "delayed"
     }
   ]
@@ -108,7 +108,7 @@ Response (actual sandbox URLs):
 Use the `Url` and `SessionId` from the response to open a direct WebSocket connection:
 
 ```
-wss://md-str-gmh-demo-prod.etnasoft.us:443/CreateSession.txt
+wss://api.autoshares.dev:443/CreateSession.txt
   ?User=YOUR_USERNAME:SESSION_ID
   &Password=STREAMER_SESSION_ID
   &HttpClientType=WebSocket
@@ -240,7 +240,7 @@ def on_open(ws):
     }))
 
 ws = websocket.WebSocketApp(
-    "wss://md-str-gmh-demo-prod.etnasoft.us:443/CreateSession",
+    "wss://api.autoshares.dev:443/CreateSession",
     on_message=on_message,
     on_open=on_open
 )
@@ -250,7 +250,7 @@ ws.run_forever()
 ## Connection Example (JavaScript)
 
 ```javascript
-const ws = new WebSocket("wss://md-str-gmh-demo-prod.etnasoft.us:443/CreateSession");
+const ws = new WebSocket("wss://api.autoshares.dev:443/CreateSession");
 
 ws.onopen = () => {
   ws.send(JSON.stringify({

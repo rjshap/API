@@ -2,7 +2,7 @@
 
 Advanced Research & News tab provides powerful tools for in-depth analysis of specific securities.
 
-To utilize this widget, employ our [widget grouping](https://help.etnatrader.com/user-guide/web-terminal/platform-layout#trading-dashboard) functionality.
+To utilize this widget, employ our [widget grouping](https://documentation.autoshares.dev/user-guide/web-terminal/platform-layout#trading-dashboard) functionality.
 
 In the example below, we have our research widget alongside a chart widget to analyze the AAPL security.
 

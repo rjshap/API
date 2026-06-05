@@ -40,7 +40,7 @@ In response to this API request, you'll receive a JSON file that contains an arr
       "MiddleName": "",
       "LastName": "James",
       "Login": "robert.zakievdev",
-      "Email": "roberttechie@etnatrader.com",
+      "Email": "developer@autoshares.com",
       "AddedDate": "2019-02-12T16:51:00.1335811Z",
       "Salutation": "NoSalutation",
       "Suffix": "NoSuffix"

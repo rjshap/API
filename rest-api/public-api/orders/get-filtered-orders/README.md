@@ -121,7 +121,7 @@ In response to this API request, you'll receive the following JSON file that lis
             "ParentId": -1,
             "Legs": [],
             "Exchange": "Auto",
-            "ExecutionVenue": "Etna Emulator",
+            "ExecutionVenue": "Simulated Venue",
             "TrailingStopAmountType": "Absolute",
             "TrailingStopAmount": 0,
             "TrailingLimitAmountType": "Absolute",
@@ -169,7 +169,7 @@ In response to this API request, you'll receive the following JSON file that lis
             "StateId": 173093,
             "ParentId": -1,
             "Legs": [],
-            "ExecutionVenue": "Etna Emulator",
+            "ExecutionVenue": "Simulated Venue",
             "TrailingStopAmountType": "Absolute",
             "TrailingStopAmount": 0,
             "TrailingLimitAmountType": "Absolute",
@@ -185,7 +185,7 @@ In response to this API request, you'll receive the following JSON file that lis
             "SettlementDate": "0001-01-01T00:00:00Z"
         }
     ],
-    "NextPageLink": "https://pub-api-et-demo-prod.etnasoft.us/api/v1.0/accounts/6303/orders?pageNumber=1&pageSize=2",
+    "NextPageLink": "https://api.autoshares.dev/v1.0/accounts/6303/orders?pageNumber=1&pageSize=2",
     "PreviousPageLink": "",
     "TotalCount": 5
 }

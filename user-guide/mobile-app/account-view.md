@@ -31,7 +31,7 @@ The next section covers the Buying Power available on the account, including:
 * Option Buying Power.
 
 {% hint style="info" %}
-You can learn in-depth about these terms in our dedicated article on [trading accounts](https://brokerhelp.etnatrader.com/administrator-guide/glossary/trading-accounts).
+You can learn in-depth about these terms in our dedicated article on [trading accounts](https://documentation.autoshares.dev/administrator-guide/glossary/trading-accounts).
 {% endhint %}
 
 ![](../../.gitbook/assets/Account2.png)

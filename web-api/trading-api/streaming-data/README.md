@@ -22,7 +22,7 @@ To create a new connection to the streamer following conditions must be satisfie
 
 **GET** <**URL>СreateSession.txt**?User=**\<UserLogin>**\&Password=**\<UserPassword>**\&HttpClientType=**WebSocket**
 
-**Example**: wss://trader-demo-prod.etnasoft.us:9999/CreateSession.txt?User=trader\&Password=trader\&HttpClientType=WebSocket
+**Example**: wss://api.autoshares.dev:9999/CreateSession.txt?User=trader\&Password=trader\&HttpClientType=WebSocket
 
 | Param            | Description                   |
 | ---------------- | ----------------------------- |
@@ -33,7 +33,7 @@ To create a new connection to the streamer following conditions must be satisfie
 
 **GET** <**URL>**?User=**\<UserID>**:**\<SessionID>**\&Password=**\<StreamerSessionID>**\&HttpClientType=**WebSocket**
 
-**Example:** wss://trader-demo-prod.etnasoft.us:9999/CreateSession.txt?User=**someUser:sessionID**\&Password=**StreamerSessionID**\&HttpClientType=**WebSocket**
+**Example:** wss://api.autoshares.dev:9999/CreateSession.txt?User=**someUser:sessionID**\&Password=**StreamerSessionID**\&HttpClientType=**WebSocket**
 
 | Param                 | JSON Key                                                                                                                      | Description                                 |
 | --------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------- |
@@ -76,7 +76,7 @@ Each streamer is accessible through its own separate port in your environment. Q
 
 ### Streamer Configuration
 
-While the current implementation of data streaming includes only several data types that can be retrieved in real-time, AutoShares also provides custom configurations of streamers that build on top of the existing functionality. For example, if you would like to stream positions across several trading accounts or account information across the whole environment, you will need a separate configuration of the streamer. To learn more about the degree to which the default functionality can be extended, contact our [support team](mailto:support@etnatrader.com).
+While the current implementation of data streaming includes only several data types that can be retrieved in real-time, AutoShares also provides custom configurations of streamers that build on top of the existing functionality. For example, if you would like to stream positions across several trading accounts or account information across the whole environment, you will need a separate configuration of the streamer. To learn more about the degree to which the default functionality can be extended, contact our [support team](mailto:developer@autoshares.com).
 
 ### Streamer Performance
 

@@ -8,11 +8,11 @@ description: Subscribe to quotes
 
 | Parameter | Value |
 | :---: | :---: |
-| [**Cmd**](https://wiki.etnasoft.com/display/ET/Enumerations) | Subscribe.txt |
+| **Cmd** | Subscribe.txt |
 | **SessionId** | Session ID from the authentication request |
 | **Keys** | Security ID whose quote you would like to receive |
-| [**EntityType**](https://wiki.etnasoft.com/display/ET/Enumerations) | Quote |
-| [**HttpClientType**](https://wiki.etnasoft.com/display/DOCS/Enumerations) | WebSocket |
+| **EntityType** | Quote |
+| **HttpClientType** | WebSocket |
 
 **Example:** {"Cmd":"Subscribe.txt", "SessionId":"7e83072e-09e7-43ed-91d5-f2b747bf162e", "Keys":"5","EntityType":"Quote","HttpClientType":"WebSocket"}
 
@@ -20,11 +20,11 @@ description: Subscribe to quotes
 
 | Parameter | Value |
 | :---: | :---: |
-| [**Cmd**](https://wiki.etnasoft.com/display/ET/Enumerations) | Unsubscribe.txt |
+| **Cmd** | Unsubscribe.txt |
 | **SessionId** | Session ID from the authentication request |
 | **Keys** | Security ID whose quote you would like to unsubscribe from |
-| [**EntityType**](https://wiki.etnasoft.com/display/ET/Enumerations) | Quote |
-| [**HttpClientType**](https://wiki.etnasoft.com/display/DOCS/Enumerations) | WebSocket |
+| **EntityType** | Quote |
+| **HttpClientType** | WebSocket |
 
 **Example:** {"Cmd":"Unsubscribe.txt", "SessionId":"7e83072e-09e7-43ed-91d5-f2b747bf162e", "Keys":"5","EntityType":"Quote","HttpClientType":"WebSocket"}
 

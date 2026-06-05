@@ -21,7 +21,7 @@ To take a quick look at AutoShares in action, feel free to watch our vide overvi
 
 ### Downloading AutoShares Mobile
 
-AutoShares Mobile is available on the [App Store](https://itunes.apple.com/us/app/etna-trader/id658778917?mt=8) and [Google Play](https://play.google.com/store/apps/details?id=com.etnasoft.etnamobile.android\&hl=en\&gl=US) for both Android Phones,  iPhone, iPad, Tablet and so on. It also features an extension for the Apple Watch that enables users to track their positions, profit and loss figures, account information, etc.
+AutoShares Mobile is available on the [App Store](https://www.autoshares.com/mobile) and [Google Play](https://play.google.com/store/apps/details?id=com.autoshares.app\&hl=en\&gl=US) for both Android Phones,  iPhone, iPad, Tablet and so on. It also features an extension for the Apple Watch that enables users to track their positions, profit and loss figures, account information, etc.
 
 ![](../../.gitbook/assets/img\_4eaf831e2b67-1-2\_iphonexspacegrey\_portrait.png)
 

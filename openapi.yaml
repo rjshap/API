@@ -5,8 +5,8 @@ info:
   description: >-
     AutoShares Trading API — trade equities, options, and ETFs. Manage orders, positions, watchlists, price alerts, and
     streaming market data.
-host: '{your-environment}.etnasoft.us'
-basePath: /api
+host: 'api.autoshares.dev'
+basePath: /
 schemes:
   - https
 paths:
@@ -37,7 +37,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -49,7 +49,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -99,7 +99,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -111,7 +111,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -160,7 +160,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -172,7 +172,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -211,7 +211,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -223,7 +223,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -294,7 +294,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -306,7 +306,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -352,7 +352,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -364,7 +364,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -411,7 +411,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -423,7 +423,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -478,7 +478,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -490,7 +490,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -535,7 +535,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -547,7 +547,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -588,7 +588,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -600,7 +600,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -645,7 +645,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -657,7 +657,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -696,7 +696,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -708,7 +708,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -755,7 +755,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -767,7 +767,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -809,7 +809,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -821,7 +821,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -852,7 +852,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -864,7 +864,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -899,14 +899,14 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
           default: '1.0'
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -967,7 +967,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -979,7 +979,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -1023,7 +1023,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -1035,7 +1035,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -1077,7 +1077,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -1089,7 +1089,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -1133,7 +1133,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -1145,7 +1145,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -1193,7 +1193,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -1205,7 +1205,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -1253,7 +1253,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -1265,7 +1265,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -1313,7 +1313,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -1325,7 +1325,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -1373,7 +1373,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -1385,7 +1385,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -1433,7 +1433,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -1445,7 +1445,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -1493,7 +1493,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -1505,7 +1505,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -1553,7 +1553,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -1565,7 +1565,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -1611,7 +1611,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -1623,7 +1623,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -1665,7 +1665,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -1677,7 +1677,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -1717,7 +1717,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -1729,7 +1729,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -1776,7 +1776,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -1788,7 +1788,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -1838,7 +1838,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -1850,7 +1850,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -1896,7 +1896,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -1908,7 +1908,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -1955,7 +1955,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -1967,7 +1967,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -2014,7 +2014,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -2026,7 +2026,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -2074,7 +2074,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -2086,7 +2086,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -2164,7 +2164,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -2176,7 +2176,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -2198,7 +2198,7 @@ paths:
       tags:
         - Orders
       summary: Place an order
-      description: This endpoint enables you to place a new order in ETNA Trader.
+      description: This endpoint enables you to place a new order in AutoShares Trader.
       operationId: Orders_PlaceOrder
       consumes:
         - application/json
@@ -2239,7 +2239,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -2251,7 +2251,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -2304,7 +2304,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -2316,7 +2316,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -2362,7 +2362,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -2374,7 +2374,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -2431,7 +2431,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -2443,7 +2443,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -2486,7 +2486,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -2498,7 +2498,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -2545,7 +2545,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -2557,7 +2557,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -2615,7 +2615,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -2627,7 +2627,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -2699,7 +2699,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -2711,7 +2711,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -2755,7 +2755,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -2767,7 +2767,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -2810,7 +2810,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -2822,7 +2822,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -2872,7 +2872,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -2884,7 +2884,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -2928,7 +2928,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -2940,7 +2940,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -3005,7 +3005,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -3017,7 +3017,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -3061,7 +3061,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -3073,7 +3073,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -3098,7 +3098,7 @@ paths:
       summary: Get an option by its ID
       description: >-
         This endpoint enables you to retrieve detailed information about a specific option by providing its internal
-        identifier in ETNA Trader.
+        identifier in AutoShares Trader.
       operationId: Securities_GetOptionById
       consumes: []
       produces:
@@ -3107,14 +3107,14 @@ paths:
       parameters:
         - name: id
           in: path
-          description: Internal identifier of the enquired option in ETNA Trader.
+          description: Internal identifier of the enquired option in AutoShares Trader.
           required: true
           type: integer
           format: int32
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -3126,7 +3126,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -3139,7 +3139,7 @@ paths:
         '403':
           description: The provided Et-App-Key is incorrect.
         '404':
-          description: Enquired option is non-existent in ETNA Trader.
+          description: Enquired option is non-existent in AutoShares Trader.
         '422':
           description: A validation error occurred while processing the request.
         '500':
@@ -3151,7 +3151,7 @@ paths:
       summary: Get an equity by its ID
       description: >-
         This endpoint enables you to retrieve detailed information about a specific equity by providing its internal
-        identifier in ETNA Trader.
+        identifier in AutoShares Trader.
       operationId: Securities_GetEquityById
       consumes: []
       produces:
@@ -3160,14 +3160,14 @@ paths:
       parameters:
         - name: id
           in: path
-          description: Internal identifier of the enquired equity in ETNA Trader.
+          description: Internal identifier of the enquired equity in AutoShares Trader.
           required: true
           type: integer
           format: int32
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -3179,7 +3179,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -3192,7 +3192,7 @@ paths:
         '403':
           description: The provided Et-App-Key is incorrect.
         '404':
-          description: Enquired security is non-existent in ETNA Trader.
+          description: Enquired security is non-existent in AutoShares Trader.
         '422':
           description: A validation error occurred while processing the request.
         '500':
@@ -3218,7 +3218,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -3230,7 +3230,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -3241,7 +3241,7 @@ paths:
         '403':
           description: The provided Et-App-Key is incorrect.
         '404':
-          description: Enquired security is non-existent in ETNA Trader.
+          description: Enquired security is non-existent in AutoShares Trader.
         '422':
           description: A validation error occurred while processing the request.
         '500':
@@ -3280,7 +3280,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -3292,7 +3292,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -3346,7 +3346,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -3358,7 +3358,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -3371,7 +3371,7 @@ paths:
         '403':
           description: The provided Et-App-Key is incorrect.
         '404':
-          description: Enquired option is non-existent in ETNA Trader.
+          description: Enquired option is non-existent in AutoShares Trader.
         '422':
           description: A validation error occurred while processing the request.
         '500':
@@ -3412,7 +3412,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -3424,7 +3424,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -3437,7 +3437,7 @@ paths:
         '403':
           description: The provided Et-App-Key is incorrect.
         '404':
-          description: Enquired security is non-existent in ETNA Trader.
+          description: Enquired security is non-existent in AutoShares Trader.
         '422':
           description: A validation error occurred while processing the request.
         '500':
@@ -3467,7 +3467,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -3479,7 +3479,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -3492,7 +3492,7 @@ paths:
         '403':
           description: The provided Et-App-Key is incorrect.
         '404':
-          description: Enquired security is non-existent in ETNA Trader.
+          description: Enquired security is non-existent in AutoShares Trader.
         '422':
           description: A validation error occurred while processing the request.
         '500':
@@ -3539,7 +3539,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -3551,7 +3551,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -3603,7 +3603,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -3615,7 +3615,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -3680,7 +3680,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -3692,7 +3692,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -3755,7 +3755,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -3767,7 +3767,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -3798,7 +3798,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -3810,7 +3810,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -3847,7 +3847,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -3859,7 +3859,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -3902,7 +3902,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -3914,7 +3914,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -3964,7 +3964,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -3976,7 +3976,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -4022,7 +4022,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -4034,7 +4034,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -4108,7 +4108,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -4120,7 +4120,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -4183,7 +4183,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -4195,7 +4195,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -4248,7 +4248,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -4260,7 +4260,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -4317,7 +4317,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -4329,7 +4329,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -4367,7 +4367,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -4379,7 +4379,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -4417,7 +4417,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -4429,7 +4429,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -4491,7 +4491,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -4503,7 +4503,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -4574,7 +4574,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -4586,7 +4586,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -4654,7 +4654,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -4666,7 +4666,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -4745,7 +4745,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -4757,7 +4757,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -4805,7 +4805,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -4817,7 +4817,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -4862,7 +4862,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -4874,7 +4874,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -4914,7 +4914,7 @@ paths:
           format: int32
         - name: mechanism
           in: path
-          description: Transfer mechanism type (ACH, Wire, Check).{Etna.Trader.AccountManagement.Contracts.TransferMechanismType}
+          description: Transfer mechanism type (ACH, Wire, Check).
           required: true
           type: string
           enum:
@@ -4930,7 +4930,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -4942,7 +4942,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -5005,7 +5005,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -5017,7 +5017,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -5062,7 +5062,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -5074,7 +5074,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -5119,7 +5119,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -5131,7 +5131,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -5176,7 +5176,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -5188,7 +5188,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -5233,7 +5233,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -5245,7 +5245,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -5295,7 +5295,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -5307,7 +5307,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -5348,7 +5348,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -5360,7 +5360,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -5405,7 +5405,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -5417,7 +5417,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -5451,14 +5451,14 @@ paths:
       parameters:
         - name: accountId
           in: path
-          description: Unique identifier of the trading account in ETNA Trader.
+          description: Unique identifier of the trading account in AutoShares Trader.
           required: true
           type: integer
           format: int32
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -5470,7 +5470,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -5510,7 +5510,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -5522,7 +5522,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -5559,7 +5559,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -5571,7 +5571,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -5602,8 +5602,8 @@ paths:
         - name: accountId
           in: path
           description: >-
-            Unique identifier of the trading account in ETNA Trader.This is the unique identifier of the trading account
-            in ETNA Trader.
+            Unique identifier of the trading account in AutoShares Trader.This is the unique identifier of the trading account
+            in AutoShares Trader.
           required: true
           type: integer
           format: int32
@@ -5628,7 +5628,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -5640,7 +5640,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -5720,7 +5720,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -5732,7 +5732,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -5769,7 +5769,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -5781,7 +5781,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -5825,7 +5825,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -5837,7 +5837,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -5890,7 +5890,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -5902,7 +5902,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -5946,7 +5946,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -5958,7 +5958,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -6014,7 +6014,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -6026,7 +6026,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -6070,7 +6070,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -6082,7 +6082,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -6117,7 +6117,7 @@ paths:
       parameters:
         - name: accountIds
           in: body
-          description: Unique identifiers of the trading accounts in ETNA Trader
+          description: Unique identifiers of the trading accounts in AutoShares Trader
           required: true
           schema:
             type: array
@@ -6139,7 +6139,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -6151,7 +6151,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -6190,7 +6190,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -6202,7 +6202,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -6223,7 +6223,7 @@ paths:
       summary: Get a user's info by ID
       description: >-
         This endpoint enables you to retrieve information about a particular user by providing their internal identifier
-        in ETNA Trader in the request path.
+        in AutoShares Trader in the request path.
       operationId: Users_GetUserInfo
       consumes: []
       produces:
@@ -6233,7 +6233,7 @@ paths:
         - name: userId
           in: path
           description: >-
-            Unique identifier of the user in ETNA Trader. If the information is requested about the user whose
+            Unique identifier of the user in AutoShares Trader. If the information is requested about the user whose
             Authorization token is provided in the request, simply use the ‘@me’ directive instead of the user’s ID.
           required: true
           type: integer
@@ -6241,7 +6241,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -6253,7 +6253,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -6292,7 +6292,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -6304,7 +6304,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -6338,7 +6338,7 @@ paths:
         - name: userId
           in: path
           description: >-
-            Unique identifier of the user in ETNA Trader. If the information is requested about the user whose
+            Unique identifier of the user in AutoShares Trader. If the information is requested about the user whose
             Authorization token is provided in the request, simply use the ‘@me’ directive instead of the user’s ID.
           required: true
           type: integer
@@ -6346,7 +6346,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -6358,7 +6358,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -6390,7 +6390,7 @@ paths:
         - name: userId
           in: path
           description: >-
-            Unique identifier of the user in ETNA Trader. If the information is requested about the user whose
+            Unique identifier of the user in AutoShares Trader. If the information is requested about the user whose
             Authorization token is provided in the request, simply use the ‘@me’ directive instead of the user’s ID.
           required: true
           type: integer
@@ -6404,7 +6404,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -6416,7 +6416,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -6450,7 +6450,7 @@ paths:
       parameters:
         - name: userId
           in: path
-          description: ID of the user in ETNA Trader. For simplicity, you can set this parameter to ‘@me’.
+          description: ID of the user in AutoShares Trader. For simplicity, you can set this parameter to ‘@me’.
           required: true
           type: integer
           format: int32
@@ -6463,7 +6463,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -6475,7 +6475,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -6518,7 +6518,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -6530,7 +6530,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -6567,7 +6567,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -6579,7 +6579,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -6613,7 +6613,7 @@ paths:
       parameters:
         - name: userId
           in: path
-          description: ID of the user in ETNA Trader. For simplicity, you can set this parameter to ‘@me’.
+          description: ID of the user in AutoShares Trader. For simplicity, you can set this parameter to ‘@me’.
           required: true
           type: integer
           format: int32
@@ -6625,7 +6625,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -6637,7 +6637,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -6660,7 +6660,7 @@ paths:
       tags:
         - Users
       summary: Patch user
-      description: This endpoint enables you to patch an existing user in ETNA Trader.
+      description: This endpoint enables you to patch an existing user in AutoShares Trader.
       operationId: Users_PatchUser
       consumes:
         - application/json
@@ -6684,7 +6684,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -6696,7 +6696,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -6744,7 +6744,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -6756,7 +6756,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -6813,7 +6813,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -6825,7 +6825,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -6885,7 +6885,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -6897,7 +6897,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -6943,7 +6943,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -6955,7 +6955,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -7012,7 +7012,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -7024,7 +7024,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -7080,7 +7080,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -7092,7 +7092,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -7142,7 +7142,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -7154,7 +7154,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -7207,7 +7207,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -7219,7 +7219,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -7243,7 +7243,7 @@ paths:
       summary: Remove a security from watchlist by ID
       description: >-
         This endpoint enables you to remove a security from an existing watchlist by providing the security’s internal
-        identifier in ETNA Trader.
+        identifier in AutoShares Trader.
       operationId: Watchlists_RemoveSecurityById
       consumes: []
       produces:
@@ -7271,7 +7271,7 @@ paths:
         - name: version
           in: path
           description: >-
-            This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your
+            This is the version of the API. Unless you have multiple versions of AutoShares Trader’s API deployed in your
             environment, leave it at 1.0.
           required: true
           type: string
@@ -7283,7 +7283,7 @@ paths:
           type: string
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -7367,7 +7367,7 @@ paths:
           default: ''
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses:
@@ -7410,7 +7410,7 @@ paths:
       parameters:
         - name: Et-App-Key
           in: header
-          description: This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.
+          description: This is your app’s unique key that can be retrieved from the BO Companies widget in AutoShares Trader.
           required: true
           type: string
       responses: {}
@@ -7589,7 +7589,7 @@ definitions:
           - Velox
           - Siebert
           - InteliClear
-          - EtnaClearing
+          - AutoSharesClearing
           - Fidelity
           - TradeUp
         type: string
@@ -7612,7 +7612,7 @@ definitions:
           - Velox
           - Siebert
           - InteliClear
-          - EtnaClearing
+          - AutoSharesClearing
           - Fidelity
           - TradeUp
         type: string
@@ -7649,7 +7649,7 @@ definitions:
           - Velox
           - Siebert
           - InteliClear
-          - EtnaClearing
+          - AutoSharesClearing
           - Fidelity
           - TradeUp
         type: string
@@ -13965,7 +13965,7 @@ definitions:
           - Velox
           - Siebert
           - InteliClear
-          - EtnaClearing
+          - AutoSharesClearing
           - Fidelity
           - TradeUp
         type: string

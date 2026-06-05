@@ -208,7 +208,7 @@ In response to this API request, you'll receive the following JSON that lists th
             "AllowShort": true
         }
     ],
-    "NextPageLink": "https://pub-api-etnatrader-dev.etnasoft.us/api/v1.0/equities?pageNumber=1&pageSize=2&sortField=Type&desc=true",
+    "NextPageLink": "https://api.autoshares.dev/v1.0/equities?pageNumber=1&pageSize=2&sortField=Type&desc=true",
     "PreviousPageLink": "",
     "TotalCount": 12130
 }
@@ -257,7 +257,7 @@ It's crucial to understand that all four query parameters must be indicated in t
 
 ```javascript
 {
-    "Message": "No HTTP resource was found that matches the request URI 'https://pub-api-etnatrader-dev.etnasoft.us/api/v1.0/equities?pageNumber=0&pageSize=2&sortField=Type'."
+    "Message": "No HTTP resource was found that matches the request URI 'https://api.autoshares.dev/v1.0/equities?pageNumber=0&pageSize=2&sortField=Type'."
 }
 ```
 

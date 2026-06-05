@@ -32,7 +32,7 @@ As a response, you'll receive a JSON file with the information about this user:
     "MiddleName": "",
     "LastName": "Zakiev",
     "Login": "robert.zak",
-    "Email": "someEmail@etnatrader.com",
+    "Email": "developer@autoshares.com",
     "AddedDate": "2019-01-14T12:27:37.6205663Z",
     "Salutation": "NoSalutation",
     "Suffix": "NoSuffix"

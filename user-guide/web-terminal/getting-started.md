@@ -14,7 +14,7 @@ The first step in getting started with AutoShares is to register as as new user.
 Parameters marked by a red asterisk are mandatory. Registration form will not be completed without them.
 {% endhint %}
 
-The [demo environment](http://demo.etnatrader.com/User/LogOn?ReturnUrl=%2f) offers simulated trading functionality that entirely replicates real trading, except that no real funds are being risked. If you already created a demo account, just log into the platform by entering your username and password.
+The [demo environment](https://documentation.autoshares.dev/User/LogOn?ReturnUrl=%2f) offers simulated trading functionality that entirely replicates real trading, except that no real funds are being risked. If you already created a demo account, just log into the platform by entering your username and password.
 
 ### **Contact Support**
 
@@ -37,7 +37,7 @@ Currently there are five languages available in the platform:
 5. Spanish \(mobile only\)
 6. Russian
 
-It is possible to add additional languages. If you are interested in adding a new language, please [contact support](https://www.etnasoft.com/contact-support/).
+It is possible to add additional languages. If you are interested in adding a new language, please [contact support](https://www.autoshares.com/contact).
 
 ![](../../.gitbook/assets/screenshot-2020-03-19-at-17.01.52.png)
 

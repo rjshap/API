@@ -24,14 +24,14 @@ In response to this API request, you will receive a JSON dictionary containing t
 {
   "QuoteAddresses": [
     {
-      "Url": "wss://trader-demo-test.etnasoft.us:9995",
+      "Url": "wss://api.autoshares.dev:9995",
       "Type": "Delayed",
       "SessionId": "fda7be71-1d29-48e5-abe3-35c68bf9b3fd"
     }
   ],
   "DataAddresses": [
     {
-      "Url": "wss://trader-demo-test.etnasoft.us:9999",
+      "Url": "wss://api.autoshares.dev:9999",
       "Type": "delayed"
     }
   ]

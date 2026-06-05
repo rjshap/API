@@ -14,7 +14,7 @@ AUTHENTICATION:
 - 2FA: first call returns 202 + interim token, second call adds VerificationCode header
 - All subsequent requests need: Authorization: Bearer {token} + Et-App-Key headers
 
-BASE URL: https://{your-environment}.etnasoft.us/api/
+BASE URL: https://api.autoshares.dev/
 
 ORDER TYPES:
 - Market, Limit, Stop, StopLimit, TrailingStop, TrailingStopLimit

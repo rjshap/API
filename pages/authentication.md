@@ -5,9 +5,9 @@ The AutoShares Trading API supports two authentication models depending on how y
 | Model | When to use | Auth header |
 |-------|-------------|-------------|
 | **OAuth 2.0** *(third-party apps)* | Your app is integrating against AutoShares users' accounts — they sign in with their own credentials and explicitly authorize your app | `Authorization: Bearer asat_…` |
-| **Direct ETNA token** *(legacy)* | Your app is the AutoShares browser/mobile itself | `Authorization: Bearer …` + `Ocp-Apim-Subscription-Key: …` |
+| **Direct AutoShares token** *(legacy)* | Your app is the AutoShares browser/mobile itself | `Authorization: Bearer …` + `Ocp-Apim-Subscription-Key: …` |
 
-**For all new integrations, use OAuth 2.0.** The direct ETNA token flow is documented for completeness but is reserved for AutoShares' own applications.
+**For all new integrations, use OAuth 2.0.** The direct AutoShares token flow is documented for completeness but is reserved for AutoShares' own applications.
 
 ---
 
@@ -54,13 +54,13 @@ Your app                                                AutoShares
 
 ### What the access token actually does
 
-Under the hood, AutoShares uses **Microsoft Entra On-Behalf-Of** to translate your `asat_…` token into a fresh ETNA-scoped token bound to the specific user. Your token is **proof of consent**; the upstream credentials are minted per request and never exposed to your application.
+Under the hood, AutoShares uses **Microsoft Entra On-Behalf-Of** to translate your `asat_…` token into a fresh AutoShares-scoped token bound to the specific user. Your token is **proof of consent**; the upstream credentials are minted per request and never exposed to your application.
 
 This means:
 
-- You never see or store the user's ETNA credentials
+- You never see or store the user's AutoShares credentials
 - Token revocation flows through Entra — disabling a user's AutoShares account immediately invalidates every third-party token tied to them
-- Every action your app takes is attributed to the real user at the ETNA level (clean audit trail for compliance)
+- Every action your app takes is attributed to the real user at the AutoShares level (clean audit trail for compliance)
 
 ### Scopes
 
@@ -111,11 +111,11 @@ Hostnames:
 
 ---
 
-## Direct ETNA token — for AutoShares' own applications
+## Direct AutoShares token — for AutoShares' own applications
 
 > This authentication path is reserved for AutoShares' first-party web and mobile applications. Third-party integrations should use OAuth 2.0 (above).
 
-The browser/native app authenticates against AutoShares' Microsoft Entra External ID tenant. The Entra OIDC `sub` claim is the user's stable identity and is recognized natively by ETNA via a federated trust relationship.
+The browser/native app authenticates against AutoShares' Microsoft Entra External ID tenant. The Entra OIDC `sub` claim is the user's stable identity and is recognized natively by AutoShares via a federated trust relationship.
 
 ### Headers required on every call
 
@@ -128,7 +128,7 @@ The subscription key is injected server-side by the AutoShares API proxy at `api
 
 ### Legacy direct-token endpoint
 
-For service-to-service flows that AutoShares operates internally, a direct token can be obtained via ETNA's `/token` endpoint. This is an internal interface and is NOT exposed to third-party developers — use OAuth 2.0 instead.
+For service-to-service flows that AutoShares operates internally, a direct token can be obtained via AutoShares's `/token` endpoint. This is an internal interface and is NOT exposed to third-party developers — use OAuth 2.0 instead.
 
 ```
 POST /token
@@ -137,4 +137,4 @@ Username: <user>
 Password: <pass>
 ```
 
-Returns a standard OAuth bearer + refresh token usable against the ETNA REST API directly.
+Returns a standard OAuth bearer + refresh token usable against the AutoShares REST API directly.

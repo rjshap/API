@@ -54,7 +54,7 @@ It's crucial to understand that the _**name**_ parameter must be provided in the
 
 ```javascript
 {
-    "Message": "No HTTP resource was found that matches the request URI 'https://pub-api-et-demo-prod.etnasoft.us/api/v1.0/users/@me/watchlists/17973/name'."
+    "Message": "No HTTP resource was found that matches the request URI 'https://api.autoshares.dev/v1.0/users/@me/watchlists/17973/name'."
 }
 ```
 

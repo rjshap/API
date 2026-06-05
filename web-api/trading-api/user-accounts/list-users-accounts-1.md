@@ -35,7 +35,7 @@ This is your app’s unique key that can be retrieved from the BO Companies widg
       "MiddleName": "",
       "LastName": "Safonov",
       "Login": "danielSafonyan",
-      "Email": "daniil.safonov@etnatrader.com",
+      "Email": "developer@autoshares.com",
       "Role": 0,
       "AddedDate": "2023-06-15T08:17:35.2984132Z",
       "Salutation": "NoSalutation",

@@ -59,7 +59,7 @@ In response to this API request, you'll receive a JSON file with comprehensive i
     "ParentId": -1,
     "Legs": [],
     "Exchange": "Auto",
-    "ExecutionVenue": "Etna Emulator",
+    "ExecutionVenue": "Simulated Venue",
     "TrailingStopAmountType": "Absolute",
     "TrailingStopAmount": 0,
     "TrailingLimitAmountType": "Absolute",

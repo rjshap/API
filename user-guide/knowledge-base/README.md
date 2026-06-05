@@ -21,6 +21,6 @@ The knowledge base consists of two sections:
 Each of the two sections contains different subsections that cover different functionality and different segments of AutoShares \(the back office, the web app, the mobile apps, etc.\).
 
 {% hint style="info" %}
-If you don't find a solution to your problem or your use-case is not covered in the how-to guides, feel free to contact our support team at support@etnasoft.com
+If you don't find a solution to your problem or your use-case is not covered in the how-to guides, feel free to contact our support team at developer@autoshares.com
 {% endhint %}
 

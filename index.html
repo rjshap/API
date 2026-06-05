@@ -299,7 +299,7 @@ pre:hover .copy-btn,.code-panel:hover .copy-btn{opacity:1}
   <div class="settings-body">
     <div class="settings-note">Credentials are stored in session memory only — they are cleared when you close this tab. Never stored on disk.</div>
     <div class="api-settings-grid">
-      <div class="api-settings-field"><label class="api-settings-label">Base URL</label><input class="api-settings-input" id="set-baseurl" placeholder="https://your-env.etnasoft.us/api"></div>
+      <div class="api-settings-field"><label class="api-settings-label">Base URL</label><input class="api-settings-input" id="set-baseurl" placeholder="https://api.autoshares.dev"></div>
       <div class="api-settings-field"><label class="api-settings-label">Bearer Token</label><input class="api-settings-input" id="set-token" placeholder="From POST /token" type="password"></div>
       <div class="api-settings-field"><label class="api-settings-label">Et-App-Key</label><input class="api-settings-input" id="set-appkey" placeholder="Your application key" type="password"></div>
       <div class="api-settings-field"><label class="api-settings-label">Account ID</label><input class="api-settings-input" id="set-accountid" placeholder="e.g. 6303"></div>
@@ -1123,7 +1123,7 @@ window.handleSignup=function(e){
     body:JSON.stringify({first:first,last:last,email:email,company:company,usecase:usecase,apis:apis,volume:volume})
   }).catch(function(){});
 
-  // Register on demo.autoshares.com via the ETNA registration API
+  // Register on demo.autoshares.com via the AutoShares registration API
   fetch('https://demo.autoshares.com/api/registration',{
     method:'POST',
     headers:{'Content-Type':'application/json','Accept':'application/json'},

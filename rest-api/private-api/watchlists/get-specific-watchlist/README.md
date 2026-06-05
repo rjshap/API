@@ -327,7 +327,7 @@ It's crucial to understand that the _**includeSecurities**_ parameter must be in
 
 ```javascript
 {
-    "Message": "No HTTP resource was found that matches the request URI 'https://pub-api-et-demo-prod.etnasoft.us/api/v1.0/users/@me/watchlists'."
+    "Message": "No HTTP resource was found that matches the request URI 'https://api.autoshares.dev/v1.0/users/@me/watchlists'."
 }
 ```
 

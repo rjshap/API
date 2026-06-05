@@ -30,8 +30,8 @@ Separate sections are designated for all components of the platform:
 
 * AutoShares for iOS (including the extension for the Apple Watch):
 
-{% content-ref url="etna-trader-mobile/" %}
-[etna-trader-mobile](etna-trader-mobile/)
+{% content-ref url="mobile-app/" %}
+[mobile-app](mobile-app/)
 {% endcontent-ref %}
 
 * AutoShares for Android:
@@ -41,7 +41,7 @@ Separate sections are designated for all components of the platform:
 {% endcontent-ref %}
 
 {% hint style="info" %}
-Information provided in this user guide regarding the software or functionality of the Trading Platform, including descriptions and illustrations (i.e. screenshots), are subject to change by ETNA.
+Information provided in this user guide regarding the software or functionality of the Trading Platform, including descriptions and illustrations (i.e. screenshots), are subject to change by AutoShares.
 {% endhint %}
 
 ###

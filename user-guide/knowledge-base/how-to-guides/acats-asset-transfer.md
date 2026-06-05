@@ -1,24 +1,24 @@
 ---
 description: >-
   Seamlessly transfer assets from one brokerage company to another that operates
-  on the ETNA trade platform.
+  on the AutoShares trade platform.
 ---
 
 # ACATS Asset Transfer
 
 ## Introduction
 
-Welcome to the ACATS asset transfer guide. This guide provides a description and instructions on the ACATS Asset Transfer feature within the ETNA trade platform.&#x20;
+Welcome to the ACATS asset transfer guide. This guide provides a description and instructions on the ACATS Asset Transfer feature within the AutoShares trade platform.&#x20;
 
 ACATS stands for Automated Customer Account Transfer Service. It is a system developed by the National Securities Clearing Corporation (NSCC) that facilitates the transfer of securities assets between brokerage firms on behalf of investors. Through ACATS, investors can transfer their assets from one brokerage firm to another without the need to liquidate and repurchase the assets.
 
-With the ACATS integration, investors can seamlessly transfer their assets from one brokerage company to another that operates on the ETNA trade platform.
+With the ACATS integration, investors can seamlessly transfer their assets from one brokerage company to another that operates on the AutoShares trade platform.
 
 ## Accessing the ACAT Asset Transfer Feature
 
 To access the ACAT Asset Transfer feature, follow these steps:
 
-1. Navigate to the "Deposit/Withdrawals" widget within the ETNA Trade platform.
+1. Navigate to the "Deposit/Withdrawals" widget within the AutoShares Trade platform.
 
 &#x20;![](<../../../.gitbook/assets/deposits\_withdrawls (1).png>)
 
@@ -63,9 +63,9 @@ In the transfer type form, indicate whether it's a full transfer or a partial tr
 
 &#x20;![](../../../.gitbook/assets/transfer\_type\_full.png)
 
-A full transfer refers to the transfer of all assets held in a specific account from one brokerage firm to another. It involves moving the entire portfolio of securities and cash to the new account on the ETNA Trade platform. This type of transfer is suitable when an investor wants to consolidate all their assets into a single account or transition their entire investment portfolio to a new brokerage.
+A full transfer refers to the transfer of all assets held in a specific account from one brokerage firm to another. It involves moving the entire portfolio of securities and cash to the new account on the AutoShares Trade platform. This type of transfer is suitable when an investor wants to consolidate all their assets into a single account or transition their entire investment portfolio to a new brokerage.
 
-A partial transfer, on the other hand, involves transferring only specific assets or a portion of the holdings from one brokerage account to another. Investors may choose a partial transfer when they want to retain certain investments with their current brokerage while moving specific assets to the ETNA Trade platform. This gives them the flexibility to manage their investments across multiple accounts or gradually transition their portfolio to a new brokerage.
+A partial transfer, on the other hand, involves transferring only specific assets or a portion of the holdings from one brokerage account to another. Investors may choose a partial transfer when they want to retain certain investments with their current brokerage while moving specific assets to the AutoShares Trade platform. This gives them the flexibility to manage their investments across multiple accounts or gradually transition their portfolio to a new brokerage.
 
 #### Full transfer
 

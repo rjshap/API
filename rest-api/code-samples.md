@@ -1,5 +1,5 @@
 ---
-description: Explore examples of code that leverages ETNA API requests
+description: Explore examples of code that leverages AutoShares API requests
 ---
 
 # Code Samples
@@ -25,9 +25,9 @@ If the request is successful, you'll receive a confirmation message as well as t
 ```python
 import requests
 
-class EtnaAPIRequest:
+class AutoSharesAPIRequest:
 
-	baseURL = "https://pub-api-et-demo-prod.etnasoft.us/api/"
+	baseURL = "https://api.autoshares.dev/"
 	EtAppKey = "your EtAppKey from the BO Companies widget"
 
 	token = 'uninitialized'
@@ -51,13 +51,13 @@ class EtnaAPIRequest:
 			return "No response"
 			
 #Performing initial Authentication
-sampleRequest = EtnaAPIRequest()
+sampleRequest = AutoSharesAPIRequest()
 sampleRequest.initialAuth()
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-In this example, there's a class called `EtnaAPIRequest` that has five properties:
+In this example, there's a class called `AutoSharesAPIRequest` that has five properties:
 
 * `baseURL` — this is the URL that hosts your API. Each solution has its own base URL for both the Trader and the Developer API.
 * `EtAppKey` — this is the unique key of your solution that can be retrieved from the BO companies widget in AutoShares.
@@ -91,7 +91,7 @@ You can then extract the returned token and assign it to the `token` property.
 #### CURL
 
 ```text
-curl -X POST --header 'Content-Type: application/x-www-form-urlencoded' --header 'Accept: application/json' --header 'Username: yourUsername' --header 'Password: yourPassword' --header 'Authorization: Bearer yourToken' --header 'Et-App-Key: yourEttAppKey' 'https://priv-api-et-demo-prod.etnasoft.us/api/token'
+curl -X POST --header 'Content-Type: application/x-www-form-urlencoded' --header 'Accept: application/json' --header 'Username: yourUsername' --header 'Password: yourPassword' --header 'Authorization: Bearer yourToken' --header 'Et-App-Key: yourEttAppKey' 'https://api.autoshares.dev/token'
 ```
 
 ### Placing New Orders 
@@ -105,9 +105,9 @@ curl -X POST --header 'Content-Type: application/x-www-form-urlencoded' --header
 ```python
 import requests
 
-class EtnaAPIRequest:
+class AutoSharesAPIRequest:
 
-	baseURL = "https://pub-api-et-demo-prod.etnasoft.us/api/"
+	baseURL = "https://api.autoshares.dev/"
 	EtAppKey = "your EtAppKey from the BO Companies widget"
 	token = 'the roken retrieved in the previous endpoint'
 
@@ -142,7 +142,7 @@ class EtnaAPIRequest:
      "TrailingStopAmount" : 10,
    }
    
-   sampleRequest = EtnaAPIRequest()
+   sampleRequest = AutoSharesAPIRequest()
    sampleRequest.placeOrder(newOrder, 6303) #placing a new order
 ```
 {% endcode-tabs-item %}
@@ -179,7 +179,7 @@ curl -X POST --header 'Content-Type: application/json' --header 'Accept: applica
    "ExtendedHours": "REGPOST", \ 
    "TrailingStopAmountType" : "Absolute",  \ 
    "TrailingStopAmount" : 10, \ 
- }' 'https://priv-api-et-demo-prod.etnasoft.us/api/v1.0/accounts/6303/orders'
+ }' 'https://api.autoshares.dev/v1.0/accounts/6303/orders'
 ```
 
 ### Get a User's Information
@@ -191,9 +191,9 @@ curl -X POST --header 'Content-Type: application/json' --header 'Accept: applica
 ```python
 import requests
 
-class EtnaAPIRequest:
+class AutoSharesAPIRequest:
 
-	baseURL = "https://pub-api-et-demo-prod.etnasoft.us/api/"
+	baseURL = "https://api.autoshares.dev/"
 	EtAppKey = "your EtAppKey from the BO Companies widget"
 	token = 'the roken retrieved from the first endpoint'
 
@@ -211,7 +211,7 @@ class EtnaAPIRequest:
 			except:
 				return "No response"
 
-sampleRequest = EtnaAPIRequest()
+sampleRequest = AutoSharesAPIRequest()
 #Retrieving information about the user 7420
 sampleRequest.getUsersInfo(7420)
 ```
@@ -231,7 +231,7 @@ This method — `getUsersInfo()` — enables you to retrieve detailed informatio
 #### CURL
 
 ```text
-curl -X GET --header 'Accept: application/json' --header 'Authorization: Bearer yourToken+wefx0MhIL' --header 'Et-App-Key: yourKey' 'https://priv-api-et-demo-prod.etnasoft.us/api/v1.0/users/7420/info'
+curl -X GET --header 'Accept: application/json' --header 'Authorization: Bearer yourToken+wefx0MhIL' --header 'Et-App-Key: yourKey' 'https://api.autoshares.dev/v1.0/users/7420/info'
 ```
 
 ### Getting a User's Positions
@@ -243,9 +243,9 @@ curl -X GET --header 'Accept: application/json' --header 'Authorization: Bearer 
 ```python
 import requests
 
-class EtnaAPIRequest:
+class AutoSharesAPIRequest:
 
-	baseURL = "https://pub-api-et-demo-prod.etnasoft.us/api/"
+	baseURL = "https://api.autoshares.dev/"
 	EtAppKey = "your EtAppKey from the BO Companies widget"
 	token = 'the roken retrieved from the first endpoint'
 
@@ -272,7 +272,7 @@ class EtnaAPIRequest:
 
 
 #Performing initial Authentication
-sampleRequest = EtnaAPIRequest()
+sampleRequest = AutoSharesAPIRequest()
 sampleRequest.initialAuth()
 
 #retrieveing positions in account 6303
@@ -293,7 +293,7 @@ This method — `getUsersPositions()` — enables you to retrieve the list posit
 {% endtabs %}
 
 ```text
-curl -X GET --header 'Accept: application/json' --header 'Authorization: Bearer AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAUGqZLsz5mkidCvrdAY1TRgAAAAACAAAAAAAQZgAAAAEAACAAAAD7npupkHQns7X8egXdUEd9DN58PmhOqYh/LEz5FGZuCgAAAAAOgAAAAAIAACAAAACU/Q1qGPWZGNu/nWFJzuyltREDxZSNKw6V1fO++++/JVZxWO///yourToken' --header 'Et-App-Key: yourKey' 'https://pub-api-et-demo-prod.etnasoft.us/api/v1.0/accounts/6303/positions?pageNumber=0&pageSize=10&sortField=Id&desc=true'
+curl -X GET --header 'Accept: application/json' --header 'Authorization: Bearer AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAUGqZLsz5mkidCvrdAY1TRgAAAAACAAAAAAAQZgAAAAEAACAAAAD7npupkHQns7X8egXdUEd9DN58PmhOqYh/LEz5FGZuCgAAAAAOgAAAAAIAACAAAACU/Q1qGPWZGNu/nWFJzuyltREDxZSNKw6V1fO++++/JVZxWO///yourToken' --header 'Et-App-Key: yourKey' 'https://api.autoshares.dev/v1.0/accounts/6303/positions?pageNumber=0&pageSize=10&sortField=Id&desc=true'
 ```
 
 ### Get Candles and Indicators for a Security
@@ -305,9 +305,9 @@ curl -X GET --header 'Accept: application/json' --header 'Authorization: Bearer 
 ```python
 import requests
 
-class EtnaAPIRequest:
+class AutoSharesAPIRequest:
 
-	baseURL = "https://pub-api-et-demo-prod.etnasoft.us/api/"
+	baseURL = "https://api.autoshares.dev/"
 	EtAppKey = "your EtAppKey from the BO Companies widget"
 	token = 'the roken retrieved from the first endpoint'
     
@@ -326,7 +326,7 @@ class EtnaAPIRequest:
 			return "No response"
 			
 #Performing initial Authentication
-sampleRequest = EtnaAPIRequest()
+sampleRequest = AutoSharesAPIRequest()
 sampleRequest.initialAuth()
 
 #declaring chart model
@@ -430,7 +430,7 @@ curl -X PUT --header 'Content-Type: application/json' --header 'Accept: applicat
  			"showLastValue":true, \ 
  			"showCurrentPoint":true, \ 
  			"showLevelBands":false}}}] \ 
- }' 'https://pub-api-et-demo-prod.etnasoft.us/api/v1.0/history/symbols'
+ }' 'https://api.autoshares.dev/v1.0/history/symbols'
 ```
 
 ## EXTENDED API
@@ -450,9 +450,9 @@ Creating new trading accounts is permitted only through the [extended API.](priv
 ```python
 import requests
 
-class EtnaAPIRequest:
+class AutoSharesAPIRequest:
 
-	baseURL = "https://priv-api-et-demo-prod.etnasoft.us/api/"
+	baseURL = "https://api.autoshares.dev/"
 	EtAppKey = "your EtAppKey from the BO Companies widget"
 	token = 'the roken retrieved from the first endpoint'
 	
@@ -469,7 +469,7 @@ class EtnaAPIRequest:
 		except:
 			return "No response"
 
-sampleRequest = EtnaAPIRequest()
+sampleRequest = AutoSharesAPIRequest()
 
 #Creating a new trading account
 newTradingAccount = {
@@ -567,7 +567,7 @@ curl -X POST --header 'Content-Type: application/json' --header 'Accept: applica
    "MarginEquity": 0, \ 
    "ClearingFirm": "string", \ 
    "ExcessEquity": 0 \ 
- }' 'https://priv-api-et-demo-prod.etnasoft.us/api/v1.0/accounts'
+ }' 'https://api.autoshares.dev/v1.0/accounts'
 ```
 
 ### Creating a New User
@@ -585,9 +585,9 @@ Creating new users is permitted only through the [extended API.](private-api/)
 ```python
 import requests
 
-class EtnaAPIRequest:
+class AutoSharesAPIRequest:
 
-	baseURL = "https://priv-api-et-demo-prod.etnasoft.us/api/"
+	baseURL = "https://api.autoshares.dev/"
 	EtAppKey = "your EtAppKey from the BO Companies widget"
 	token = 'the roken retrieved from the first endpoint'
 
@@ -605,7 +605,7 @@ class EtnaAPIRequest:
 		except:
 			return "No response"
 
-sampleRequest = EtnaAPIRequest()
+sampleRequest = AutoSharesAPIRequest()
 
 newUser = {
   "FirstName": "string",
@@ -655,6 +655,6 @@ curl -X POST --header 'Content-Type: application/json' --header 'Accept: applica
    "ExpirationDate": "2019-03-10T14:11:54.494Z", \ 
    "PhoneNumber": "string", \ 
    "EntitlementsPhoneNumber": "string" \ 
- }' 'https://priv-api-et-demo-prod.etnasoft.us/api/v1.0/users?sendInvitationEmail=false'
+ }' 'https://api.autoshares.dev/v1.0/users?sendInvitationEmail=false'
 ```
 

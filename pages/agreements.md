@@ -69,7 +69,7 @@ Embed the agreements signing UI in an iframe:
 
 <script src="https://{agreements-url}/assets/agreements.client.js"></script>
 <script>
-  const client = new ETNA.AgreementsClient({
+  const client = new AutoShares.AgreementsClient({
     iframe: document.getElementById('agreements-frame'),
     appKey: 'YOUR_ET_APP_KEY',
     token: 'BEARER_TOKEN',

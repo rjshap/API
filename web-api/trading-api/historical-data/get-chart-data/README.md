@@ -98,7 +98,7 @@ curl -X PUT --header 'Content-Type: application/json' --header 'Accept: applicat
  "SecuritiesHistorySettings":
  { "CandlesCount":14,
  "Period":"4h"
- } }' 'https://pub-api-trader-demo-prod.etnasoft.us/api/v1.0/history/compare'
+ } }' 'https://api.autoshares.dev/v1.0/history/compare'
 ```
 
 ### Response

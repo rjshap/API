@@ -181,8 +181,8 @@ Once the order is filled, it can be inspected from the **Orders** widget and the
 
 #### Options Trading in AutoShares for iOS:
 
-{% content-ref url="../../etna-trader-mobile/quotes-view/trade-view/options-trading.md" %}
-[options-trading.md](../../etna-trader-mobile/quotes-view/trade-view/options-trading.md)
+{% content-ref url="../../mobile-app/quotes-view/trade-view/options-trading.md" %}
+[options-trading.md](../../mobile-app/quotes-view/trade-view/options-trading.md)
 {% endcontent-ref %}
 
 ### Video Overview

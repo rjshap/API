@@ -14,7 +14,7 @@ POST APIBaseURL + /token
 
 {% hint style="info" %}
 API base URL is unique for every environment; if you're testing the API on our demo environment, the final endpoint URL will be as follows:\
-`https://pub-api-`trader`-demo-prod.etnasoft.us/api/token`&#x20;
+`https://pub-api-`trader`api.autoshares.dev/api/token`&#x20;
 {% endhint %}
 
 The header of the request must contain the following three parameters:
@@ -28,7 +28,7 @@ The header of the request must contain the following three parameters:
 The following is a sample CURL for performing single-factor authentication:
 
 ```
-curl -X POST "https://pub-api-trader-demo-prod.etnasoft.us/api/token" \
+curl -X POST "https://api.autoshares.dev/token" \
 	-H "Username: yourUsername" \
 	-H "Password: yourPassword" \
 	-H "Et-App-Key: yourEttAppKey" \

@@ -31,7 +31,7 @@ ID of the ACH relationship for which the information needs to be retrieved.
 ```javascript
 {
   "Id": "00000000-0000-0000-0000-000000000000",
-  "AccountId": 0, // Internal id of the account on ETNA platform
+  "AccountId": 0, // Internal id of the account on AutoShares platform
   "ExternalId": "string", // An id of the relationship in APEX
   "RoutingNumber": "string",
   "AccountNumber": "string",

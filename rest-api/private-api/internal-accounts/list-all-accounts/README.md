@@ -330,7 +330,7 @@ In response to this API request, you'll receive a JSON file with the list of tra
       "ExcessEquity": 0
     }
   ],
-  "NextPageLink": "https://priv-api-etnatrader-dev.etnasoft.us/api/v1.0/accounts?pageNumber=1&pageSize=3&propertyName=Cash&isAscending=true",
+  "NextPageLink": "https://api.autoshares.dev/v1.0/accounts?pageNumber=1&pageSize=3&propertyName=Cash&isAscending=true",
   "PreviousPageLink": "",
   "TotalCount": 6671
 }

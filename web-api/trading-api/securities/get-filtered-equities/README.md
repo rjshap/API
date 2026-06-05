@@ -52,19 +52,19 @@ GET apiURL/v1.0/equities?pageNumber=0&pageSize=2&sortField=Type&desc=true&filter
 * Fetch FANG stocks:
 
 ```
-curl -X GET --header 'Accept: application/json' --header 'Authorization: Bearer yourAuthenticationToken' --header 'Et-App-Key: yourEtAppKey' 'https://pub-api-trader-demo-prod.etnasoft.us/api/v1.0/equities?pageNumber=0&pageSize=10&sortField=Id&desc=true&filter=Symbol%20in%20('AMZN'%2C%20'GOOG'%2C%20'FB'%2C%20'NFLX')'
+curl -X GET --header 'Accept: application/json' --header 'Authorization: Bearer yourAuthenticationToken' --header 'Et-App-Key: yourEtAppKey' 'https://api.autoshares.dev/v1.0/equities?pageNumber=0&pageSize=10&sortField=Id&desc=true&filter=Symbol%20in%20('AMZN'%2C%20'GOOG'%2C%20'FB'%2C%20'NFLX')'
 ```
 
 * Fetch securities disabled from trading:
 
 ```
-curl -X GET --header 'Accept: application/json' --header 'Authorization: Bearer yourAuthenticationToken' --header 'Et-App-Key: yourEtAppKey' 'https://pub-api-trader-demo-prod.etnasoft.us/api/v1.0/equities?pageNumber=0&pageSize=10&sortField=Id&desc=true&filter=AllowTrade%20%3D%20false'
+curl -X GET --header 'Accept: application/json' --header 'Authorization: Bearer yourAuthenticationToken' --header 'Et-App-Key: yourEtAppKey' 'https://api.autoshares.dev/v1.0/equities?pageNumber=0&pageSize=10&sortField=Id&desc=true&filter=AllowTrade%20%3D%20false'
 ```
 
 * Fetch securities traded on NASDAQ:
 
 ```
-curl -X GET --header 'Accept: application/json' --header 'Authorization: Bearer yourAuthenticationToken' --header 'Et-App-Key: yourEtAppkey' 'https://pub-api-trader-demo-prod.etnasoft.us/api/v1.0/equities?pageNumber=0&pageSize=10&sortField=Id&desc=true&filter=Exchange%20%3D%20'XNAS''
+curl -X GET --header 'Accept: application/json' --header 'Authorization: Bearer yourAuthenticationToken' --header 'Et-App-Key: yourEtAppkey' 'https://api.autoshares.dev/v1.0/equities?pageNumber=0&pageSize=10&sortField=Id&desc=true&filter=Exchange%20%3D%20'XNAS''
 ```
 
 ## Response
@@ -109,7 +109,7 @@ In response to this API request, you'll receive the following JSON that lists th
             "AllowShort": true
         }
     ],
-    "NextPageLink": "https://pub-api-etnatrader-dev.etnasoft.us/api/v1.0/equities?pageNumber=1&pageSize=2&sortField=Type&desc=true",
+    "NextPageLink": "https://api.autoshares.dev/v1.0/equities?pageNumber=1&pageSize=2&sortField=Type&desc=true",
     "PreviousPageLink": "",
     "TotalCount": 12130
 }
@@ -158,7 +158,7 @@ It's crucial to understand that all four query parameters must be indicated in t
 
 ```javascript
 {
-    "Message": "No HTTP resource was found that matches the request URI 'https://pub-api-etnatrader-dev.etnasoft.us/api/v1.0/equities?pageNumber=0&pageSize=2&sortField=Type'."
+    "Message": "No HTTP resource was found that matches the request URI 'https://api.autoshares.dev/v1.0/equities?pageNumber=0&pageSize=2&sortField=Type'."
 }
 ```
 
