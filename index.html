@@ -1246,9 +1246,7 @@ function aiKeydown(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();askAI(
      • Revokes apps (kills all outstanding access tokens for that app)
 
    Auth model:
-     • Sandbox: paste a user id (X-Dev-User-Id header) — bypasses JWT
-       verification in dev-allocations-api. Anyone with the doc URL
-       can self-serve a sandbox app + test OAuth flow.
+     • Sandbox: user id via X-Dev-User-Id header (sandbox-only auth).
      • Production: 'Sign in' button redirects to the AutoShares OAuth
        flow (PKCE since we're a browser-only client). On callback, the
        token lands in sessionStorage and the portal uses it as Bearer.
@@ -1404,11 +1402,10 @@ function renderPortalSignInPrompt() {
     + '     The button is coming once the production callback lands.</p>'
     + '  <p>For sandbox testing today: paste your AutoShares user ID below to act as that user. The dev API accepts an <code>X-Dev-User-Id</code> header.</p>'
     + '  <div class="dp-signin-row">'
-    + '    <input id="dp-uid-input" type="text" placeholder="e.g. etna-11 or uat-test"'
-    + '           value="etna-11">'
+    + '    <input id="dp-uid-input" type="text" placeholder="your sandbox user ID">'
     + '    <button class="dp-btn-primary" onclick="portalSignInWithUid()">Continue</button>'
     + '  </div>'
-    + '  <p class="dp-cap">Two seeded sandbox users: <code>etna-11</code> (matches AUT-01234) and <code>uat-test</code> (matches 00000008/9).</p>'
+    + '  <p class="dp-cap">Sandbox user IDs are issued by AutoShares — contact support to request one.</p>'
     + '  <hr style="margin:24px 0;border:0;border-top:1px solid var(--bd-subtle)">'
     + '  <button class="dp-btn-primary" style="width:100%" onclick="portalOAuthSignIn()">Sign in with AutoShares (OAuth)</button>'
     + '  <p class="dp-cap" style="margin-top:8px">Redirects you to AutoShares to grant access. Uses OAuth 2.0 with PKCE.</p>'

@@ -152,7 +152,7 @@ curl https://api.autoshares.dev/api/v1/accounts \
   "ok": true,
   "userId": "auth0|abc123…",
   "accounts": [
-    { "acct_no": "00000008", "acct_type": "C", "corr": "TPRO", "office": "001", "kind": "individual" }
+    { "acct_no": "12345678", "acct_type": "C", "corr": "TPRO", "office": "001", "kind": "individual" }
   ]
 }
 ```
@@ -160,14 +160,14 @@ curl https://api.autoshares.dev/api/v1/accounts \
 ### Get account balances
 
 ```bash
-curl https://api.autoshares.dev/api/v1/accounts/00000008/balances \
+curl https://api.autoshares.dev/api/v1/accounts/12345678/balances \
   -H "Authorization: Bearer ${AS_TOKEN}"
 ```
 
 ```json
 {
   "ok": true,
-  "account": "00000008",
+  "account": "12345678",
   "balances": {
     "currency": "USD",
     "equity": 125000.00,
@@ -194,7 +194,7 @@ HTTP 403. AutoShares verifies account ownership on every call — a token grante
 ### Try a write call with read-only scope
 
 ```bash
-curl -X POST https://api.autoshares.dev/api/v1/accounts/00000008/orders \
+curl -X POST https://api.autoshares.dev/api/v1/accounts/12345678/orders \
   -H "Authorization: Bearer ${AS_TOKEN}" \
   -H "Content-Type: application/json" \
   -d '{ "symbol": "AAPL", "side": "buy", "qty": 10 }'
