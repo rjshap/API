@@ -5,13 +5,15 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <title>AutoShares API Documentation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <style>
 :root,[data-theme="light"]{
   --bg:#fff;--bg1:#f8f9fb;--bg2:#f1f3f5;--bg3:#e9ecef;--bg4:#dee2e6;
   --b1:#d0d7de;--b2:#c1c8cf;
   --t1:#111827;--t2:#1f2937;--t3:#374151;--t4:#4b5563;--t5:#9ca3af;
-  --ac:#0d7d6a;--ac-hover:#0a6b5a;--ac-dim:rgba(13,125,106,.06);--ac-border:rgba(13,125,106,.25);
+  --ac:#0d7c66;--ac-hover:#0a6b5a;--ac-dim:rgba(13,124,102,.06);--ac-border:rgba(13,124,102,.25);
   --code-bg:#f3f4f6;--code-border:#e5e7eb;
   --header-bg:rgba(255,255,255,.8);--shadow:0 1px 2px rgba(0,0,0,.06);--shadow-lg:0 4px 16px rgba(0,0,0,.08);
   --ep-get-bg:rgba(22,163,74,.08);--ep-get:#15803d;--ep-post-bg:rgba(37,99,235,.08);--ep-post:#1d4ed8;
@@ -28,7 +30,7 @@
   --ep-put-bg:rgba(245,158,11,.1);--ep-put:#f59e0b;--ep-del-bg:rgba(239,68,68,.1);--ep-del:#ef4444;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--bg);color:var(--t1);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:16px;line-height:1.75;display:flex;min-height:100vh;transition:background .15s,color .15s;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+body{background:var(--bg);color:var(--t1);font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:16px;line-height:1.75;display:flex;min-height:100vh;transition:background .15s,color .15s;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 
 /* ── Header ── */
 .header{position:fixed;top:0;left:0;right:0;height:72px;background:var(--bg);border-bottom:1px solid var(--b1);z-index:100;display:flex;align-items:center;padding:0 24px;gap:16px}
@@ -268,7 +270,7 @@ pre:hover .copy-btn,.code-panel:hover .copy-btn{opacity:1}
 
 <!-- Header -->
 <header class="header">
-  <div class="hdr-brand"><h1><span>AUTOSHARES</span> API DOCUMENTATION</h1></div>
+  <div class="hdr-brand"><svg viewBox="0 0 32 32" fill="none" width="26" height="26" style="flex-shrink:0" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#0a2540"/><path d="M5 26 L27 26" stroke="rgba(255,255,255,.35)" stroke-width="1.25" stroke-linecap="round"/><path d="M5 22 L10 18 L14 20 L18 13 L22 15 L27 7" stroke="#0d7c66" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="27" cy="7" r="2" fill="#0d7c66"/></svg><h1><span>AUTOSHARES</span> API DOCUMENTATION</h1></div>
   <div class="hdr-search">
     <svg class="hdr-search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
     <input type="text" placeholder="Search docs, endpoints, guides..." oninput="headerSearch(this.value)" onkeydown="if(event.key==='Escape')this.value=''" id="hdr-search-input">
@@ -1053,7 +1055,15 @@ function injectContactForm(el){
   el.innerHTML=f;
 }
 
-var FOOTER='<div class="footer">&copy; 2026 AutoShares Fintech Solutions. All rights reserved. AutoShares APIs are provided through Global Market Holdings LLC. Securities offered through Tradepro Securities, Inc., a FINRA/SIPC member broker-dealer. Trading involves risk including the possible loss of principal. Options trading involves substantial risk and is not suitable for all investors. Past performance is not indicative of future results. This site is for informational purposes only and does not constitute an offer to sell or a solicitation to buy any security.</div>';
+// Brand token layer — single source of truth for brand-specific text on the
+// developer portal. Re-skin/rename = edit this object (colors live in the CSS
+// vars at the top of <head>).
+var BRAND = {
+  name: 'AutoShares',
+  legalEntity: 'AutoShares Fintech Solutions, LLC',
+  copyright: '© AutoShares Fintech Solutions, LLC. All Rights Reserved.',
+};
+var FOOTER='<div class="footer">'+BRAND.copyright+' '+BRAND.legalEntity+' is a financial technology company &mdash; it is <strong>not a broker-dealer or investment adviser</strong> and does not provide brokerage, custody, advisory, or securities services. Brokerage services, where applicable, are provided separately by an independently registered broker-dealer under its own agreements; '+BRAND.legalEntity+' neither offers nor sells securities. Trading involves risk including the possible loss of principal. Options trading involves substantial risk and is not suitable for all investors. Past performance is not indicative of future results. This documentation is for informational purposes only and does not constitute an offer to sell or a solicitation to buy any security.</div>';
 
 /* ── Contact Form Handler ── */
 window.handleContact=function(e){
