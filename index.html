@@ -164,6 +164,9 @@ body{background:var(--bg);color:var(--t1);font-family:'Inter',-apple-system,Blin
 .pn-title{font-size:15px;font-weight:600;color:var(--ac)}
 
 @media(max-width:1400px){.otp{display:none!important}}
+/* When the right "On this page" TOC is visible (>1400px), reserve its column
+   so article text wraps before it instead of running underneath it. */
+@media(min-width:1401px){.content{margin-right:264px}}
 @media(max-width:960px){.prevnext{grid-template-columns:1fr}.pn-next{grid-column:1;align-items:flex-start}}
 
 /* ── Markdown ── */
